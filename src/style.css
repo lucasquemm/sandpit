@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+canvas {
+  background-color: aliceblue;
+  border: 1px solid;
+}
+
+button {
+  font-size: 16px;
+}
+
+/* principal ta sem margem pq faz o canvas desenhar na posicao errada */
+.principal {
+  width: max-content;
+  display: flex;
+}
+
+.painel {
+  margin: 0px 8px;
+  border: 1px solid;
+  padding: 8px;
+  background-color: rgb(199, 203, 206);
+}

@@ -18,7 +18,7 @@ $canvas.addEventListener('mousemove', (e) => {
     world.set(
       Math.floor(e.x / canvas.cellSize),
       Math.floor(e.y / canvas.cellSize),
-      sand.make(),
+      useElement(),
     )
 })
 $canvas.addEventListener('mousedown', () => {
@@ -27,6 +27,36 @@ $canvas.addEventListener('mousedown', () => {
 $canvas.addEventListener('mouseup', () => {
   drawing = false
 })
+
+let selectedElement
+
+const stoneBtn = document.querySelector('#pedra-btn')
+const sandBtn = document.querySelector('#areia-btn')
+
+const useElement = () => {
+  switch (selectedElement) {
+    case 'sand':
+      return getElement(sand)
+      break
+    case 'stone':
+      return getElement(stone)
+      break
+  }
+}
+
+stoneBtn.addEventListener('click', () => {
+  console.log(selectedElement)
+  return (selectedElement = 'stone')
+})
+
+sandBtn.addEventListener('click', () => {
+  console.log(selectedElement)
+  return (selectedElement = 'sand')
+})
+
+const getElement = (element) => {
+  return element.make()
+}
 
 world.init()
 loop()
