@@ -1,5 +1,10 @@
 {
   "devDependencies": {
     "parcel": "^2.0.0-rc.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
   }
 }

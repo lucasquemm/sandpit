@@ -1,13 +1,13 @@
-const atualiza = () => {}
+const update = () => {}
 
 const loop = () => {
-  atualiza()
-  renderiza()
+  update()
+  render()
   setTimeout(loop, 100)
 }
 
-const tela = document.querySelector('.tela')
+const canvas = document.querySelector('#canvas')
 
-const renderiza = () => {}
+const render = () => {}
 
 loop()
