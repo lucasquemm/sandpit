@@ -1,6 +1,7 @@
 import * as air from './air'
 
 const NAME = 'SAND'
+const COLOR = 'yellow'
 const make = () => ({ type: NAME })
 
 const update = (x, y, world) => {
@@ -9,4 +10,4 @@ const update = (x, y, world) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, COLOR }
