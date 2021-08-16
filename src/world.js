@@ -1,5 +1,6 @@
 import * as sand from './elements/sand'
 import * as air from './elements/air'
+import * as stone from './elements/stone'
 
 let state = []
 let size = 0
@@ -43,6 +44,8 @@ const update = () => {
         case sand.NAME:
           sand.update(x, y, api)
           break
+        case stone.NAME:
+          stone.update(x, y, api)
       }
     }
   }
