@@ -1,7 +1,6 @@
-const name = 'SAND'
+const NAME = 'SAND'
+const make = () => ({ type: NAME })
 
-const make = () => ({ name })
+const update = (x, y, world) => {}
 
-const update = () => {}
-
-export { make, update }
+export { NAME, make, update }
