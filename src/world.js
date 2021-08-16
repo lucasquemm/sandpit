@@ -65,4 +65,13 @@ const print = () => {
   console.log(state.map((row) => row.map((c) => c.type[0]).join('')).join('\n'))
 }
 
-export { init, get, set, update, print }
+const forEach = (f) => {
+  for (let x = 0; x < size; x++) {
+    for (let y = 0; y < size; y++) {
+      const cell = get(x, y)
+      f(x, y, cell)
+    }
+  }
+}
+
+export { init, get, set, update, print, forEach }

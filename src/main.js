@@ -1,14 +1,13 @@
 import * as world from './world'
+import { draw } from './canvas'
 
 const loop = () => {
   world.update()
-  render()
+  draw(world)
   // setTimeout(loop, 100)
 }
 
 const canvas = document.querySelector('#canvas')
-
-const render = () => {}
 
 world.init()
 loop()
