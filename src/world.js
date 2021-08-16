@@ -10,9 +10,13 @@ const init = (newSize = 100) => {
   )
 }
 
-const get = (x, y) => {}
+const get = (x, y) => {
+  return state[x][y]
+}
 
-const set = (x, y, cell) => {}
+const set = (x, y, cell) => {
+  state[x][y] = cell
+}
 
 const neighbors = () => {}
 
