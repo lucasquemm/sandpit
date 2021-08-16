@@ -1,7 +1,7 @@
 import * as air from './air'
 
 const NAME = 'SAND'
-const COLOR = 'yellow'
+const COLOR = '#f0d784'
 const make = () => ({ type: NAME })
 
 const update = (x, y, world) => {
