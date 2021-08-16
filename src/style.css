@@ -12,7 +12,6 @@ button {
   font-size: 16px;
 }
 
-/* principal ta sem margem pq faz o canvas desenhar na posicao errada */
 .principal {
   width: max-content;
   display: flex;
