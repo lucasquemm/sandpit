@@ -1,4 +1,5 @@
 import * as sand from './elements/sand'
+import * as air from './elements/air'
 
 let state = []
 let size = 0
@@ -6,7 +7,7 @@ let size = 0
 const init = (newSize = 100) => {
   size = newSize
   state = Array.from({ length: size }, () =>
-    Array.from({ length: size }, () => ({ type: 'AIR' })),
+    Array.from({ length: size }, air.make),
   )
 }
 
