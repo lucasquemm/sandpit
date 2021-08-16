@@ -33,7 +33,13 @@ const update = () => {
     dirtyCells.push({ x, y, cell })
   }
 
-  const api = { get, set: setDirty, neighbors, is }
+  const move = (x, y, offsetX = 0, offsetY = 0) => {
+    const cell = get(x, y)
+    setDirty(x + offsetX, y + offsetY, cell)
+    setDirty(x, y, air.make())
+  }
+
+  const api = { get, set: setDirty, neighbors, move, is }
 
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {

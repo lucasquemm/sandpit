@@ -5,9 +5,7 @@ const make = () => ({ type: NAME })
 
 const update = (x, y, world) => {
   if (world.is(x, y + 1, air.NAME)) {
-    let cell = world.get(x, y)
-    world.set(x, y + 1, cell)
-    world.set(x, y, air.make())
+    world.move(x, y, 0, 1)
   }
 }
 
