@@ -21,7 +21,11 @@ const set = (x, y, cell) => {
 
 const neighbors = () => {}
 
-const api = { get, set, neighbors }
+const is = (x, y, type) => {
+  return state[x][y].type === type
+}
+
+const api = { get, set, neighbors, is }
 
 const update = () => {
   for (let x = 0; x < size; x++) {
@@ -38,4 +42,8 @@ const update = () => {
   }
 }
 
-export { init, get, set, update }
+const print = () => {
+  console.log(state)
+}
+
+export { init, get, set, update, print }
