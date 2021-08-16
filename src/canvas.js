@@ -4,7 +4,7 @@ import * as stone from './elements/stone'
 
 const width = 500
 const height = 500
-const size = 10
+const cellSize = 5
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 const dpr = window.devicePixelRatio || 1
@@ -35,7 +35,7 @@ const drawCell = (x, y, cell) => {
 
 const drawRect = (x, y, element) => {
   ctx.fillStyle = element.COLOR
-  ctx.fillRect(x * size, y * size, size, size)
+  ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
 }
 
-export { draw }
+export { draw, cellSize }

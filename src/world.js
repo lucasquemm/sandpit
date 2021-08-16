@@ -13,6 +13,7 @@ const init = (newSize = 100) => {
 }
 
 const get = (x, y) => {
+  if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
   return state[y][x]
 }
 
@@ -21,7 +22,7 @@ const set = (x, y, cell) => {
 }
 
 const is = (x, y, type) => {
-  return state[y][x].type === type
+  return get(x, y).type === type
 }
 
 const neighbors = () => {}
