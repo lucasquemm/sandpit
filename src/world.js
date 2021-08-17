@@ -18,7 +18,9 @@ const get = (x, y) => {
 }
 
 const set = (x, y, cell) => {
-  state[y][x] = cell
+  if (is(x, y, air.NAME) || cell.type === air.NAME) {
+    state[y][x] = cell
+  }
 }
 
 const is = (x, y, type) => {

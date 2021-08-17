@@ -22,7 +22,7 @@ const draw = (world) => {
 
 const drawCell = (x, y, cell) => {
   switch (cell.type) {
-    case 'AIR':
+    case air.NAME:
       break
     case sand.NAME:
       drawRect(x, y, cell)
