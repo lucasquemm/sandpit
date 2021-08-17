@@ -1,7 +1,8 @@
-const NAME = 'STONE'
-const COLOR = 'grey'
+import * as element from '../element'
 
-const make = () => ({ type: NAME })
+const NAME = 'STONE'
+
+const make = () => element.make({ type: NAME, color: [0, 0, 60, 40] })
 
 const update = (x, y, world) => {}
 
