@@ -25,16 +25,16 @@ const drawCell = (x, y, cell) => {
     case 'AIR':
       break
     case sand.NAME:
-      drawRect(x, y, sand)
+      drawRect(x, y, cell)
       break
     case stone.NAME:
-      drawRect(x, y, stone)
+      drawRect(x, y, cell)
       break
   }
 }
 
-const drawRect = (x, y, element) => {
-  ctx.fillStyle = element.COLOR
+const drawRect = (x, y, cell) => {
+  ctx.fillStyle = cell.color
   ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
 }
 
