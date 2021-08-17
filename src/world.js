@@ -1,5 +1,6 @@
 import * as sand from './elements/sand'
 import * as air from './elements/air'
+import * as water from './elements/water'
 import * as stone from './elements/stone'
 
 let state = []
@@ -55,6 +56,10 @@ const update = () => {
           break
         case stone.NAME:
           stone.update(x, y, api)
+          break
+        case water.NAME:
+          water.update(x, y, api, cell)
+          break
       }
     }
   }
@@ -62,10 +67,6 @@ const update = () => {
   for (let { x, y, cell } of dirtyCells) {
     set(x, y, cell)
   }
-}
-
-const print = () => {
-  console.log(state.map((row) => row.map((c) => c.type[0]).join('')).join('\n'))
 }
 
 const forEach = (f) => {

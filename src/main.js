@@ -3,6 +3,7 @@ import * as canvas from './canvas'
 import * as sand from './elements/sand'
 import * as stone from './elements/stone'
 import * as air from './elements/air'
+import * as water from './elements/water'
 
 const loop = () => {
   world.update()
@@ -34,8 +35,9 @@ let selectedElement = 'air'
 const stoneBtn = document.querySelector('#pedra-btn')
 const sandBtn = document.querySelector('#areia-btn')
 const airBtn = document.querySelector('#ar-btn')
+const waterBtn = document.querySelector('#water-btn')
 
-const elements = { sand, stone, air }
+const elements = { sand, stone, air, water }
 const useElement = () => elements[selectedElement].make()
 
 stoneBtn.addEventListener('click', () => {
@@ -50,9 +52,9 @@ airBtn.addEventListener('click', () => {
   return (selectedElement = 'air')
 })
 
-const getElement = (element) => {
-  return element.make()
-}
+waterBtn.addEventListener('click', () => {
+  return (selectedElement = 'water')
+})
 
 world.init()
 loop()
