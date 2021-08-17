@@ -24,10 +24,7 @@ const drawCell = (x, y, cell) => {
   switch (cell.type) {
     case air.NAME:
       break
-    case sand.NAME:
-      drawRect(x, y, cell)
-      break
-    case stone.NAME:
+    default:
       drawRect(x, y, cell)
       break
   }

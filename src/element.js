@@ -1,11 +1,13 @@
-const rand = (max, min = 0) => Math.random() * (max - min) + min
+import { rand } from './random'
 
 const make = ({
   type,
   color: [hue, saturation, lightnessMax, lightnessMin],
+  ...meta,
 }) => ({
   type,
   color: `hsl(${hue}deg ${saturation}% ${rand(lightnessMax, lightnessMin)}%)`,
+  ...meta
 })
 
 export { make }
