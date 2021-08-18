@@ -6,6 +6,7 @@ const make = ({
   ...meta,
 }) => ({
   type,
+  clock: 0,
   color: `hsl(${hue}deg ${saturation}% ${rand(lightnessMax, lightnessMin)}%)`,
   ...meta
 })
