@@ -19,31 +19,47 @@ const get = (x, y) => {
 }
 
 const set = (x, y, cell) => {
-  if (is(x, y, air.NAME) || cell.type === air.NAME) {
-    state[y][x] = cell
-  }
+  state[y][x] = cell
 }
-
-const is = (x, y, type) => {
-  return get(x, y).type === type
-}
-
-const neighbors = () => {}
 
 const update = () => {
-  const dirtyCells = []
+  const dirtyCells = {}
 
   const setDirty = (x, y, cell) => {
-    dirtyCells.push({ x, y, cell })
+    dirtyCells[`${x}-${y}`] = { x, y, cell }
   }
 
-  const move = (x, y, offsetX = 0, offsetY = 0) => {
+  const getDirty = (x, y) => {
+    return dirtyCells[`${x}-${y}`] || get(x, y)
+  }
+
+  const isDirty = (x, y, type) => {
+    return getDirty(x, y).type === type
+  }
+
+  const replace = (x, y, offsetX = 0, offsetY = 0) => {
     const cell = get(x, y)
     setDirty(x + offsetX, y + offsetY, cell)
     setDirty(x, y, air.make())
   }
 
-  const api = { get, set: setDirty, neighbors, move, is }
+  const move = (x, y, offsetX = 0, offsetY = 0) => {
+    const x1 = x + offsetX
+    const y1 = y + offsetY
+    const c0 = getDirty(x, y)
+    const c1 = getDirty(x1, y1)
+
+    setDirty(x1, y1, c0)
+    setDirty(x, y, c1)
+  }
+
+  const api = {
+    get: getDirty,
+    set: setDirty,
+    move,
+    is: isDirty,
+    replace,
+  }
 
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
@@ -64,7 +80,7 @@ const update = () => {
     }
   }
 
-  for (let { x, y, cell } of dirtyCells) {
+  for (let { x, y, cell } of Object.values(dirtyCells)) {
     set(x, y, cell)
   }
 }

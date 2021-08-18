@@ -1,6 +1,6 @@
 import * as air from './air'
 import * as element from '../element'
-import { pickRand, chance } from '../random'
+import { pickRand } from '../random'
 const NAME = 'WATER'
 
 const make = () =>
