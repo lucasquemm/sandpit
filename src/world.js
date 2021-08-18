@@ -35,37 +35,37 @@ const set = (x, y, cell) => {
   state[getIndex(x, y)] = cell
 }
 
+const is = (x, y, type) => {
+  return get(x, y).type === type
+}
+
+const replace = (x, y, offsetX = 0, offsetY = 0) => {
+  const cell = get(x, y)
+  if (cell.clock > generation) return
+  set(x + offsetX, y + offsetY, cell)
+  set(x, y, air.make())
+}
+
+const move = (x, y, offsetX = 0, offsetY = 0) => {
+  const x1 = x + offsetX
+  const y1 = y + offsetY
+  const c0 = get(x, y)
+  if (c0.clock > generation) return
+  const c1 = get(x1, y1)
+
+  set(x1, y1, c0)
+  set(x, y, c1)
+}
+
+const api = {
+  get,
+  set,
+  move,
+  is,
+  replace,
+}
+
 const update = () => {
-  const is = (x, y, type) => {
-    return get(x, y).type === type
-  }
-
-  const replace = (x, y, offsetX = 0, offsetY = 0) => {
-    const cell = get(x, y)
-    if (cell.clock > generation) return
-    set(x + offsetX, y + offsetY, cell)
-    set(x, y, air.make())
-  }
-
-  const move = (x, y, offsetX = 0, offsetY = 0) => {
-    const x1 = x + offsetX
-    const y1 = y + offsetY
-    const c0 = get(x, y)
-    if (c0.clock > generation) return
-    const c1 = get(x1, y1)
-
-    set(x1, y1, c0)
-    set(x, y, c1)
-  }
-
-  const api = {
-    get,
-    set,
-    move,
-    is,
-    replace,
-  }
-
   for (let cell of state) {
     switch (cell.type) {
       case 'AIR':

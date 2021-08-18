@@ -1,6 +1,7 @@
 import * as air from './air'
 import * as element from '../element'
-import { pickRand } from '../random'
+import { chance, pickRand } from '../random'
+
 const NAME = 'WATER'
 
 const make = () =>
@@ -17,6 +18,9 @@ const update = (x, y, world, cell) => {
     world.replace(x, y, cell.direction, 0)
   } else {
     cell.direction *= -1
+  }
+  if (chance(0.005)) {
+    element.updateColor(cell)
   }
 }
 
