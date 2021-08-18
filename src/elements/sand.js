@@ -11,7 +11,7 @@ const update = (x, y, world) => {
 
   switch (below.type) {
     case air.NAME:
-      world.replace(x, y, 0, 1)
+      world.move(x, y, 0, 1)
       break
     case water.NAME:
       world.swap(x, y, 0, 1)

@@ -13,12 +13,13 @@ const make = () =>
 
 const update = (x, y, world, cell) => {
   if (world.is(x, y + 1, air.NAME)) {
-    world.replace(x, y, 0, 1)
+    world.move(x, y, 0, 1)
   } else if (world.is(x + cell.direction, y, air.NAME)) {
-    world.replace(x, y, cell.direction, 0)
+    world.move(x, y, cell.direction, 0)
   } else {
     cell.direction *= -1
   }
+
   if (chance(0.005)) {
     element.updateColor(cell)
   }

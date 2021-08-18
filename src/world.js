@@ -42,7 +42,7 @@ const set = (x, y, cell) => {
 
 const is = (x, y, type) => get(x, y).type === type
 
-const replace = (x, y, offsetX = 0, offsetY = 0) => {
+const move = (x, y, offsetX = 0, offsetY = 0) => {
   const cell = get(x, y)
 
   if (cell.clock > generation) return
@@ -68,8 +68,8 @@ const api = {
   get,
   set,
   swap,
+  move,
   is,
-  replace,
 }
 
 const update = () => {
