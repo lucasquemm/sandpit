@@ -14,7 +14,7 @@ const update = (x, y, world) => {
       world.replace(x, y, 0, 1)
       break
     case water.NAME:
-      world.move(x, y, 0, 1)
+      world.swap(x, y, 0, 1)
       break
   }
 }

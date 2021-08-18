@@ -23,37 +23,41 @@ const getCoords = (index) => {
 }
 
 const get = (x, y) => {
-  if (x < 0 || y < 0 || x >= size || y >= size)
-    return { type: 'BOUNDS', clock: 0 }
+  if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
   return state[getIndex(x, y)]
 }
+
 const draw = (x, y, cell) => {
-  cell.clock = generation
-  state[getIndex(x, y)] = cell
+  if (cell.type === air.NAME || is(x, y, air.NAME)) {
+    cell.clock = generation
+    state[getIndex(x, y)] = cell
+  }
 }
 
 const set = (x, y, cell) => {
   if (cell.clock > generation) return
-  cell.clock++
+  cell.clock = generation + 1
   state[getIndex(x, y)] = cell
 }
 
-const is = (x, y, type) => {
-  return get(x, y).type === type
-}
+const is = (x, y, type) => get(x, y).type === type
 
 const replace = (x, y, offsetX = 0, offsetY = 0) => {
   const cell = get(x, y)
+
   if (cell.clock > generation) return
+
   set(x + offsetX, y + offsetY, cell)
   set(x, y, air.make())
 }
 
-const move = (x, y, offsetX = 0, offsetY = 0) => {
+const swap = (x, y, offsetX = 0, offsetY = 0) => {
+  const c0 = get(x, y)
+
+  if (c0.clock > generation) return
+
   const x1 = x + offsetX
   const y1 = y + offsetY
-  const c0 = get(x, y)
-  if (c0.clock > generation) return
   const c1 = get(x1, y1)
 
   set(x1, y1, c0)
@@ -63,7 +67,7 @@ const move = (x, y, offsetX = 0, offsetY = 0) => {
 const api = {
   get,
   set,
-  move,
+  swap,
   is,
   replace,
 }
