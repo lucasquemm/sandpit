@@ -4,7 +4,6 @@
     "build": "parcel build ./src/index.html"
   },
   "devDependencies": {
-    "jest-environment-jsdom-fifteen": "^1.0.2",
     "parcel": "^2.0.0-rc.0"
   },
   "prettier": {
