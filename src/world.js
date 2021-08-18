@@ -15,22 +15,25 @@ const init = (newSize = 100) => {
 
 const getIndex = (x, y) => x * size + y
 
+const getCoords = (index) => {
+  const y = index % size
+  const x = (index - y) / size
+
+  return [x, y]
+}
+
 const get = (x, y) => {
   if (x < 0 || y < 0 || x >= size || y >= size)
     return { type: 'BOUNDS', clock: 0 }
   return state[getIndex(x, y)]
 }
 const draw = (x, y, cell) => {
-  cell.x = x
-  cell.y = y
   cell.clock = generation
   state[getIndex(x, y)] = cell
 }
 
 const set = (x, y, cell) => {
   if (cell.clock > generation) return
-  cell.x = x
-  cell.y = y
   cell.clock++
   state[getIndex(x, y)] = cell
 }
@@ -66,18 +69,20 @@ const api = {
 }
 
 const update = () => {
-  for (let cell of state) {
+  for (let i = 0, l = state.length; i < l; i++) {
+    const [x, y] = getCoords(i)
+    const cell = state[i]
     switch (cell.type) {
       case 'AIR':
         break
       case sand.NAME:
-        sand.update(cell.x, cell.y, api)
+        sand.update(x, y, api, cell)
         break
       case stone.NAME:
-        stone.update(cell.x, cell.y, api)
+        stone.update(x, y, api, cell)
         break
       case water.NAME:
-        water.update(cell.x, cell.y, api, cell)
+        water.update(x, y, api, cell)
         break
     }
   }
@@ -85,8 +90,10 @@ const update = () => {
 }
 
 const forEach = (f) => {
-  for (let cell of state) {
-    f(cell.x, cell.y, cell)
+  for (let i = 0, l = state.length; i < l; i++) {
+    const [x, y] = getCoords(i)
+    const cell = state[i]
+    f(x, y, cell)
   }
 }
 
