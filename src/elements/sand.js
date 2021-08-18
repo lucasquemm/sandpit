@@ -1,4 +1,5 @@
 import * as air from './air'
+import * as water from './water'
 import * as element from '../element'
 
 const NAME = 'SAND'
@@ -11,6 +12,9 @@ const update = (x, y, world) => {
   switch (below.type) {
     case air.NAME:
       world.replace(x, y, 0, 1)
+      break
+    case water.NAME:
+      world.move(x, y, 0, 1)
       break
   }
 }
