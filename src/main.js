@@ -5,9 +5,15 @@ import * as stone from './elements/stone'
 import * as air from './elements/air'
 import * as water from './elements/water'
 
-const loop = () => {
+const DEBUG = false
+
+const tick = () => {
   world.update()
   canvas.draw(world)
+}
+
+const loop = () => {
+  tick()
   requestAnimationFrame(loop)
 }
 
@@ -17,11 +23,18 @@ let drawing = false
 
 $canvas.addEventListener('mousemove', (e) => {
   if (drawing)
-    world.set(
+    world.draw(
       Math.floor(e.x / canvas.cellSize),
       Math.floor(e.y / canvas.cellSize),
       useElement(),
     )
+})
+$canvas.addEventListener('click', (e) => {
+  world.draw(
+    Math.floor(e.x / canvas.cellSize),
+    Math.floor(e.y / canvas.cellSize),
+    useElement(),
+  )
 })
 $canvas.addEventListener('mousedown', () => {
   drawing = true
@@ -30,7 +43,7 @@ $canvas.addEventListener('mouseup', () => {
   drawing = false
 })
 
-let selectedElement = 'air'
+let selectedElement = 'sand'
 
 const stoneBtn = document.querySelector('#pedra-btn')
 const sandBtn = document.querySelector('#areia-btn')
@@ -55,9 +68,13 @@ airBtn.addEventListener('click', () => {
 waterBtn.addEventListener('click', () => {
   return (selectedElement = 'water')
 })
+document.querySelector('#tick').addEventListener('click', tick)
 
 world.init()
-loop()
+
+if (!DEBUG) {
+  loop()
+}
 
 window.loop = loop
 window.world = world

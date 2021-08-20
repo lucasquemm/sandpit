@@ -1,5 +1,5 @@
 const NAME = 'AIR'
-const make = () => ({ type: NAME })
+const make = () => ({ type: NAME, clock: 0 })
 
 const update = (x, y, world) => {}
 

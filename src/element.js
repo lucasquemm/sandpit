@@ -1,13 +1,18 @@
-import { rand } from './random'
+const rand = (max, min = 0) => Math.random() * (max - min) + min
 
-const make = ({
+const make = ({ type, color, ...meta }) => ({
   type,
-  color: [hue, saturation, lightnessMax, lightnessMin],
+  clock: 0,
+  colorInput: color,
+  color: createColor(color),
   ...meta,
-}) => ({
-  type,
-  color: `hsl(${hue}deg ${saturation}% ${rand(lightnessMax, lightnessMin)}%)`,
-  ...meta
 })
 
-export { make }
+const createColor = (color) =>
+  `hsl(${color[0]}deg ${color[1]}% ${rand(color[2], color[3])}%)`
+
+const updateColor = (cell) => {
+  cell.color = createColor(cell.colorInput)
+}
+
+export { make, updateColor }
