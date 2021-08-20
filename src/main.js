@@ -21,21 +21,29 @@ const $canvas = document.querySelector('#canvas')
 
 let drawing = false
 
+const coord = (c) => Math.floor(c / canvas.cellSize)
+
+const getCoords = (e) => {
+  const x = coord(e.x)
+  const y = coord(e.y)
+
+  return [
+    [x, y],
+    [x + 1, y],
+    [x - 1, y],
+    [x, y + 1],
+    [x, y - 1],
+  ]
+}
+
+const handleDrawing = (e) => {
+  getCoords(e).forEach((coords) => world.draw(...coords, useElement()))
+}
+
 $canvas.addEventListener('mousemove', (e) => {
-  if (drawing)
-    world.draw(
-      Math.floor(e.x / canvas.cellSize),
-      Math.floor(e.y / canvas.cellSize),
-      useElement(),
-    )
+  if (drawing) handleDrawing(e)
 })
-$canvas.addEventListener('click', (e) => {
-  world.draw(
-    Math.floor(e.x / canvas.cellSize),
-    Math.floor(e.y / canvas.cellSize),
-    useElement(),
-  )
-})
+$canvas.addEventListener('click', handleDrawing)
 $canvas.addEventListener('mousedown', () => {
   drawing = true
 })
