@@ -2,6 +2,7 @@ import * as sand from './elements/sand'
 import * as air from './elements/air'
 import * as water from './elements/water'
 import * as stone from './elements/stone'
+import * as smoke from './elements/smoke'
 
 let state = []
 let size = 0
@@ -86,6 +87,9 @@ const update = () => {
         break
       case water.NAME:
         water.update(x, y, api, cell)
+        break
+      case smoke.NAME:
+        smoke.update(x, y, api, cell)
         break
     }
   }

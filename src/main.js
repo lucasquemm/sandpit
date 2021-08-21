@@ -4,6 +4,7 @@ import * as sand from './elements/sand'
 import * as stone from './elements/stone'
 import * as air from './elements/air'
 import * as water from './elements/water'
+import * as smoke from './elements/smoke'
 
 const DEBUG = false
 
@@ -57,8 +58,9 @@ const stoneBtn = document.querySelector('#pedra-btn')
 const sandBtn = document.querySelector('#areia-btn')
 const airBtn = document.querySelector('#ar-btn')
 const waterBtn = document.querySelector('#water-btn')
+const smokeBtn = document.querySelector('#smoke-btn')
 
-const elements = { sand, stone, air, water }
+const elements = { sand, stone, air, water, smoke }
 const useElement = () => elements[selectedElement].make()
 
 stoneBtn.addEventListener('click', () => {
@@ -76,6 +78,11 @@ airBtn.addEventListener('click', () => {
 waterBtn.addEventListener('click', () => {
   return (selectedElement = 'water')
 })
+
+smokeBtn.addEventListener('click', () => {
+  return (selectedElement = 'smoke')
+})
+
 document.querySelector('#tick').addEventListener('click', tick)
 
 world.init()
