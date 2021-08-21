@@ -4,7 +4,7 @@ const width = 500
 const height = 500
 const cellSize = 5
 const canvas = document.querySelector('canvas')
-const ctx = canvas.getContext('2d')
+const ctx = canvas.getContext('2d', { alpha: false })
 const dpr = window.devicePixelRatio || 1
 let lastColor
 
@@ -15,7 +15,8 @@ canvas.style.height = `${height}px`
 ctx.scale(dpr, dpr)
 
 const draw = (world) => {
-  ctx.clearRect(0, world.getBoundingY(), width, height)
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, world.getBoundingY(), width, height)
   world.forEach(drawCell)
 }
 
