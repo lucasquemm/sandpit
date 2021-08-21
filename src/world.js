@@ -5,16 +5,18 @@ import * as stone from './elements/stone'
 import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
 
-let state = []
+let cells = []
 let size = 0
 let generation
 let boundingY
+let activeCells
 
 const init = (newSize = 100) => {
   generation = 1
   boundingY = 0
+  activeCells = []
   size = newSize
-  state = Array.from({ length: size * size }, () => air.make())
+  cells = Array.from({ length: size * size }, () => air.make())
 }
 
 const getIndex = (x, y) => x * size + y
@@ -28,20 +30,22 @@ const getCoords = (index) => {
 
 const get = (x, y) => {
   if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
-  return state[getIndex(x, y)]
+  return cells[getIndex(x, y)]
 }
 
 const draw = (x, y, cell) => {
   if (cell.type === air.NAME || is(x, y, air.NAME) || is(x, y, water.NAME)) {
+    const index = getIndex(x, y)
     cell.clock = generation
-    state[getIndex(x, y)] = cell
+    cells[index] = cell
     if (y < boundingY) boundingY = y
   }
 }
 
 const set = (x, y, cell) => {
+  const index = getIndex(x, y)
   cell.clock = generation + 1
-  state[getIndex(x, y)] = cell
+  cells[index] = cell
   if (y < boundingY) boundingY = y
 }
 
@@ -78,9 +82,11 @@ const api = {
 }
 
 const update = () => {
-  for (let i = 0, l = state.length; i < l; i++) {
+  activeCells = []
+  for (let i = 0, l = cells.length; i < l; i++) {
     const [x, y] = getCoords(i)
-    const cell = state[i]
+    const cell = cells[i]
+    if (cell.type !== 'AIR') activeCells.push({ x, y, cell })
     switch (cell.type) {
       case 'AIR':
         break
@@ -106,9 +112,7 @@ const update = () => {
 const getBoundingY = () => boundingY
 
 const forEach = (f) => {
-  for (let i = 0, l = state.length; i < l; i++) {
-    const [x, y] = getCoords(i)
-    const cell = state[i]
+  for (let { x, y, cell } of activeCells) {
     f(x, y, cell)
   }
 }
