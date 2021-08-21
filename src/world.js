@@ -35,7 +35,6 @@ const draw = (x, y, cell) => {
 }
 
 const set = (x, y, cell) => {
-  if (cell.clock > generation) return
   cell.clock = generation + 1
   state[getIndex(x, y)] = cell
 }
