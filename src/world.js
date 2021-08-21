@@ -13,7 +13,7 @@ let activeCells
 
 const init = (newSize = 100) => {
   generation = 1
-  boundingY = 0
+  boundingY = newSize
   activeCells = []
   size = newSize
   cells = Array.from({ length: size * size }, () => air.make())
@@ -83,6 +83,7 @@ const api = {
 
 const update = () => {
   activeCells = []
+  boundingY = size
   for (let i = 0, l = cells.length; i < l; i++) {
     const [x, y] = getCoords(i)
     const cell = cells[i]
@@ -111,10 +112,6 @@ const update = () => {
 
 const getBoundingY = () => boundingY
 
-const forEach = (f) => {
-  for (let { x, y, cell } of activeCells) {
-    f(x, y, cell)
-  }
-}
+const getActive = () => activeCells
 
-export { init, getBoundingY, get, draw, update, print, forEach }
+export { init, getBoundingY, get, draw, update, print, getActive }
