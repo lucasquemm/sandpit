@@ -5,21 +5,16 @@ import * as stone from './elements/stone'
 import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
 
-let cells = []
+let state = []
 let size = 0
 let generation
 let boundingY
-let upperBound
-let defaultUpperBound
-let activeCells
 
 const init = (newSize = 100) => {
   generation = 1
-  boundingY = newSize
-  defaultUpperBound = { x: 0, y: newSize }
-  upperBound = defaultUpperBound
+  boundingY = 0
   size = newSize
-  cells = Array.from({ length: size * size }, () => air.make())
+  state = Array.from({ length: size * size }, () => air.make())
 }
 
 const getIndex = (x, y) => x * size + y
@@ -33,23 +28,21 @@ const getCoords = (index) => {
 
 const get = (x, y) => {
   if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
-  return cells[getIndex(x, y)]
+  return state[getIndex(x, y)]
 }
 
 const draw = (x, y, cell) => {
   if (cell.type === air.NAME || is(x, y, air.NAME) || is(x, y, water.NAME)) {
-    const index = getIndex(x, y)
     cell.clock = generation
-    cells[index] = cell
-    if (y < upperBound.y) upperBound = { x, y }
+    state[getIndex(x, y)] = cell
+    if (y < boundingY) boundingY = y
   }
 }
 
 const set = (x, y, cell) => {
-  const index = getIndex(x, y)
   cell.clock = generation + 1
-  cells[index] = cell
-  if (y < upperBound.y) upperBound = { x, y }
+  state[getIndex(x, y)] = cell
+  if (y < boundingY) boundingY = y
 }
 
 const is = (x, y, type) => get(x, y).type === type
@@ -85,20 +78,9 @@ const api = {
 }
 
 const update = () => {
-  activeCells = {}
-
-  for (let i = 0, l = cells.length; i < l; i++) {
+  for (let i = 0, l = state.length; i < l; i++) {
     const [x, y] = getCoords(i)
-    const cell = cells[i]
-
-    if (cell.type !== 'AIR') {
-      if (cell.color in activeCells) {
-        activeCells[cell.color].push({ x, y, cell })
-      } else {
-        activeCells[cell.color] = [{ x, y, cell }]
-      }
-    }
-
+    const cell = state[i]
     switch (cell.type) {
       case 'AIR':
         break
@@ -121,23 +103,14 @@ const update = () => {
   generation++
 }
 
-const getUpperBound = () => upperBound.y
+const getBoundingY = () => boundingY
 
-const refreshUpperBound = () => {
-  if (is(upperBound.x, upperBound.y, 'AIR')) {
-    upperBound = defaultUpperBound
+const forEach = (f) => {
+  for (let i = 0, l = state.length; i < l; i++) {
+    const [x, y] = getCoords(i)
+    const cell = state[i]
+    f(x, y, cell)
   }
 }
 
-const getActive = () => activeCells
-
-export {
-  init,
-  getUpperBound,
-  refreshUpperBound,
-  get,
-  draw,
-  update,
-  print,
-  getActive,
-}
+export { init, getBoundingY, get, draw, update, print, forEach }

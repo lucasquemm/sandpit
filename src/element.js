@@ -1,4 +1,4 @@
-import { randInt } from './random'
+const rand = (max, min = 0) => Math.random() * (max - min) + min
 
 const make = ({ type, color, ...meta }) => ({
   type,
@@ -9,7 +9,7 @@ const make = ({ type, color, ...meta }) => ({
 })
 
 const createColor = (color) =>
-  `hsl(${color[0]}deg ${color[1]}% ${randInt(color[2], color[3])}%)`
+  `hsl(${color[0]}deg ${color[1]}% ${rand(color[2], color[3]).toFixed(1)}%)`
 
 const updateColor = (cell) => {
   cell.color = createColor(cell.colorInput)
