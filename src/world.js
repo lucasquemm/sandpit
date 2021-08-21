@@ -14,7 +14,6 @@ let activeCells
 const init = (newSize = 100) => {
   generation = 1
   boundingY = newSize
-  activeCells = []
   size = newSize
   cells = Array.from({ length: size * size }, () => air.make())
 }
@@ -82,12 +81,21 @@ const api = {
 }
 
 const update = () => {
-  activeCells = []
+  activeCells = {}
   boundingY = size
+
   for (let i = 0, l = cells.length; i < l; i++) {
     const [x, y] = getCoords(i)
     const cell = cells[i]
-    if (cell.type !== 'AIR') activeCells.push({ x, y, cell })
+
+    if (cell.type !== 'AIR') {
+      if (cell.color in activeCells) {
+        activeCells[cell.color].push({ x, y })
+      } else {
+        activeCells[cell.color] = [{ x, y }]
+      }
+    }
+
     switch (cell.type) {
       case 'AIR':
         break
