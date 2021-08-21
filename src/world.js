@@ -8,9 +8,11 @@ import * as wood from './elements/wood'
 let state = []
 let size = 0
 let generation
+let boundingY
 
 const init = (newSize = 100) => {
   generation = 1
+  boundingY = 0
   size = newSize
   state = Array.from({ length: size * size }, () => air.make())
 }
@@ -33,12 +35,14 @@ const draw = (x, y, cell) => {
   if (cell.type === air.NAME || is(x, y, air.NAME) || is(x, y, water.NAME)) {
     cell.clock = generation
     state[getIndex(x, y)] = cell
+    if (y < boundingY) boundingY = y
   }
 }
 
 const set = (x, y, cell) => {
   cell.clock = generation + 1
   state[getIndex(x, y)] = cell
+  if (y < boundingY) boundingY = y
 }
 
 const is = (x, y, type) => get(x, y).type === type
@@ -99,6 +103,8 @@ const update = () => {
   generation++
 }
 
+const getBoundingY = () => boundingY
+
 const forEach = (f) => {
   for (let i = 0, l = state.length; i < l; i++) {
     const [x, y] = getCoords(i)
@@ -107,4 +113,4 @@ const forEach = (f) => {
   }
 }
 
-export { init, get, draw, update, print, forEach }
+export { init, getBoundingY, get, draw, update, print, forEach }
