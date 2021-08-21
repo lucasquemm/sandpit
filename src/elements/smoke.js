@@ -1,4 +1,5 @@
 import * as air from './air'
+import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
@@ -23,11 +24,15 @@ const update = (x, y, world, cell) => {
 
   switch (above.type) {
     case air.NAME:
-      if (chance(chanceToNotZigZag)) {
+      if (chance(chanceOfGoingStraight)) {
         world.move(x, y, 0, -1)
       } else if (world.is(x + cell.direction, y - 1, air.NAME)) {
         world.move(x, y, cell.direction, -1)
       }
+      break
+    case water.NAME:
+      world.move(x, y, 0, -1)
+      break
   }
 
   if (chance(chanceOfSpread) && world.is(x + cell.direction, y, air.NAME)) {
