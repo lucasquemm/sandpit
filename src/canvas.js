@@ -1,6 +1,4 @@
-import * as sand from './elements/sand'
 import * as air from './elements/air'
-import * as stone from './elements/stone'
 
 const width = 500
 const height = 500
