@@ -7,7 +7,7 @@ import * as water from './elements/water'
 import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
 
-const DEBUG = false
+window.DEBUG = false
 const MAX_FPS = 60
 
 const tick = () => {
@@ -107,7 +107,7 @@ document.querySelector('#tick').addEventListener('click', tick)
 
 world.init()
 
-if (!DEBUG) {
+if (!window.DEBUG) {
   start()
 }
 

@@ -9,11 +9,15 @@ let cells = []
 let size = 0
 let generation
 let boundingY
+let upperBound
+let defaultUpperBound
 let activeCells
 
 const init = (newSize = 100) => {
   generation = 1
   boundingY = newSize
+  defaultUpperBound = { x: 0, y: newSize }
+  upperBound = defaultUpperBound
   size = newSize
   cells = Array.from({ length: size * size }, () => air.make())
 }
@@ -37,7 +41,7 @@ const draw = (x, y, cell) => {
     const index = getIndex(x, y)
     cell.clock = generation
     cells[index] = cell
-    if (y < boundingY) boundingY = y
+    if (y < upperBound.y) upperBound = { x, y }
   }
 }
 
@@ -45,7 +49,7 @@ const set = (x, y, cell) => {
   const index = getIndex(x, y)
   cell.clock = generation + 1
   cells[index] = cell
-  if (y < boundingY) boundingY = y
+  if (y < upperBound.y) upperBound = { x, y }
 }
 
 const is = (x, y, type) => get(x, y).type === type
@@ -82,7 +86,6 @@ const api = {
 
 const update = () => {
   activeCells = {}
-  boundingY = size
 
   for (let i = 0, l = cells.length; i < l; i++) {
     const [x, y] = getCoords(i)
@@ -90,9 +93,9 @@ const update = () => {
 
     if (cell.type !== 'AIR') {
       if (cell.color in activeCells) {
-        activeCells[cell.color].push({ x, y })
+        activeCells[cell.color].push({ x, y, cell })
       } else {
-        activeCells[cell.color] = [{ x, y }]
+        activeCells[cell.color] = [{ x, y, cell }]
       }
     }
 
@@ -118,8 +121,23 @@ const update = () => {
   generation++
 }
 
-const getBoundingY = () => boundingY
+const getUpperBound = () => upperBound.y
+
+const refreshUpperBound = () => {
+  if (is(upperBound.x, upperBound.y, 'AIR')) {
+    upperBound = defaultUpperBound
+  }
+}
 
 const getActive = () => activeCells
 
-export { init, getBoundingY, get, draw, update, print, getActive }
+export {
+  init,
+  getUpperBound,
+  refreshUpperBound,
+  get,
+  draw,
+  update,
+  print,
+  getActive,
+}

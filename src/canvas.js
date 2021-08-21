@@ -15,10 +15,15 @@ ctx.fillStyle = 'white'
 ctx.fillRect(0, 0, width, height)
 
 const draw = (world) => {
-  const boundingY = world.getBoundingY() * cellSize - boundsOffset
+  const boundingY = world.getUpperBound() * cellSize - boundsOffset
 
   ctx.fillStyle = 'white'
   ctx.fillRect(0, boundingY, width, height - boundingY)
+
+  if (window.DEBUG) {
+    ctx.fillStyle = 'red'
+    ctx.fillRect(0, boundingY, width, 1)
+  }
 
   const activeCells = world.getActive()
 
@@ -30,6 +35,8 @@ const draw = (world) => {
       ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
     }
   }
+
+  world.refreshUpperBound()
 }
 
 export { draw, cellSize }
