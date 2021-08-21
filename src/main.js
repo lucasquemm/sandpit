@@ -8,6 +8,7 @@ import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
 
 const DEBUG = false
+const MAX_FPS = 60
 
 const tick = () => {
   world.update()
@@ -15,8 +16,21 @@ const tick = () => {
 }
 
 const loop = () => {
-  tick()
   requestAnimationFrame(loop)
+  now = Date.now()
+  elapsed = now - then
+
+  if (elapsed > fpsInterval) {
+    then = now - (elapsed % fpsInterval)
+    tick()
+  }
+}
+
+const start = () => {
+  fpsInterval = 1000 / MAX_FPS
+  then = Date.now()
+  startTime = then
+  loop()
 }
 
 const $canvas = document.querySelector('#canvas')
@@ -94,7 +108,7 @@ document.querySelector('#tick').addEventListener('click', tick)
 world.init()
 
 if (!DEBUG) {
-  loop()
+  start()
 }
 
 window.loop = loop
