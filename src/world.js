@@ -28,7 +28,7 @@ const get = (x, y) => {
 }
 
 const draw = (x, y, cell) => {
-  if (cell.type === air.NAME || is(x, y, air.NAME)) {
+  if (cell.type === air.NAME || is(x, y, air.NAME) || is(x, y, water.NAME)) {
     cell.clock = generation
     state[getIndex(x, y)] = cell
   }
