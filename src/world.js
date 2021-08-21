@@ -3,6 +3,7 @@ import * as air from './elements/air'
 import * as water from './elements/water'
 import * as stone from './elements/stone'
 import * as smoke from './elements/smoke'
+import * as wood from './elements/wood'
 
 let state = []
 let size = 0
@@ -91,6 +92,8 @@ const update = () => {
       case smoke.NAME:
         smoke.update(x, y, api, cell)
         break
+      case wood.NAME:
+        wood.update(x, y, api, cell)
     }
   }
   generation++
