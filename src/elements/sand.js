@@ -1,4 +1,4 @@
-import * as air from './air'
+import { EMPTY } from './empty'
 import * as water from './water'
 import * as element from '../element'
 import { pickRand } from '../random'
@@ -12,14 +12,14 @@ const update = (sandpit) => {
   const direction = pickRand([1, -1])
 
   switch (below.type) {
-    case air.NAME:
+    case EMPTY:
       sandpit.move(0, 1)
       break
     case water.NAME:
       sandpit.swap(0, 1)
       break
     case NAME:
-      if (sandpit.is(direction, 1, air.NAME)) {
+      if (sandpit.is(direction, 1, EMPTY)) {
         sandpit.move(direction, 1)
       }
       break

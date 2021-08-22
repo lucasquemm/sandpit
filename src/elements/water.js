@@ -1,4 +1,4 @@
-import * as air from './air'
+import { EMPTY } from './empty'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
@@ -15,17 +15,17 @@ const update = (sandpit, cell) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {
-    case air.NAME:
+    case EMPTY:
       sandpit.move(0, 1)
       break
     case NAME:
-      if (sandpit.is(cell.direction, 1, air.NAME)) {
+      if (sandpit.is(cell.direction, 1, EMPTY)) {
         sandpit.move(cell.direction, 1)
       }
       break
   }
 
-  if (sandpit.is(cell.direction, 0, air.NAME)) {
+  if (sandpit.is(cell.direction, 0, EMPTY)) {
     sandpit.move(cell.direction, 0)
   } else {
     cell.direction *= -1

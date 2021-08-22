@@ -1,9 +1,7 @@
 import * as sand from './elements/sand'
-import * as air from './elements/air'
+import { empty, EMPTY } from './elements/empty'
 import * as water from './elements/water'
-import * as stone from './elements/stone'
 import * as smoke from './elements/smoke'
-import * as wood from './elements/wood'
 
 let cells = []
 let size = 0
@@ -18,7 +16,7 @@ const init = (newSize = 100) => {
   defaultUpperBound = { x: 0, y: newSize }
   upperBound = defaultUpperBound
   size = newSize
-  cells = Array.from({ length: size * size }, () => air.make())
+  cells = Array.from({ length: size * size }, () => empty())
 }
 const get = (x, y) => {
   if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
@@ -26,7 +24,7 @@ const get = (x, y) => {
   return cells[getIndex(x, y)]
 }
 
-const set = (x, y, cell) => {
+const set = (x, y, cell = empty()) => {
   const index = getIndex(x, y)
 
   cell.clock = generation + 1
@@ -47,7 +45,7 @@ const createApi = (cx, cy) => {
     if (cell.clock > generation) return
 
     set(cx + dx, cy + dy, cell)
-    set(cx, cy, air.make())
+    set(cx, cy, empty())
   }
 
   const swap = (dx, dy) => {
@@ -79,8 +77,8 @@ const getCoords = (index) => {
 
 const draw = (x, y, cell) => {
   if (
-    cell.type === air.NAME ||
-    self.is(x, y, air.NAME) ||
+    cell.type === EMPTY ||
+    self.is(x, y, EMPTY) ||
     self.is(x, y, water.NAME)
   ) {
     const index = getIndex(x, y)
@@ -97,7 +95,7 @@ const update = () => {
     const [x, y] = getCoords(i)
     const cell = cells[i]
 
-    if (cell.type !== 'AIR') {
+    if (cell.type !== EMPTY) {
       if (cell.color in activeCells) {
         activeCells[cell.color].push({ x, y, cell })
       } else {
@@ -125,7 +123,7 @@ const update = () => {
 const getUpperBound = () => upperBound.y
 
 const refreshUpperBound = () => {
-  if (self.is(upperBound.x, upperBound.y, 'AIR')) {
+  if (self.is(upperBound.x, upperBound.y, EMPTY)) {
     upperBound = defaultUpperBound
   }
 }
