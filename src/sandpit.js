@@ -37,6 +37,7 @@ const set = (x, y, cell) => {
 
 const createApi = (cx, cy) => {
   const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
+  const relativeSet = (dx, dy) => set(cx + dx, cy + dy)
 
   const is = (dx, dy, type) => get(cx + dx, cy + dy).type === type
 
@@ -62,7 +63,7 @@ const createApi = (cx, cy) => {
     set(cx, cy, c1)
   }
 
-  return { is, move, swap, set, get: relativeGet }
+  return { is, move, swap, set: relativeSet, get: relativeGet }
 }
 
 const self = createApi(0, 0)
@@ -107,13 +108,8 @@ const update = () => {
     const api = createApi(x, y)
 
     switch (cell.type) {
-      case 'AIR':
-        break
       case sand.NAME:
         sand.update(api, cell)
-        break
-      case stone.NAME:
-        stone.update(api, cell)
         break
       case water.NAME:
         water.update(api, cell)
@@ -121,8 +117,6 @@ const update = () => {
       case smoke.NAME:
         smoke.update(api, cell)
         break
-      case wood.NAME:
-        wood.update(api, cell)
     }
   }
   generation++

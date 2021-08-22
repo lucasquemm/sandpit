@@ -19,7 +19,7 @@ const update = (sandpit, cell) => {
   const above = sandpit.get(0, -1)
 
   if (chance(despawnChance)) {
-    sandpit.move(0, 0)
+    sandpit.set(0, 0, air.NAME)
   }
 
   switch (above.type) {
