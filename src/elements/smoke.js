@@ -16,27 +16,27 @@ const make = () =>
   })
 
 const update = (x, y, sandpit, cell) => {
-  const above = sandpit.get(x, y - 1)
+  const above = sandpit.get(0, -1)
 
   if (chance(despawnChance)) {
-    sandpit.move(x, y, 0, 0)
+    sandpit.move(0, 0)
   }
 
   switch (above.type) {
     case air.NAME:
       if (chance(chanceOfGoingStraight)) {
-        sandpit.move(x, y, 0, -1)
-      } else if (sandpit.is(x + cell.direction, y - 1, air.NAME)) {
-        sandpit.move(x, y, cell.direction, -1)
+        sandpit.move(0, -1)
+      } else if (sandpit.is(cell.direction, 1, air.NAME)) {
+        sandpit.move(cell.direction, -1)
       }
       break
     case water.NAME:
-      sandpit.move(x, y, 0, -1)
+      sandpit.move(0, -1)
       break
   }
 
-  if (chance(chanceOfSpread) && sandpit.is(x + cell.direction, y, air.NAME)) {
-    sandpit.move(x, y, cell.direction, 0)
+  if (chance(chanceOfSpread) && sandpit.is(cell.direction, 0, air.NAME)) {
+    sandpit.move(cell.direction, 0)
   } else {
     cell.direction *= -1
   }

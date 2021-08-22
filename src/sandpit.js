@@ -20,6 +20,52 @@ const init = (newSize = 100) => {
   size = newSize
   cells = Array.from({ length: size * size }, () => air.make())
 }
+const get = (x, y) => {
+  if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
+
+  return cells[getIndex(x, y)]
+}
+
+const set = (x, y, cell) => {
+  const index = getIndex(x, y)
+
+  cell.clock = generation + 1
+  cells[index] = cell
+
+  if (y < upperBound.y) upperBound = { x, y }
+}
+
+const createApi = (cx, cy) => {
+  const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
+
+  const is = (dx, dy, type) => get(cx + dx, cy + dy).type === type
+
+  const move = (dx, dy) => {
+    const cell = get(cx, cy)
+
+    if (cell.clock > generation) return
+
+    set(cx + dx, cy + dy, cell)
+    set(cx, cy, air.make())
+  }
+
+  const swap = (dx, dy) => {
+    const c0 = get(cx, cy)
+
+    if (c0.clock > generation) return
+
+    const x = cx + dx
+    const y = cy + dy
+    const c1 = get(x, y)
+
+    set(x, y, c0)
+    set(cx, cy, c1)
+  }
+
+  return { is, move, swap, set, get: relativeGet }
+}
+
+const self = createApi(0, 0)
 
 const getIndex = (x, y) => x * size + y
 
@@ -30,57 +76,17 @@ const getCoords = (index) => {
   return [x, y]
 }
 
-const get = (x, y) => {
-  if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
-  return cells[getIndex(x, y)]
-}
-
 const draw = (x, y, cell) => {
-  if (cell.type === air.NAME || is(x, y, air.NAME) || is(x, y, water.NAME)) {
+  if (
+    cell.type === air.NAME ||
+    self.is(x, y, air.NAME) ||
+    self.is(x, y, water.NAME)
+  ) {
     const index = getIndex(x, y)
     cell.clock = generation
     cells[index] = cell
     if (y < upperBound.y) upperBound = { x, y }
   }
-}
-
-const set = (x, y, cell) => {
-  const index = getIndex(x, y)
-  cell.clock = generation + 1
-  cells[index] = cell
-  if (y < upperBound.y) upperBound = { x, y }
-}
-
-const is = (x, y, type) => get(x, y).type === type
-
-const move = (x, y, offsetX = 0, offsetY = 0) => {
-  const cell = get(x, y)
-
-  if (cell.clock > generation) return
-
-  set(x + offsetX, y + offsetY, cell)
-  set(x, y, air.make())
-}
-
-const swap = (x, y, offsetX = 0, offsetY = 0) => {
-  const c0 = get(x, y)
-
-  if (c0.clock > generation) return
-
-  const x1 = x + offsetX
-  const y1 = y + offsetY
-  const c1 = get(x1, y1)
-
-  set(x1, y1, c0)
-  set(x, y, c1)
-}
-
-const api = {
-  get,
-  set,
-  swap,
-  move,
-  is,
 }
 
 const update = () => {
@@ -97,6 +103,8 @@ const update = () => {
         activeCells[cell.color] = [{ x, y, cell }]
       }
     }
+
+    const api = createApi(x, y)
 
     switch (cell.type) {
       case 'AIR':
@@ -123,20 +131,11 @@ const update = () => {
 const getUpperBound = () => upperBound.y
 
 const refreshUpperBound = () => {
-  if (is(upperBound.x, upperBound.y, 'AIR')) {
+  if (self.is(upperBound.x, upperBound.y, 'AIR')) {
     upperBound = defaultUpperBound
   }
 }
 
 const getActive = () => activeCells
 
-export {
-  init,
-  getUpperBound,
-  refreshUpperBound,
-  get,
-  draw,
-  update,
-  print,
-  getActive,
-}
+export { init, getUpperBound, refreshUpperBound, draw, update, getActive }

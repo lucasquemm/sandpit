@@ -8,19 +8,19 @@ const NAME = 'SAND'
 const make = () => element.make({ type: NAME, color: [46, 78, 75, 50] })
 
 const update = (x, y, sandpit) => {
-  const below = sandpit.get(x, y + 1)
+  const below = sandpit.get(0, 1)
   const direction = pickRand([1, -1])
 
   switch (below.type) {
     case air.NAME:
-      sandpit.move(x, y, 0, 1)
+      sandpit.move(0, 1)
       break
     case water.NAME:
-      sandpit.swap(x, y, 0, 1)
+      sandpit.swap(0, 1)
       break
     case NAME:
-      if (sandpit.is(x + direction, y + 1, air.NAME)) {
-        sandpit.move(x, y, direction, 1)
+      if (sandpit.is(direction, 1, air.NAME)) {
+        sandpit.move(direction, 1)
       }
       break
   }
