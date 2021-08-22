@@ -1,36 +1,42 @@
-import * as air from './elements/air'
-
 const width = 500
 const height = 500
 const cellSize = 5
 const canvas = document.querySelector('canvas')
-const ctx = canvas.getContext('2d')
+const ctx = canvas.getContext('2d', { alpha: false })
 const dpr = window.devicePixelRatio || 1
+const boundsOffset = 5
 
 canvas.width = width * dpr
 canvas.height = height * dpr
 canvas.style.width = `${width}px`
 canvas.style.height = `${height}px`
 ctx.scale(dpr, dpr)
+ctx.fillStyle = 'white'
+ctx.fillRect(0, 0, width, height)
 
 const draw = (world) => {
-  ctx.clearRect(0, 0, width, height)
-  world.forEach(drawCell)
-}
+  const boundingY = world.getUpperBound() * cellSize - boundsOffset
 
-const drawCell = (x, y, cell) => {
-  switch (cell.type) {
-    case air.NAME:
-      break
-    default:
-      drawRect(x, y, cell)
-      break
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, boundingY, width, height - boundingY)
+
+  if (window.DEBUG) {
+    ctx.fillStyle = 'red'
+    ctx.fillRect(0, boundingY, width, 1)
   }
-}
 
-const drawRect = (x, y, cell) => {
-  ctx.fillStyle = cell.color
-  ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
+  const activeCells = world.getActive()
+
+  for (let color in activeCells) {
+    ctx.fillStyle = color
+    const blocks = activeCells[color]
+
+    for (let { x, y } of blocks) {
+      ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
+    }
+  }
+
+  world.refreshUpperBound()
 }
 
 export { draw, cellSize }
