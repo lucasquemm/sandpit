@@ -110,19 +110,19 @@ const update = () => {
       case 'AIR':
         break
       case sand.NAME:
-        sand.update(x, y, api, cell)
+        sand.update(api, cell)
         break
       case stone.NAME:
-        stone.update(x, y, api, cell)
+        stone.update(api, cell)
         break
       case water.NAME:
-        water.update(x, y, api, cell)
+        water.update(api, cell)
         break
       case smoke.NAME:
-        smoke.update(x, y, api, cell)
+        smoke.update(api, cell)
         break
       case wood.NAME:
-        wood.update(x, y, api, cell)
+        wood.update(api, cell)
     }
   }
   generation++

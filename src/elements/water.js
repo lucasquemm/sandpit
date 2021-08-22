@@ -11,7 +11,7 @@ const make = () =>
     color: [216, 65, 60, 50],
   })
 
-const update = (x, y, sandpit, cell) => {
+const update = (sandpit, cell) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {

@@ -15,7 +15,7 @@ const make = () =>
     color: [4, 2, 79, 90],
   })
 
-const update = (x, y, sandpit, cell) => {
+const update = (sandpit, cell) => {
   const above = sandpit.get(0, -1)
 
   if (chance(despawnChance)) {

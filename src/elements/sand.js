@@ -7,7 +7,7 @@ const NAME = 'SAND'
 
 const make = () => element.make({ type: NAME, color: [46, 78, 75, 50] })
 
-const update = (x, y, sandpit) => {
+const update = (sandpit) => {
   const below = sandpit.get(0, 1)
   const direction = pickRand([1, -1])
 
