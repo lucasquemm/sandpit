@@ -8,7 +8,6 @@ import * as wood from './elements/wood'
 let cells = []
 let size = 0
 let generation
-let boundingY
 let upperBound
 let defaultUpperBound
 let activeCells
