@@ -1,4 +1,4 @@
-import * as world from './world'
+import * as sandpit from './sandpit'
 import * as canvas from './canvas'
 import * as sand from './elements/sand'
 import * as stone from './elements/stone'
@@ -11,8 +11,8 @@ window.DEBUG = false
 const MAX_FPS = 60
 
 const tick = () => {
-  world.update()
-  canvas.draw(world)
+  sandpit.update()
+  canvas.draw(sandpit)
 }
 
 const loop = () => {
@@ -53,7 +53,7 @@ const getCoords = (e) => {
 }
 
 const handleDrawing = (e) => {
-  getCoords(e).forEach((coords) => world.draw(...coords, useElement()))
+  getCoords(e).forEach((coords) => sandpit.draw(...coords, useElement()))
 }
 
 $canvas.addEventListener('mousemove', (e) => {
@@ -105,11 +105,8 @@ woodBtn.addEventListener('click', () => {
 
 document.querySelector('#tick').addEventListener('click', tick)
 
-world.init()
+sandpit.init()
 
 if (!window.DEBUG) {
   start()
 }
-
-window.loop = loop
-window.world = world

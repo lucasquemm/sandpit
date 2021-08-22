@@ -4,6 +4,6 @@ const NAME = 'WOOD'
 
 const make = () => element.make({ type: NAME, color: [33, 41, 30, 15] })
 
-const update = (x, y, world) => {}
+const update = (x, y, sandpit) => {}
 
 export { NAME, make, update, COLOR }

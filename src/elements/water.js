@@ -11,22 +11,22 @@ const make = () =>
     color: [216, 65, 60, 50],
   })
 
-const update = (x, y, world, cell) => {
-  const below = world.get(x, y + 1)
+const update = (x, y, sandpit, cell) => {
+  const below = sandpit.get(x, y + 1)
 
   switch (below.type) {
     case air.NAME:
-      world.move(x, y, 0, 1)
+      sandpit.move(x, y, 0, 1)
       break
     case NAME:
-      if (world.is(x + cell.direction, y + 1, air.NAME)) {
-        world.move(x, y, cell.direction, 1)
+      if (sandpit.is(x + cell.direction, y + 1, air.NAME)) {
+        sandpit.move(x, y, cell.direction, 1)
       }
       break
   }
 
-  if (world.is(x + cell.direction, y, air.NAME)) {
-    world.move(x, y, cell.direction, 0)
+  if (sandpit.is(x + cell.direction, y, air.NAME)) {
+    sandpit.move(x, y, cell.direction, 0)
   } else {
     cell.direction *= -1
   }
