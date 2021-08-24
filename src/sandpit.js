@@ -36,7 +36,7 @@ const set = (x, y, cell = empty()) => {
 
 const createApi = (cx, cy) => {
   const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
-  const relativeSet = (dx, dy) => set(cx + dx, cy + dy)
+  const relativeSet = (dx, dy, cell) => set(cx + dx, cy + dy, cell)
 
   const is = (dx, dy, type) => get(cx + dx, cy + dy).type === type
 
