@@ -117,6 +117,30 @@ const update = (sandpit, cell) => {
       if (chance(0.01)) {
         sandpit.set(0, 0, smoke.make())
         return
+      } else if (chance(0.06) && sandpit.is(0, -1, EMPTY)) {
+        sandpit.set(0, -1, make())
+      }
+
+      let noNeighbors = true
+      const neighbors = [
+        [-1, -1],
+        [-1, 0],
+        [-1, +1],
+        [0, -1],
+        [0, +1],
+        [+1, -1],
+        [+1, 0],
+        [+1, +1],
+      ]
+
+      for (let [nx, ny] of neighbors) {
+        if (!sandpit.is(nx, ny, EMPTY)) {
+          noNeighbors = false
+          break
+        }
+      }
+      if (noNeighbors) {
+        sandpit.set(0, 0, empty())
       }
       break
   }
