@@ -1,5 +1,5 @@
-import * as air from './air'
 import * as water from './water'
+import { EMPTY, empty } from './empty'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
@@ -15,28 +15,28 @@ const make = () =>
     color: [4, 2, 79, 90],
   })
 
-const update = (x, y, world, cell) => {
-  const above = world.get(x, y - 1)
+const update = (sandpit, cell) => {
+  const above = sandpit.get(0, -1)
 
   if (chance(despawnChance)) {
-    world.move(x, y, 0, 0)
+    sandpit.set(0, 0, empty())
   }
 
   switch (above.type) {
-    case air.NAME:
+    case EMPTY:
       if (chance(chanceOfGoingStraight)) {
-        world.move(x, y, 0, -1)
-      } else if (world.is(x + cell.direction, y - 1, air.NAME)) {
-        world.move(x, y, cell.direction, -1)
+        sandpit.move(0, -1)
+      } else if (sandpit.is(cell.direction, 1, EMPTY)) {
+        sandpit.move(cell.direction, -1)
       }
       break
     case water.NAME:
-      world.move(x, y, 0, -1)
+      sandpit.move(0, -1)
       break
   }
 
-  if (chance(chanceOfSpread) && world.is(x + cell.direction, y, air.NAME)) {
-    world.move(x, y, cell.direction, 0)
+  if (chance(chanceOfSpread) && sandpit.is(cell.direction, 0, EMPTY)) {
+    sandpit.move(cell.direction, 0)
   } else {
     cell.direction *= -1
   }

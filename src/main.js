@@ -1,8 +1,8 @@
-import * as world from './world'
+import * as sandpit from './sandpit'
 import * as canvas from './canvas'
 import * as sand from './elements/sand'
 import * as stone from './elements/stone'
-import * as air from './elements/air'
+import { empty } from './elements/empty'
 import * as water from './elements/water'
 import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
@@ -11,8 +11,8 @@ window.DEBUG = false
 const MAX_FPS = 60
 
 const tick = () => {
-  world.update()
-  canvas.draw(world)
+  sandpit.update()
+  canvas.draw(sandpit)
 }
 
 const loop = () => {
@@ -53,7 +53,7 @@ const getCoords = (e) => {
 }
 
 const handleDrawing = (e) => {
-  getCoords(e).forEach((coords) => world.draw(...coords, useElement()))
+  getCoords(e).forEach((coords) => sandpit.draw(...coords, useElement()))
 }
 
 $canvas.addEventListener('mousemove', (e) => {
@@ -71,12 +71,12 @@ let selectedElement = 'sand'
 
 const stoneBtn = document.querySelector('#pedra-btn')
 const sandBtn = document.querySelector('#areia-btn')
-const airBtn = document.querySelector('#ar-btn')
+const emptyBtn = document.querySelector('#ar-btn')
 const waterBtn = document.querySelector('#water-btn')
 const smokeBtn = document.querySelector('#smoke-btn')
 const woodBtn = document.querySelector('#wood-btn')
 
-const elements = { sand, stone, air, water, smoke, wood }
+const elements = { sand, stone, empty: { make: empty }, water, smoke, wood }
 const useElement = () => elements[selectedElement].make()
 
 stoneBtn.addEventListener('click', () => {
@@ -87,8 +87,8 @@ sandBtn.addEventListener('click', () => {
   return (selectedElement = 'sand')
 })
 
-airBtn.addEventListener('click', () => {
-  return (selectedElement = 'air')
+emptyBtn.addEventListener('click', () => {
+  return (selectedElement = 'empty')
 })
 
 waterBtn.addEventListener('click', () => {
@@ -105,11 +105,8 @@ woodBtn.addEventListener('click', () => {
 
 document.querySelector('#tick').addEventListener('click', tick)
 
-world.init()
+sandpit.init()
 
 if (!window.DEBUG) {
   start()
 }
-
-window.loop = loop
-window.world = world
