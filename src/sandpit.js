@@ -113,7 +113,7 @@ const update = () => {
         smoke.update(api, cell)
         break
       case fire.NAME:
-        fire.update(x, y, api, cell)
+        fire.update(api, cell)
         break
     }
   }

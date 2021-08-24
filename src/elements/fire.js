@@ -1,4 +1,4 @@
-import * as air from './air'
+import { EMPTY, empty } from './empty'
 import * as water from './water'
 import * as wood from './wood'
 import * as smoke from './smoke'
@@ -25,66 +25,66 @@ const make = (burning = false) =>
     burning: burning,
   })
 
-const burn = (x, y, world, cell) => {
+const burn = (sandpit, cell) => {
   let isBurning = false
   const neighbors = [
-    [x - 1, y - 1],
-    [x - 1, y],
-    [x - 1, y + 1],
-    [x, y - 1],
-    [x, y + 1],
-    [x + 1, y - 1],
-    [x + 1, y],
-    [x + 1, y + 1],
-    [x - 2, y - 2],
-    [x - 2, y],
-    [x - 2, y + 2],
-    [x, y - 2],
-    [x, y + 2],
-    [x + 2, y - 2],
-    [x + 2, y],
-    [x + 2, y + 2],
+    [-1, -1],
+    [-1, 0],
+    [-1, +1],
+    [0, -1],
+    [0, +1],
+    [+1, -1],
+    [+1, 0],
+    [+1, +1],
+    [-2, -2],
+    [-2, 0],
+    [-2, +2],
+    [0, -2],
+    [0, +2],
+    [+2, -2],
+    [+2, 0],
+    [+2, +2],
   ]
 
   for (let [nx, ny] of neighbors) {
     if (
       chance(cell.burning ? burningChance : ignitingChance) &&
-      world.is(nx, ny, wood.NAME)
+      sandpit.is(nx, ny, wood.NAME)
     ) {
-      world.set(nx, ny, make(true))
+      sandpit.set(nx, ny, make(true))
       isBurning = true
     }
   }
   return isBurning
 }
 
-const update = (x, y, world, cell) => {
-  const above = world.get(x, y - 1)
+const update = (sandpit, cell) => {
+  const above = sandpit.get(0, -1)
 
-  const isBurning = burn(x, y, world, cell)
+  const isBurning = burn(sandpit, cell)
 
   if (cell.burning) {
     if (chance(0.01)) {
-      world.set(x, y, smoke.make())
+      sandpit.set(0, 0, smoke.make())
       return
     }
   }
 
   if (!isBurning && chance(despawnChance)) {
-    world.set(x, y, air.make())
+    sandpit.set(0, 0, empty())
   }
   switch (above.type) {
-    case air.NAME:
+    case EMPTY:
       if (chance(chanceOfGoingStraight)) {
-        world.move(x, y, 0, -1)
-      } else if (world.is(x + cell.direction, y - 1, air.NAME)) {
-        world.move(x, y, cell.direction, -1)
+        sandpit.move(0, -1)
+      } else if (sandpit.is(cell.direction, -1, EMPTY)) {
+        sandpit.move(cell.direction, -1)
       }
       break
   }
 
-  if (chance(chanceOfSpread) && world.is(x + cell.direction, y, air.NAME)) {
-    world.move(x, y, cell.direction, 0)
+  if (chance(chanceOfSpread) && sandpit.is(cell.direction, 0, EMPTY)) {
+    sandpit.move(cell.direction, 0)
   } else {
     cell.direction *= -1
   }
