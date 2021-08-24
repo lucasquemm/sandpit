@@ -2,6 +2,7 @@ import * as sand from './elements/sand'
 import { empty, EMPTY } from './elements/empty'
 import * as water from './elements/water'
 import * as smoke from './elements/smoke'
+import * as fire from './elements/fire'
 
 let cells = []
 let size = 0
@@ -76,11 +77,7 @@ const getCoords = (index) => {
 }
 
 const draw = (x, y, cell) => {
-  if (
-    cell.type === EMPTY ||
-    self.is(x, y, EMPTY) ||
-    self.is(x, y, water.NAME)
-  ) {
+  if (cell.type === EMPTY || self.is(x, y, EMPTY)) {
     const index = getIndex(x, y)
     cell.clock = generation
     cells[index] = cell
@@ -114,6 +111,9 @@ const update = () => {
         break
       case smoke.NAME:
         smoke.update(api, cell)
+        break
+      case fire.NAME:
+        fire.update(x, y, api, cell)
         break
     }
   }

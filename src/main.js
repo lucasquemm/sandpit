@@ -6,6 +6,7 @@ import { empty } from './elements/empty'
 import * as water from './elements/water'
 import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
+import * as fire from './elements/fire'
 
 window.DEBUG = false
 const MAX_FPS = 60
@@ -75,8 +76,18 @@ const emptyBtn = document.querySelector('#ar-btn')
 const waterBtn = document.querySelector('#water-btn')
 const smokeBtn = document.querySelector('#smoke-btn')
 const woodBtn = document.querySelector('#wood-btn')
+const fireBtn = document.querySelector('#fire-btn')
 
-const elements = { sand, stone, empty: { make: empty }, water, smoke, wood }
+const elements = {
+  sand,
+  stone,
+  empty: { make: empty },
+  water,
+  smoke,
+  wood,
+  fire,
+}
+
 const useElement = () => elements[selectedElement].make()
 
 stoneBtn.addEventListener('click', () => {
@@ -101,6 +112,10 @@ smokeBtn.addEventListener('click', () => {
 
 woodBtn.addEventListener('click', () => {
   return (selectedElement = 'wood')
+})
+
+fireBtn.addEventListener('click', () => {
+  return (selectedElement = 'fire')
 })
 
 document.querySelector('#tick').addEventListener('click', tick)
