@@ -2,6 +2,7 @@ import * as sand from './elements/sand'
 import { empty, EMPTY } from './elements/empty'
 import * as water from './elements/water'
 import * as smoke from './elements/smoke'
+import * as fire from './elements/fire'
 
 let cells = []
 let size = 0
@@ -33,9 +34,25 @@ const set = (x, y, cell = empty()) => {
   if (y < upperBound.y) upperBound = { x, y }
 }
 
+const neighbors = (range = 1) => {
+  return Array.from({ length: range }, (_, i) => {
+    const n = i + 1
+    return [
+      [n * -1, n * -1],
+      [n * -1, 0],
+      [n * -1, n * 1],
+      [0, n * -1],
+      [0, n * 1],
+      [n * 1, n * -1],
+      [n * 1, 0],
+      [n * 1, n * 1],
+    ]
+  }).flat()
+}
+
 const createApi = (cx, cy) => {
   const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
-  const relativeSet = (dx, dy) => set(cx + dx, cy + dy)
+  const relativeSet = (dx, dy, cell) => set(cx + dx, cy + dy, cell)
 
   const is = (dx, dy, type) => get(cx + dx, cy + dy).type === type
 
@@ -61,7 +78,7 @@ const createApi = (cx, cy) => {
     set(cx, cy, c1)
   }
 
-  return { is, move, swap, set: relativeSet, get: relativeGet }
+  return { is, move, swap, set: relativeSet, get: relativeGet, neighbors }
 }
 
 const self = createApi(0, 0)
@@ -76,11 +93,7 @@ const getCoords = (index) => {
 }
 
 const draw = (x, y, cell) => {
-  if (
-    cell.type === EMPTY ||
-    self.is(x, y, EMPTY) ||
-    self.is(x, y, water.NAME)
-  ) {
+  if (cell.type === EMPTY || self.is(x, y, EMPTY)) {
     const index = getIndex(x, y)
     cell.clock = generation
     cells[index] = cell
@@ -115,6 +128,9 @@ const update = () => {
       case smoke.NAME:
         smoke.update(api, cell)
         break
+      case fire.NAME:
+        fire.update(api, cell)
+        break
     }
   }
   generation++
@@ -130,4 +146,12 @@ const refreshUpperBound = () => {
 
 const getActive = () => activeCells
 
-export { init, getUpperBound, refreshUpperBound, draw, update, getActive }
+export {
+  init,
+  getUpperBound,
+  refreshUpperBound,
+  draw,
+  update,
+  getActive,
+  neighbors,
+}
