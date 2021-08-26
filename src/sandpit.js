@@ -34,6 +34,22 @@ const set = (x, y, cell = empty()) => {
   if (y < upperBound.y) upperBound = { x, y }
 }
 
+const neighbors = (range = 1) => {
+  return Array.from({ length: range }, (_, i) => {
+    const n = i + 1
+    return [
+      [n * -1, n * -1],
+      [n * -1, 0],
+      [n * -1, n * 1],
+      [0, n * -1],
+      [0, n * 1],
+      [n * 1, n * -1],
+      [n * 1, 0],
+      [n * 1, n * 1],
+    ]
+  }).flat()
+}
+
 const createApi = (cx, cy) => {
   const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
   const relativeSet = (dx, dy, cell) => set(cx + dx, cy + dy, cell)
@@ -62,7 +78,7 @@ const createApi = (cx, cy) => {
     set(cx, cy, c1)
   }
 
-  return { is, move, swap, set: relativeSet, get: relativeGet }
+  return { is, move, swap, set: relativeSet, get: relativeGet, neighbors }
 }
 
 const self = createApi(0, 0)
@@ -130,4 +146,12 @@ const refreshUpperBound = () => {
 
 const getActive = () => activeCells
 
-export { init, getUpperBound, refreshUpperBound, draw, update, getActive }
+export {
+  init,
+  getUpperBound,
+  refreshUpperBound,
+  draw,
+  update,
+  getActive,
+  neighbors,
+}
