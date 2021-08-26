@@ -1,5 +1,4 @@
 import { EMPTY, empty } from './empty'
-import * as water from './water'
 import * as wood from './wood'
 import * as smoke from './smoke'
 import * as element from '../element'
@@ -58,8 +57,6 @@ const burn = (sandpit, spreadChance) => {
 }
 
 const update = (sandpit, cell) => {
-  const above = sandpit.get(0, -1)
-
   switch (cell.phase) {
     case 'spark':
       if (chance(despawnChance)) {
@@ -109,4 +106,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, COLOR }
+export { NAME, make, update }
