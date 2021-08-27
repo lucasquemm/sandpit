@@ -10,6 +10,7 @@ import * as fire from './elements/fire'
 
 window.DEBUG = false
 const MAX_FPS = 60
+let now, elapsed, then, fpsInterval
 
 const tick = () => {
   sandpit.update()
@@ -30,7 +31,7 @@ const loop = () => {
 const start = () => {
   fpsInterval = 1000 / MAX_FPS
   then = Date.now()
-  startTime = then
+
   loop()
 }
 

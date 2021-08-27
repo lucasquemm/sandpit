@@ -26,4 +26,4 @@ const update = (sandpit) => {
   }
 }
 
-export { NAME, make, update, COLOR }
+export { NAME, make, update }
