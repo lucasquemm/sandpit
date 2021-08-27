@@ -13,7 +13,6 @@ let activeCells
 
 const init = (newSize = 100) => {
   generation = 1
-  boundingY = newSize
   defaultUpperBound = { x: 0, y: newSize }
   upperBound = defaultUpperBound
   size = newSize
