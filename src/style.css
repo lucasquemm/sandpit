@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
 canvas {
@@ -24,4 +25,13 @@ button {
   padding: 8px;
   background-color: rgb(199, 203, 206);
   max-width: 230px;
+}
+
+.elements {
+  display: flex;
+  flex-wrap: wrap;
+  float: right;
+  gap: 0px;
+  justify-content: stretch;
+  background-color: bisque;
 }
