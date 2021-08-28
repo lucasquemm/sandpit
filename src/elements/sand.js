@@ -1,5 +1,6 @@
 import { EMPTY } from './empty'
 import * as water from './water'
+import * as oil from './oil'
 import * as element from '../element'
 import { pickRand } from '../random'
 
@@ -15,6 +16,7 @@ const update = (sandpit) => {
     case EMPTY:
       sandpit.move(0, 1)
       break
+    case oil.NAME:
     case water.NAME:
       sandpit.swap(0, 1)
       break

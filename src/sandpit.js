@@ -3,6 +3,7 @@ import { empty, EMPTY } from './elements/empty'
 import * as water from './elements/water'
 import * as smoke from './elements/smoke'
 import * as fire from './elements/fire'
+import * as oil from './elements/oil'
 
 let cells = []
 let size = 0
@@ -130,6 +131,8 @@ const update = () => {
       case fire.NAME:
         fire.update(api, cell)
         break
+      case oil.NAME:
+        oil.update(api, cell)
     }
   }
   generation++
