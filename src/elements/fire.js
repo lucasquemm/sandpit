@@ -1,6 +1,7 @@
 import { EMPTY, empty } from './empty'
 import * as wood from './wood'
 import * as smoke from './smoke'
+import * as oil from './oil'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
@@ -32,7 +33,10 @@ const ignite = (sandpit) => {
   let igniteTarget
 
   for (let [nx, ny] of sandpit.neighbors(1)) {
-    if (chance(ignitingChance) && sandpit.is(nx, ny, wood.NAME)) {
+    if (
+      chance(ignitingChance) &&
+      (sandpit.is(nx, ny, wood.NAME) || sandpit.is(nx, ny, oil.NAME))
+    ) {
       igniteTarget = [nx, ny]
       break
     }
@@ -48,7 +52,10 @@ const burn = (sandpit, spreadChance) => {
   let burnTarget
 
   for (let [nx, ny] of sandpit.neighbors(2)) {
-    if (chance(spreadChance) && sandpit.is(nx, ny, wood.NAME)) {
+    if (
+      chance(spreadChance) &&
+      (sandpit.is(nx, ny, wood.NAME) || sandpit.is(nx, ny, oil.NAME))
+    ) {
       burnTarget = [nx, ny]
       break
     }
