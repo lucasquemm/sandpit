@@ -5,13 +5,18 @@ import { chance, pickRand, randInt } from '../random'
 
 const NAME = 'PLANT'
 
-const make = (energy = randInt(10, 20)) =>
-  element.make({
+const make = (energy, color = [122, 73, 36, 30]) => {
+  const isStem = chance(0.1)
+
+  return element.make({
     type: NAME,
-    energy,
-    direction: [pickRand([1, -1]), pickRand([1, -1])],
-    color: [122, 73, 36, 30],
+    kind: isStem ? 'stem' : 'bud',
+    energy:
+      energy !== undefined ? energy : isStem ? randInt(10, 15) : randInt(1, 5),
+    direction: [pickRand([1, 0, -1]), -1],
+    color,
   })
+}
 
 const update = (sandpit, cell) => {
   const [dx, dy] = cell.direction
