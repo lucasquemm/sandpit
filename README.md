@@ -1,4 +1,4 @@
-# sandpit
+# sandpit (WIP)
 
 A falling-sand game built with vanilla JavaScript and the Canvas API. [Play it here!](https://lucasquemm.github.io/sandpit/)
 
