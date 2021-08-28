@@ -18,15 +18,15 @@ const update = (sandpit, cell) => {
 
   if (sandpit.is(dx, dy, EMPTY)) {
     if (chance(0.2) && cell.energy > 0) {
-      cell.entropy--
-      sandpit.set(dx, dy, make(cell.entropy))
+      cell.energy--
+      sandpit.set(dx, dy, make(cell.energy))
     }
   }
 
   for (let [nx, ny] of sandpit.neighbors(1)) {
     if (chance(0.05) && sandpit.is(nx, ny, water.NAME)) {
       sandpit.set(nx, ny, empty())
-      sandpit.set(dx, dy, make(cell.entropy))
+      sandpit.set(dx, dy, make(cell.energy))
     }
   }
 }
