@@ -8,6 +8,7 @@ import * as smoke from './elements/smoke'
 import * as wood from './elements/wood'
 import * as fire from './elements/fire'
 import * as oil from './elements/oil'
+import * as plant from './elements/plant'
 
 window.DEBUG = false
 const MAX_FPS = 60
@@ -80,6 +81,7 @@ const smokeBtn = document.querySelector('#smoke-btn')
 const woodBtn = document.querySelector('#wood-btn')
 const fireBtn = document.querySelector('#fire-btn')
 const oilBtn = document.querySelector('#oil-btn')
+const plantBtn = document.querySelector('#plant-btn')
 
 const elements = {
   sand,
@@ -90,6 +92,7 @@ const elements = {
   wood,
   fire,
   oil,
+  plant,
 }
 
 const useElement = () => elements[selectedElement].make()
@@ -124,6 +127,10 @@ fireBtn.addEventListener('click', () => {
 
 oilBtn.addEventListener('click', () => {
   return (selectedElement = 'oil')
+})
+
+plantBtn.addEventListener('click', () => {
+  return (selectedElement = 'plant')
 })
 
 document.querySelector('#tick').addEventListener('click', tick)

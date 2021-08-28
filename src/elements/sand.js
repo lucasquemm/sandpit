@@ -6,7 +6,7 @@ import { pickRand } from '../random'
 
 const NAME = 'SAND'
 
-const make = () => element.make({ type: NAME, color: [46, 78, 75, 50] })
+const make = () => element.make({ type: NAME, color: [122, 73, 36, 30] })
 
 const update = (sandpit) => {
   const below = sandpit.get(0, 1)
