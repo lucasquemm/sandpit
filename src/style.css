@@ -32,6 +32,4 @@ button {
   flex-wrap: wrap;
   float: right;
   gap: 0px;
-  justify-content: stretch;
-  background-color: bisque;
 }
