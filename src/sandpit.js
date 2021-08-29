@@ -134,6 +134,7 @@ const update = () => {
         break
       case oil.NAME:
         oil.update(api, cell)
+        break
       case plant.NAME:
         plant.update(api, cell)
         break
