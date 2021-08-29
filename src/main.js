@@ -3,7 +3,7 @@ import * as canvas from './canvas'
 import elements from './elements'
 
 window.DEBUG = false
-const MAX_FPS = 260
+const MAX_FPS = 60
 let now, elapsed, then, fpsInterval
 
 const tick = () => {
