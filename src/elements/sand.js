@@ -4,9 +4,11 @@ import * as oil from './oil'
 import * as element from '../element'
 import { pickRand } from '../random'
 
+const BASE_COLOR = [46, 78, 75, 50]
+
 const NAME = 'SAND'
 
-const make = () => element.make({ type: NAME, color: [46, 78, 75, 50] })
+const make = () => element.make({ type: NAME, color: BASE_COLOR })
 
 const update = (sandpit) => {
   const below = sandpit.get(0, 1)
@@ -28,4 +30,4 @@ const update = (sandpit) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, BASE_COLOR }

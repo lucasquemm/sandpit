@@ -4,14 +4,23 @@
   padding: 0;
 }
 
-canvas {
-  background-color: aliceblue;
-  border: 1px solid;
+body {
+  font-family: 'VT323', monospace;
 }
 
 button {
   font-size: 16px;
+  font-family: inherit;
   margin: 2px 0px;
+  padding: 0px 8px;
+  border-radius: 0px;
+  text-transform: capitalize;
+  font-size: 24px;
+}
+
+canvas {
+  background-color: aliceblue;
+  border: 1px solid;
 }
 
 .principal {
@@ -32,4 +41,30 @@ button {
   flex-wrap: wrap;
   float: right;
   gap: 0px;
+}
+
+.element-btn {
+  opacity: 0.6;
+  position: relative;
+  cursor: pointer;
+}
+
+.element-btn::before {
+  content: '';
+  background-image: url('../button-bg.png');
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+}
+
+.element-selected {
+  opacity: 1;
+  border: 2px dashed black;
+}
+
+.hidden {
+  display: none;
 }

@@ -4,13 +4,15 @@ import * as fire from './fire'
 import * as water from './water'
 import { chance, pickRand } from '../random'
 
+const BASE_COLOR = [25, 59, 41, 48]
+
 const NAME = 'OIL'
 
 const make = () =>
   element.make({
     type: NAME,
     direction: pickRand([1, -1]),
-    color: [25, 59, 41, 48],
+    color: BASE_COLOR,
   })
 
 const update = (sandpit, cell) => {
@@ -46,4 +48,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, BASE_COLOR }
