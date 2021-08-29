@@ -2,6 +2,7 @@ const width = 500
 const height = 500
 const cellSize = 5
 const canvas = document.querySelector('canvas')
+
 const ctx = canvas.getContext('2d', { alpha: false })
 const dpr = window.devicePixelRatio || 1
 const boundsOffset = 5
@@ -31,7 +32,10 @@ const draw = (world) => {
     ctx.fillStyle = color
     const blocks = activeCells[color]
 
-    for (let { x, y } of blocks) {
+    let i = blocks.length
+
+    while (i--) {
+      const { x, y } = blocks[i]
       ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
     }
   }

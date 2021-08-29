@@ -7,7 +7,8 @@ let size = 0
 let generation
 let upperBound
 let defaultUpperBound
-let activeCells
+let activeCells = {}
+const BOUNDS = { type: 'BOUNDS' }
 
 const init = (newSize = 100) => {
   generation = 1
@@ -18,7 +19,7 @@ const init = (newSize = 100) => {
 }
 
 const get = (x, y) => {
-  if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
+  if (x < 0 || y < 0 || x >= size || y >= size) return BOUNDS
 
   return cells[getIndex(x, y)]
 }
@@ -90,15 +91,21 @@ const createApi = (cx, cy) => {
   }
 }
 
+const coordsCache = {}
+
 const self = createApi(0, 0)
 
 const getIndex = (x, y) => x * size + y
 
 const getCoords = (index) => {
+  const cache = coordsCache[index]
+
+  if (cache !== undefined) return cache
+
   const y = index % size
   const x = (index - y) / size
 
-  return [x, y]
+  return (coordsCache[index] = [x, y])
 }
 
 const draw = (x, y, cell) => {
@@ -118,17 +125,21 @@ const update = () => {
     const cell = cells[i]
 
     if (cell.type !== EMPTY) {
-      if (cell.color in activeCells) {
-        activeCells[cell.color].push({ x, y, cell })
+      const cellsForColor = activeCells[cell.color]
+      if (cellsForColor !== undefined) {
+        cellsForColor.push({ x, y, cell })
       } else {
         activeCells[cell.color] = [{ x, y, cell }]
       }
     }
 
-    if (cell.type in activeElements) {
-      activeElements[cell.type].update(createApi(x, y), cell)
+    const element = activeElements[cell.type]
+
+    if (element !== undefined) {
+      element.update(createApi(x, y), cell)
     }
   }
+
   generation++
 }
 

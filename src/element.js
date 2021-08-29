@@ -18,4 +18,5 @@ const setColor = (color, cell) => {
 const refreshColor = (cell) => {
   cell.color = createColor(cell.colorInput)
 }
+
 export { make, refreshColor, setColor }
