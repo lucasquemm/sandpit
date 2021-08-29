@@ -1,19 +1,27 @@
-const width = 500
-const height = 500
+const width = 900
+const height = 900
 const cellSize = 5
-const canvas = document.querySelector('canvas')
-
-const ctx = canvas.getContext('2d', { alpha: false })
-const dpr = window.devicePixelRatio || 1
 const boundsOffset = 5
+let ctx
 
-canvas.width = width * dpr
-canvas.height = height * dpr
-canvas.style.width = `${width}px`
-canvas.style.height = `${height}px`
-ctx.scale(dpr, dpr)
-ctx.fillStyle = 'white'
-ctx.fillRect(0, 0, width, height)
+const init = () => {
+  const canvas = document.createElement('canvas')
+
+  ctx = canvas.getContext('2d', { alpha: false })
+
+  const dpr = window.devicePixelRatio || 1
+
+  canvas.width = width * dpr
+  canvas.height = height * dpr
+  canvas.style.width = `${width}px`
+  canvas.style.height = `${height}px`
+  document.querySelector('#canvas-target').prepend(canvas)
+  ctx.scale(dpr, dpr)
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, 0, width, height)
+
+  return canvas
+}
 
 const draw = (world) => {
   const boundingY = world.getUpperBound() * cellSize - boundsOffset
@@ -43,4 +51,4 @@ const draw = (world) => {
   world.refreshUpperBound()
 }
 
-export { draw, cellSize }
+export { init, draw, cellSize }

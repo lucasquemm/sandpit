@@ -26,6 +26,7 @@ canvas {
 .principal {
   width: max-content;
   display: flex;
+  margin: 16px auto;
 }
 
 .painel {

@@ -3,7 +3,7 @@ import * as canvas from './canvas'
 import elements from './elements'
 
 window.DEBUG = false
-const MAX_FPS = 60
+const MAX_FPS = 260
 let now, elapsed, then, fpsInterval
 
 const tick = () => {
@@ -25,43 +25,8 @@ const loop = () => {
 const start = () => {
   fpsInterval = 1000 / MAX_FPS
   then = Date.now()
-
   loop()
 }
-
-const $canvas = document.querySelector('#canvas')
-
-let drawing = false
-
-const coord = (c) => Math.floor(c / canvas.cellSize)
-
-const getCoords = (e) => {
-  const x = coord(e.x)
-  const y = coord(e.y)
-
-  return [
-    [x, y],
-    [x + 1, y],
-    [x - 1, y],
-    [x, y + 1],
-    [x, y - 1],
-  ]
-}
-
-const handleDrawing = (e) => {
-  getCoords(e).forEach((coords) => sandpit.draw(...coords, useElement()))
-}
-
-$canvas.addEventListener('mousemove', (e) => {
-  if (drawing) handleDrawing(e)
-})
-$canvas.addEventListener('click', handleDrawing)
-$canvas.addEventListener('mousedown', () => {
-  drawing = true
-})
-$canvas.addEventListener('mouseup', () => {
-  drawing = false
-})
 
 let selectedElement = elements.sand
 let previousElementBtn
@@ -91,19 +56,52 @@ Object.values(elements).forEach((element) => {
   elementsGrid.appendChild(btn)
 })
 
-const useElement = () => selectedElement.make()
-
 const tickBtn = document.querySelector('#tick')
-
-tickBtn.classList.add('hidden')
 
 tickBtn.addEventListener('click', tick)
 
-if (window.DEBUG) {
-  tickBtn.classList.remove('hidden')
+if (!window.DEBUG) {
+  tickBtn.classList.add('hidden')
 }
 
-sandpit.init()
+const $canvas = canvas.init()
+const canvasBounds = $canvas.getBoundingClientRect()
+
+let drawing = false
+
+const coord = (c) => Math.floor(c / canvas.cellSize)
+
+const getCoords = (e) => {
+  const x = coord(e.x - canvasBounds.x)
+  const y = coord(e.y - canvasBounds.y)
+
+  return [
+    [x, y],
+    [x + 1, y],
+    [x - 1, y],
+    [x, y + 1],
+    [x, y - 1],
+  ]
+}
+
+const handleDrawing = (e) => {
+  getCoords(e).forEach((coords) =>
+    sandpit.draw(...coords, selectedElement.make()),
+  )
+}
+
+$canvas.addEventListener('mousemove', (e) => {
+  if (drawing) handleDrawing(e)
+})
+$canvas.addEventListener('click', handleDrawing)
+$canvas.addEventListener('mousedown', () => {
+  drawing = true
+})
+$canvas.addEventListener('mouseup', () => {
+  drawing = false
+})
+
+sandpit.init(180)
 
 if (!window.DEBUG) {
   start()
