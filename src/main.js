@@ -1,6 +1,6 @@
 import * as sandpit from './sandpit'
 import * as canvas from './canvas'
-import * as elements from './elements'
+import elements from './elements'
 
 window.DEBUG = false
 const MAX_FPS = 60
@@ -63,55 +63,22 @@ $canvas.addEventListener('mouseup', () => {
   drawing = false
 })
 
-let selectedElement = 'sand'
+let selectedElement = elements.sand
 
-const stoneBtn = document.querySelector('#pedra-btn')
-const sandBtn = document.querySelector('#areia-btn')
-const emptyBtn = document.querySelector('#ar-btn')
-const waterBtn = document.querySelector('#water-btn')
-const smokeBtn = document.querySelector('#smoke-btn')
-const woodBtn = document.querySelector('#wood-btn')
-const fireBtn = document.querySelector('#fire-btn')
-const oilBtn = document.querySelector('#oil-btn')
-const plantBtn = document.querySelector('#plant-btn')
+const panel = document.querySelector('#element-ui')
 
-const useElement = () => elements[selectedElement].make()
+Object.values(elements).forEach((element) => {
+  const btn = document.createElement('button')
 
-stoneBtn.addEventListener('click', () => {
-  return (selectedElement = 'stone')
+  btn.textContent = element.NAME
+  btn.addEventListener('click', () => {
+    return (selectedElement = element)
+  })
+
+  panel.appendChild(btn)
 })
 
-sandBtn.addEventListener('click', () => {
-  return (selectedElement = 'sand')
-})
-
-emptyBtn.addEventListener('click', () => {
-  return (selectedElement = 'empty')
-})
-
-waterBtn.addEventListener('click', () => {
-  return (selectedElement = 'water')
-})
-
-smokeBtn.addEventListener('click', () => {
-  return (selectedElement = 'smoke')
-})
-
-woodBtn.addEventListener('click', () => {
-  return (selectedElement = 'wood')
-})
-
-fireBtn.addEventListener('click', () => {
-  return (selectedElement = 'fire')
-})
-
-oilBtn.addEventListener('click', () => {
-  return (selectedElement = 'oil')
-})
-
-plantBtn.addEventListener('click', () => {
-  return (selectedElement = 'plant')
-})
+const useElement = () => selectedElement.make()
 
 document.querySelector('#tick').addEventListener('click', tick)
 

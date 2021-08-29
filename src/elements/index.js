@@ -8,7 +8,7 @@ import * as fire from './fire'
 import * as oil from './oil'
 import * as plant from './plant'
 
-const activeElements = {
+export const activeElements = {
   [sand.NAME]: sand,
   [water.NAME]: water,
   [smoke.NAME]: smoke,
@@ -17,8 +17,7 @@ const activeElements = {
   [plant.NAME]: plant,
 }
 
-export {
-  activeElements,
+export default {
   sand,
   stone,
   empty,
