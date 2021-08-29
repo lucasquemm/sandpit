@@ -4,6 +4,8 @@ import * as fire from './fire'
 import * as oil from './oil'
 import { chance, pickRand } from '../random'
 
+const BASE_COLOR = [216, 65, 60, 50]
+
 const NAME = 'WATER'
 
 const make = () =>
@@ -11,7 +13,7 @@ const make = () =>
     type: NAME,
     slimey: false,
     direction: pickRand([1, -1]),
-    color: [216, 65, 60, 50],
+    color: BASE_COLOR,
   })
 
 const update = (sandpit, cell) => {
@@ -51,4 +53,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, BASE_COLOR }

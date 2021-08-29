@@ -64,23 +64,44 @@ $canvas.addEventListener('mouseup', () => {
 })
 
 let selectedElement = elements.sand
+let previousElementBtn
 
-const panel = document.querySelector('#element-ui')
+const elementsGrid = document.querySelector('.elements')
 
 Object.values(elements).forEach((element) => {
   const btn = document.createElement('button')
+  const [h, s, l] = element.BASE_COLOR || []
 
-  btn.textContent = element.NAME
+  if (element.NAME == elements.sand.NAME) {
+    previousElementBtn = btn
+    btn.classList.add('element-selected')
+  }
+  btn.textContent = element.NAME.toLowerCase()
+  btn.classList.add(element.NAME.toLowerCase() + '-btn')
+  btn.classList.add('element-btn')
+  btn.style.background = `hsl(${h}deg ${s}% ${l}%)`
+
   btn.addEventListener('click', () => {
+    previousElementBtn.classList.remove('element-selected')
+    btn.classList.add('element-selected')
+    previousElementBtn = btn
     return (selectedElement = element)
   })
 
-  panel.appendChild(btn)
+  elementsGrid.appendChild(btn)
 })
 
 const useElement = () => selectedElement.make()
 
-document.querySelector('#tick').addEventListener('click', tick)
+const tickBtn = document.querySelector('#tick')
+
+tickBtn.classList.add('hidden')
+
+tickBtn.addEventListener('click', tick)
+
+if (window.DEBUG) {
+  tickBtn.classList.remove('hidden')
+}
 
 sandpit.init()
 

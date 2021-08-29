@@ -4,6 +4,8 @@ import * as oil from './oil'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
+const BASE_COLOR = [130, 79, 84, 80]
+
 const NAME = 'SLIME'
 
 const make = () =>
@@ -63,4 +65,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, BASE_COLOR }

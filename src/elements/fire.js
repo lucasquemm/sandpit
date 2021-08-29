@@ -22,6 +22,8 @@ const red1 = [7, 82, 56, 66]
 const red2 = [7, 82, 49, 59]
 const red3 = [7, 87, 33, 43]
 
+const BASE_COLOR = orange1
+
 const make = (phase = 'spark') =>
   element.make({
     type: NAME,
@@ -118,4 +120,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, BASE_COLOR }

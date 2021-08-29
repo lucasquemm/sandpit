@@ -3,6 +3,8 @@ import { EMPTY, empty } from './empty'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
+const BASE_COLOR = [4, 2, 79, 90]
+
 const NAME = 'SMOKE'
 const despawnChance = 0.015
 const chanceOfGoingStraight = 0.95
@@ -12,7 +14,7 @@ const make = () =>
   element.make({
     type: NAME,
     direction: pickRand([1, -1]),
-    color: [4, 2, 79, 90],
+    color: BASE_COLOR,
   })
 
 const update = (sandpit, cell) => {
@@ -42,4 +44,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update }
+export { NAME, make, update, BASE_COLOR }
