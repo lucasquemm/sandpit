@@ -42,7 +42,7 @@ const update = (sandpit, cell) => {
   }
 
   if (chance(0.005)) {
-    element.updateColor(cell)
+    element.refreshColor(cell)
   }
 }
 

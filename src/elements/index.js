@@ -7,6 +7,7 @@ import * as wood from './wood'
 import * as fire from './fire'
 import * as oil from './oil'
 import * as plant from './plant'
+import * as slime from './slime'
 
 export const activeElements = {
   [sand.NAME]: sand,
@@ -15,6 +16,7 @@ export const activeElements = {
   [fire.NAME]: fire,
   [oil.NAME]: oil,
   [plant.NAME]: plant,
+  [slime.NAME]: slime,
 }
 
 export default {
@@ -27,4 +29,5 @@ export default {
   fire,
   oil,
   plant,
+  slime,
 }

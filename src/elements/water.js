@@ -9,6 +9,7 @@ const NAME = 'WATER'
 const make = () =>
   element.make({
     type: NAME,
+    slimey: false,
     direction: pickRand([1, -1]),
     color: [216, 65, 60, 50],
   })
@@ -41,7 +42,12 @@ const update = (sandpit, cell) => {
   }
 
   if (chance(0.005)) {
-    element.updateColor(cell)
+    element.refreshColor(cell)
+  }
+
+  if (cell.slimey) {
+    element.setColor([163, 79, 79, 75], cell)
+    cell.slimey = false
   }
 }
 
