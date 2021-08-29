@@ -1,14 +1,6 @@
 import * as sandpit from './sandpit'
 import * as canvas from './canvas'
-import * as sand from './elements/sand'
-import * as stone from './elements/stone'
-import { empty } from './elements/empty'
-import * as water from './elements/water'
-import * as smoke from './elements/smoke'
-import * as wood from './elements/wood'
-import * as fire from './elements/fire'
-import * as oil from './elements/oil'
-import * as plant from './elements/plant'
+import * as elements from './elements'
 
 window.DEBUG = false
 const MAX_FPS = 60
@@ -82,18 +74,6 @@ const woodBtn = document.querySelector('#wood-btn')
 const fireBtn = document.querySelector('#fire-btn')
 const oilBtn = document.querySelector('#oil-btn')
 const plantBtn = document.querySelector('#plant-btn')
-
-const elements = {
-  sand,
-  stone,
-  empty: { make: empty },
-  water,
-  smoke,
-  wood,
-  fire,
-  oil,
-  plant,
-}
 
 const useElement = () => elements[selectedElement].make()
 

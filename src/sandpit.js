@@ -1,10 +1,6 @@
-import * as sand from './elements/sand'
 import { empty, EMPTY } from './elements/empty'
-import * as water from './elements/water'
-import * as smoke from './elements/smoke'
-import * as fire from './elements/fire'
-import * as oil from './elements/oil'
-import * as plant from './elements/plant'
+
+import { activeElements } from './elements'
 
 let cells = []
 let size = 0
@@ -117,27 +113,8 @@ const update = () => {
       }
     }
 
-    const api = createApi(x, y)
-
-    switch (cell.type) {
-      case sand.NAME:
-        sand.update(api, cell)
-        break
-      case water.NAME:
-        water.update(api, cell)
-        break
-      case smoke.NAME:
-        smoke.update(api, cell)
-        break
-      case fire.NAME:
-        fire.update(api, cell)
-        break
-      case oil.NAME:
-        oil.update(api, cell)
-        break
-      case plant.NAME:
-        plant.update(api, cell)
-        break
+    if (cell.type in activeElements) {
+      activeElements[cell.type].update(createApi(x, y), cell)
     }
   }
   generation++
