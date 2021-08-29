@@ -1,10 +1,6 @@
-import * as sand from './elements/sand'
 import { empty, EMPTY } from './elements/empty'
-import * as water from './elements/water'
-import * as smoke from './elements/smoke'
-import * as fire from './elements/fire'
-import * as oil from './elements/oil'
-import * as plant from './elements/plant'
+
+import { activeElements } from './elements'
 
 let cells = []
 let size = 0
@@ -20,6 +16,7 @@ const init = (newSize = 100) => {
   size = newSize
   cells = Array.from({ length: size * size }, () => empty())
 }
+
 const get = (x, y) => {
   if (x < 0 || y < 0 || x >= size || y >= size) return { type: 'BOUNDS' }
 
@@ -35,7 +32,7 @@ const set = (x, y, cell = empty()) => {
   if (y < upperBound.y) upperBound = { x, y }
 }
 
-const neighbors = (range = 1) => {
+const makeNeighbors = (range = 1) => {
   return Array.from({ length: range }, (_, i) => {
     const n = i + 1
     return [
@@ -50,6 +47,9 @@ const neighbors = (range = 1) => {
     ]
   }).flat()
 }
+
+const neighbors1 = makeNeighbors(1)
+const neighbors2 = makeNeighbors(2)
 
 const createApi = (cx, cy) => {
   const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
@@ -79,7 +79,15 @@ const createApi = (cx, cy) => {
     set(cx, cy, c1)
   }
 
-  return { is, move, swap, set: relativeSet, get: relativeGet, neighbors }
+  return {
+    is,
+    move,
+    swap,
+    set: relativeSet,
+    get: relativeGet,
+    neighbors1,
+    neighbors2,
+  }
 }
 
 const self = createApi(0, 0)
@@ -117,27 +125,8 @@ const update = () => {
       }
     }
 
-    const api = createApi(x, y)
-
-    switch (cell.type) {
-      case sand.NAME:
-        sand.update(api, cell)
-        break
-      case water.NAME:
-        water.update(api, cell)
-        break
-      case smoke.NAME:
-        smoke.update(api, cell)
-        break
-      case fire.NAME:
-        fire.update(api, cell)
-        break
-      case oil.NAME:
-        oil.update(api, cell)
-        break
-      case plant.NAME:
-        plant.update(api, cell)
-        break
+    if (cell.type in activeElements) {
+      activeElements[cell.type].update(createApi(x, y), cell)
     }
   }
   generation++
@@ -153,12 +142,4 @@ const refreshUpperBound = () => {
 
 const getActive = () => activeCells
 
-export {
-  init,
-  getUpperBound,
-  refreshUpperBound,
-  draw,
-  update,
-  getActive,
-  neighbors,
-}
+export { init, getUpperBound, refreshUpperBound, draw, update, getActive }

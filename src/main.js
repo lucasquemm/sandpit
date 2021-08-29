@@ -1,14 +1,6 @@
 import * as sandpit from './sandpit'
 import * as canvas from './canvas'
-import * as sand from './elements/sand'
-import * as stone from './elements/stone'
-import { empty } from './elements/empty'
-import * as water from './elements/water'
-import * as smoke from './elements/smoke'
-import * as wood from './elements/wood'
-import * as fire from './elements/fire'
-import * as oil from './elements/oil'
-import * as plant from './elements/plant'
+import elements from './elements'
 
 window.DEBUG = false
 const MAX_FPS = 60
@@ -71,67 +63,22 @@ $canvas.addEventListener('mouseup', () => {
   drawing = false
 })
 
-let selectedElement = 'sand'
+let selectedElement = elements.sand
 
-const stoneBtn = document.querySelector('#pedra-btn')
-const sandBtn = document.querySelector('#areia-btn')
-const emptyBtn = document.querySelector('#ar-btn')
-const waterBtn = document.querySelector('#water-btn')
-const smokeBtn = document.querySelector('#smoke-btn')
-const woodBtn = document.querySelector('#wood-btn')
-const fireBtn = document.querySelector('#fire-btn')
-const oilBtn = document.querySelector('#oil-btn')
-const plantBtn = document.querySelector('#plant-btn')
+const panel = document.querySelector('#element-ui')
 
-const elements = {
-  sand,
-  stone,
-  empty: { make: empty },
-  water,
-  smoke,
-  wood,
-  fire,
-  oil,
-  plant,
-}
+Object.values(elements).forEach((element) => {
+  const btn = document.createElement('button')
 
-const useElement = () => elements[selectedElement].make()
+  btn.textContent = element.NAME
+  btn.addEventListener('click', () => {
+    return (selectedElement = element)
+  })
 
-stoneBtn.addEventListener('click', () => {
-  return (selectedElement = 'stone')
+  panel.appendChild(btn)
 })
 
-sandBtn.addEventListener('click', () => {
-  return (selectedElement = 'sand')
-})
-
-emptyBtn.addEventListener('click', () => {
-  return (selectedElement = 'empty')
-})
-
-waterBtn.addEventListener('click', () => {
-  return (selectedElement = 'water')
-})
-
-smokeBtn.addEventListener('click', () => {
-  return (selectedElement = 'smoke')
-})
-
-woodBtn.addEventListener('click', () => {
-  return (selectedElement = 'wood')
-})
-
-fireBtn.addEventListener('click', () => {
-  return (selectedElement = 'fire')
-})
-
-oilBtn.addEventListener('click', () => {
-  return (selectedElement = 'oil')
-})
-
-plantBtn.addEventListener('click', () => {
-  return (selectedElement = 'plant')
-})
+const useElement = () => selectedElement.make()
 
 document.querySelector('#tick').addEventListener('click', tick)
 

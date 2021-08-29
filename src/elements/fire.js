@@ -33,7 +33,7 @@ const make = (phase = 'spark') =>
 const ignite = (sandpit) => {
   let igniteTarget
 
-  for (let [nx, ny] of sandpit.neighbors(1)) {
+  for (let [nx, ny] of sandpit.neighbors1) {
     if (
       chance(ignitingChance) &&
       (sandpit.is(nx, ny, wood.NAME) ||
@@ -54,7 +54,7 @@ const ignite = (sandpit) => {
 const burn = (sandpit, spreadChance) => {
   let burnTarget
 
-  for (let [nx, ny] of sandpit.neighbors(2)) {
+  for (let [nx, ny] of sandpit.neighbors2) {
     if (
       chance(spreadChance) &&
       (sandpit.is(nx, ny, wood.NAME) ||
@@ -105,7 +105,7 @@ const update = (sandpit, cell) => {
 
       let noNeighbors = true
 
-      for (let [nx, ny] of sandpit.neighbors(1)) {
+      for (let [nx, ny] of sandpit.neighbors1) {
         if (!sandpit.is(nx, ny, EMPTY)) {
           noNeighbors = false
           break
