@@ -42,7 +42,7 @@ const update = (sandpit, cell) => {
 
       break
     case oil.NAME:
-      if (unstuck && chance(0.05)) sandpit.swap(0, 1)
+      sandpit.swap(0, 1)
       break
     case water.NAME:
       if (chance(0.05)) sandpit.set(0, 0, empty())
