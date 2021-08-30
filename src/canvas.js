@@ -29,7 +29,7 @@ const draw = (world) => {
   ctx.fillStyle = 'white'
   ctx.fillRect(0, boundingY, width, height - boundingY)
 
-  if (window.DEBUG) {
+  if (true) {
     ctx.fillStyle = 'red'
     ctx.fillRect(0, boundingY, width, 1)
   }
@@ -47,8 +47,6 @@ const draw = (world) => {
       ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
     }
   }
-
-  world.refreshUpperBound()
 }
 
 export { init, draw, cellSize }
