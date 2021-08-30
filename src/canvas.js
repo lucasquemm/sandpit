@@ -29,7 +29,7 @@ const draw = (world) => {
   ctx.fillStyle = 'white'
   ctx.fillRect(0, boundingY, width, height - boundingY)
 
-  if (true) {
+  if (window.DEBUG) {
     ctx.fillStyle = 'red'
     ctx.fillRect(0, boundingY, width, 1)
   }
