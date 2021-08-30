@@ -22,8 +22,9 @@ const make = (energy, color = BASE_COLOR) => {
 
 const update = (sandpit, cell) => {
   const [dx, dy] = cell.direction
+  const canGrow = sandpit.is(dx, dy, EMPTY)
 
-  if (sandpit.is(dx, dy, EMPTY)) {
+  if (canGrow) {
     if (chance(0.2) && cell.energy > 0) {
       cell.energy--
       sandpit.set(dx, dy, make(cell.energy))
@@ -31,7 +32,7 @@ const update = (sandpit, cell) => {
   }
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (chance(0.05) && sandpit.is(nx, ny, water.NAME)) {
+    if (chance(0.05) && canGrow && sandpit.is(nx, ny, water.NAME)) {
       sandpit.set(nx, ny, empty())
       sandpit.set(dx, dy, make(cell.energy))
     }

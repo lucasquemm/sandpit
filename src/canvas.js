@@ -47,8 +47,6 @@ const draw = (world) => {
       ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
     }
   }
-
-  world.refreshUpperBound()
 }
 
 export { init, draw, cellSize }

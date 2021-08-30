@@ -20,7 +20,6 @@ const init = (newSize = 100) => {
 
 const get = (x, y) => {
   if (x < 0 || y < 0 || x >= size || y >= size) return BOUNDS
-
   return cells[getIndex(x, y)]
 }
 
@@ -109,6 +108,7 @@ const getCoords = (index) => {
 }
 
 const draw = (x, y, cell) => {
+  if (x < 0 || y < 0 || x >= size || y >= size) return
   if (cell.type === EMPTY || self.is(x, y, EMPTY)) {
     const index = getIndex(x, y)
     cell.clock = generation

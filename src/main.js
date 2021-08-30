@@ -99,6 +99,7 @@ $canvas.addEventListener('mousedown', () => {
 })
 $canvas.addEventListener('mouseup', () => {
   drawing = false
+  sandpit.refreshUpperBound()
 })
 
 sandpit.init(180)
