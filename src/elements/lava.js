@@ -2,6 +2,9 @@ import { EMPTY } from './empty'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 import * as fire from './fire'
+import * as water from './water'
+import * as stone from './stone'
+import * as smoke from './smoke'
 
 const BASE_COLOR = [20, 64, 55, 50]
 
@@ -39,8 +42,13 @@ const update = (sandpit, cell) => {
   }
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (sandpit.get(nx, ny).flammable) {
+    const nbr = sandpit.get(nx, ny)
+
+    if (nbr.flammable) {
       sandpit.set(nx, ny, fire.make('blaze'))
+    } else if (nbr.type === water.NAME) {
+      sandpit.set(0, 0, stone.make())
+      sandpit.set(nx, ny, smoke.make())
     }
   }
 }
