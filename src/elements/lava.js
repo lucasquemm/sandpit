@@ -51,6 +51,10 @@ const update = (sandpit, cell) => {
       sandpit.set(nx, ny, smoke.make())
     }
   }
+
+  if (chance(0.005)) {
+    element.refreshColor(cell)
+  }
 }
 
 export { NAME, make, update, BASE_COLOR }
