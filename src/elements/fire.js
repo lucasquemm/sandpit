@@ -36,12 +36,7 @@ const ignite = (sandpit) => {
   let igniteTarget
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (
-      chance(ignitingChance) &&
-      (sandpit.is(nx, ny, wood.NAME) ||
-        sandpit.is(nx, ny, oil.NAME) ||
-        sandpit.is(nx, ny, plant.NAME))
-    ) {
+    if (chance(ignitingChance) && sandpit.get(nx, ny).flammable) {
       igniteTarget = [nx, ny]
       break
     }
@@ -57,12 +52,7 @@ const burn = (sandpit, spreadChance) => {
   let burnTarget
 
   for (let [nx, ny] of sandpit.neighbors2) {
-    if (
-      chance(spreadChance) &&
-      (sandpit.is(nx, ny, wood.NAME) ||
-        sandpit.is(nx, ny, oil.NAME) ||
-        sandpit.is(nx, ny, plant.NAME))
-    ) {
+    if (chance(spreadChance) && sandpit.get(nx, ny).flammable) {
       burnTarget = [nx, ny]
       break
     }
