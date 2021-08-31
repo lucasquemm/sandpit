@@ -100,7 +100,7 @@ const update = (sandpit, cell) => {
       } else if (sandpit.is(0, -1, EMPTY)) {
         if (chance(looseFlameChance)) {
           sandpit.set(0, -1, make())
-        } else if (chance(0.15)) {
+        } else if (chance(0.05)) {
           sandpit.set(0, -1, smoke.make())
         }
       }

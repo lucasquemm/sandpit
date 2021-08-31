@@ -13,6 +13,7 @@ const make = (energy, color = BASE_COLOR) => {
   return element.make({
     type: NAME,
     kind: isStem ? 'stem' : 'bud',
+    flammable: true,
     energy:
       energy !== undefined ? energy : isStem ? randInt(10, 15) : randInt(1, 5),
     direction: [pickRand([1, 0, -1]), -1],
