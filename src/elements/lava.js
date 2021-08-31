@@ -1,17 +1,15 @@
 import { EMPTY } from './empty'
 import * as element from '../element'
-import * as fire from './fire'
-import * as water from './water'
 import { chance, pickRand } from '../random'
+import * as fire from './fire'
 
-const BASE_COLOR = [25, 59, 41, 48]
+const BASE_COLOR = [20, 64, 55, 50]
 
-const NAME = 'OIL'
+const NAME = 'LAVA'
 
 const make = () =>
   element.make({
     type: NAME,
-    flammable: true,
     direction: pickRand([1, -1]),
     color: BASE_COLOR,
   })
@@ -20,7 +18,6 @@ const update = (sandpit, cell) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {
-    case fire.NAME:
     case EMPTY:
       sandpit.move(0, 1)
       break
@@ -29,23 +26,22 @@ const update = (sandpit, cell) => {
         sandpit.move(cell.direction, 1)
       }
       break
-    case water.NAME:
-      if (sandpit.is(cell.direction, -1, water.NAME)) {
-        sandpit.swap(cell.direction, -1)
-      }
-      break
   }
 
-  if (sandpit.is(cell.direction, 0, EMPTY)) {
+  if (chance(0.5) && sandpit.is(cell.direction, 0, EMPTY)) {
     sandpit.move(cell.direction, 0)
-  } else if (chance(0.5) && sandpit.is(cell.direction, 0, water.NAME)) {
-    sandpit.swap(cell.direction, 0)
   } else {
     cell.direction *= -1
   }
 
-  if (chance(0.005)) {
-    element.refreshColor(cell)
+  if (chance(0.005) && sandpit.is(0, -1, EMPTY)) {
+    sandpit.set(0, -1, fire.make())
+  }
+
+  for (let [nx, ny] of sandpit.neighbors1) {
+    if (sandpit.get(nx, ny).flammable) {
+      sandpit.set(nx, ny, fire.make('blaze'))
+    }
   }
 }
 
