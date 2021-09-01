@@ -34,7 +34,7 @@ const update = (sandpit, cell) => {
   }
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (chance(0.05) && canGrow && sandpit.is(nx, ny, water.NAME)) {
+    if (chance(0.05) && sandpit.is(nx, ny, water.NAME)) {
       sandpit.set(nx, ny, empty())
       sandpit.set(dx, dy, make(cell.energy))
     }
