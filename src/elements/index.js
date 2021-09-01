@@ -10,6 +10,7 @@ import * as plant from './plant'
 import * as slime from './slime'
 import * as lava from './lava'
 import * as bug from './bug'
+import * as gunpowder from './gunpowder'
 
 export const activeElements = {
   [sand.NAME]: sand,
@@ -21,6 +22,7 @@ export const activeElements = {
   [slime.NAME]: slime,
   [lava.NAME]: lava,
   [bug.NAME]: bug,
+  [gunpowder.NAME]: gunpowder,
 }
 
 export default {
@@ -36,4 +38,5 @@ export default {
   slime,
   lava,
   bug,
+  gunpowder,
 }
