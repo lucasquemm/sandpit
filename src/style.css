@@ -67,6 +67,32 @@ canvas {
   border: 2px dashed black;
 }
 
+.tools {
+  margin: 8px 0px;
+  background-color: aliceblue;
+  display: flex;
+  flex-wrap: wrap;
+  float: right;
+  gap: 0px;
+}
+
+.tool-btn {
+  opacity: 0.6;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+}
+
+.tool-selected {
+  opacity: 1;
+  border: 2px dashed black;
+}
+
+.reset-btn {
+  opacity: 1;
+  background-color: rgba(148, 1, 1, 0.781);
+}
+
 .hidden {
   display: none;
 }

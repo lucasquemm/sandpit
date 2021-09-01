@@ -37,7 +37,7 @@ Object.values(elements).forEach((element) => {
   const btn = document.createElement('button')
   const [h, s, l] = element.BASE_COLOR || []
 
-  if (element.NAME == elements.sand.NAME) {
+  if (element.NAME === elements.sand.NAME) {
     previousElementBtn = btn
     btn.classList.add('element-selected')
   }
@@ -55,6 +55,47 @@ Object.values(elements).forEach((element) => {
 
   elementsGrid.appendChild(btn)
 })
+
+const toolSizes = [1, 4, 8, 12]
+
+const toolsGrid = document.querySelector('.tools')
+
+let selectedSize = 1
+let previousSize
+
+toolSizes.forEach((tool) => {
+  const btn = document.createElement('button')
+  btn.classList.add('tool-btn')
+
+  if (selectedSize === tool) {
+    previousSize = btn
+    btn.classList.add('tool-selected')
+  }
+
+  btn.textContent = tool
+
+  btn.addEventListener('click', () => {
+    previousSize.classList.remove('tool-selected')
+    btn.classList.add('tool-selected')
+    previousSize = btn
+    return (selectedSize = tool)
+  })
+
+  toolsGrid.appendChild(btn)
+})
+
+const resetBtn = document.createElement('button')
+
+resetBtn.classList.add('tool-btn')
+resetBtn.classList.add('reset-btn')
+
+resetBtn.textContent = 'RESET'
+
+resetBtn.addEventListener('click', () => {
+  window.location.reload()
+})
+
+toolsGrid.appendChild(resetBtn)
 
 const tickBtn = document.querySelector('#tick')
 
@@ -75,13 +116,7 @@ const getCoords = (e) => {
   const x = coord(e.x - canvasBounds.x)
   const y = coord(e.y - canvasBounds.y)
 
-  return [
-    [x, y],
-    [x + 1, y],
-    [x - 1, y],
-    [x, y + 1],
-    [x, y - 1],
-  ]
+  return sandpit.getCirularNeighbors(selectedSize, [x, y])
 }
 
 const handleDrawing = (e) => {
@@ -102,7 +137,7 @@ $canvas.addEventListener('mouseup', () => {
   sandpit.refreshUpperBound()
 })
 
-sandpit.init(180)
+sandpit.init(120)
 
 if (!window.DEBUG) {
   start()
