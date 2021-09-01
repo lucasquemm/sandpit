@@ -72,7 +72,7 @@ canvas {
   background-color: aliceblue;
   display: flex;
   flex-wrap: wrap;
-  float: right;
+  float: left;
   gap: 0px;
 }
 
