@@ -3,6 +3,7 @@ import * as slime from './slime'
 import * as sand from './sand'
 import * as oil from './oil'
 import * as lava from './lava'
+import * as gunpowder from './gunpowder'
 import { EMPTY, empty } from './empty'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
@@ -36,6 +37,7 @@ const update = (sandpit, cell) => {
         sandpit.move(cell.direction, -1)
       }
       break
+    case gunpowder.NAME:
     case lava.NAME:
     case oil.NAME:
     case sand.NAME:

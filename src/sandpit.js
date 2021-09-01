@@ -48,12 +48,32 @@ const makeNeighbors = (range = 1) => {
   }).flat()
 }
 
+const getCircularNeighbors = (r, center) => {
+  const [cx, cy] = center
+  const cells = []
+
+  for (let x = cx - r; x <= cx; x++) {
+    for (let y = cy - r; y <= cy; y++) {
+      if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r) {
+        const xSym = cx - (x - cx)
+        const ySym = cy - (y - cy)
+
+        cells.push([x, y], [x, ySym], [xSym, y], [xSym, ySym])
+      }
+    }
+  }
+
+  return cells
+}
+
 const neighbors1 = makeNeighbors(1)
 const neighbors2 = makeNeighbors(2)
 
 const createApi = (cx, cy) => {
   const relativeGet = (dx, dy) => get(cx + dx, cy + dy)
   const relativeSet = (dx, dy, cell) => set(cx + dx, cy + dy, cell)
+  const relativeCircular = (r, dx, dy) =>
+    getCircularNeighbors(r, [cx + dx, cy + dy])
 
   const is = (dx, dy, type) => get(cx + dx, cy + dy).type === type
 
@@ -84,9 +104,12 @@ const createApi = (cx, cy) => {
     move,
     swap,
     set: relativeSet,
+    absoluteSet: set,
     get: relativeGet,
+    absoluteGet: get,
     neighbors1,
     neighbors2,
+    getCircularNeighbors: relativeCircular,
   }
 }
 
@@ -153,24 +176,6 @@ const refreshUpperBound = () => {
 
 const getActive = () => activeCells
 
-const getCirularNeighbors = (r, center) => {
-  const [cx, cy] = center
-  const cells = []
-
-  for (let x = cx - r; x <= cx; x++) {
-    for (let y = cy - r; y <= cy; y++) {
-      if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r) {
-        const xSym = cx - (x - cx)
-        const ySym = cy - (y - cy)
-
-        cells.push([x, y], [x, ySym], [xSym, y], [xSym, ySym])
-      }
-    }
-  }
-
-  return cells
-}
-
 export {
   init,
   getUpperBound,
@@ -178,5 +183,5 @@ export {
   draw,
   update,
   getActive,
-  getCirularNeighbors,
+  getCircularNeighbors,
 }

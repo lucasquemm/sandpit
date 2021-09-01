@@ -1,7 +1,7 @@
 import { EMPTY, empty } from './empty'
 import * as smoke from './smoke'
 import * as element from '../element'
-import { chance, pickRand } from '../random'
+import { chance, pickRand, randInt } from '../random'
 
 const NAME = 'FIRE'
 const despawnChance = 0.2
@@ -54,7 +54,29 @@ const burn = (sandpit, spreadChance) => {
       break
     }
   }
-  if (burnTarget) sandpit.set(...burnTarget, make('blaze'))
+  if (burnTarget) {
+    const burningNbr = sandpit.get(...burnTarget)
+    if (burningNbr.explosive && chance(burningNbr.explosive.ratio)) {
+      const radius = randInt(
+        burningNbr.explosive.minRadius,
+        burningNbr.explosive.maxRadius,
+      )
+      for (let [nx, ny] of sandpit.getCircularNeighbors(
+        radius,
+        ...burnTarget,
+      )) {
+        if (sandpit.absoluteGet(nx, ny).type !== 'BOUNDS') {
+          sandpit.absoluteSet(
+            nx,
+            ny,
+            chance(0.5) ? make('spark') : smoke.make(),
+          )
+        }
+      }
+    } else {
+      sandpit.set(...burnTarget, make('blaze'))
+    }
+  }
 }
 
 const update = (sandpit, cell) => {
