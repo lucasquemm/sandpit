@@ -60,7 +60,7 @@ const toolSizes = [1, 4, 8, 12]
 
 const toolsGrid = document.querySelector('.tools')
 
-let selectedSize = 1
+let selectedSize = 4
 let previousSize
 
 toolSizes.forEach((tool) => {
