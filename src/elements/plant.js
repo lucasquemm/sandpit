@@ -26,7 +26,7 @@ const update = (sandpit, cell) => {
   const above = sandpit.get(dx, dy)
   const canGrow = above.type === EMPTY || above.type === water.NAME
 
-  if (canGrow) {
+  if (above.type === water.NAME) {
     if (chance(0.2) && cell.energy > 0) {
       cell.energy--
       sandpit.set(dx, dy, make(cell.energy))
