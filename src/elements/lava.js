@@ -6,7 +6,7 @@ import * as water from './water'
 import * as stone from './stone'
 import * as smoke from './smoke'
 
-const BASE_COLOR = [20, 64, 55, 50]
+const BASE_COLOR = [20, 64, 55, 45]
 
 const NAME = 'LAVA'
 

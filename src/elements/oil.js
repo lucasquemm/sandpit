@@ -4,7 +4,7 @@ import * as fire from './fire'
 import * as water from './water'
 import { chance, pickRand } from '../random'
 
-const BASE_COLOR = [25, 59, 41, 48]
+const BASE_COLOR = [25, 59, 31, 45]
 
 const NAME = 'OIL'
 

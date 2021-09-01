@@ -2,12 +2,12 @@ import { EMPTY } from './empty'
 import * as element from '../element'
 import * as fire from './fire'
 import * as oil from './oil'
+
 import { chance, pickRand } from '../random'
 
 const BASE_COLOR = [216, 65, 60, 50]
 
 const NAME = 'WATER'
-
 const make = () =>
   element.make({
     type: NAME,
