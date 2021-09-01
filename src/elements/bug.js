@@ -8,6 +8,8 @@ const BASE_COLOR = [277, 59, 50, 20]
 
 const NAME = 'BUG'
 
+const movementRate = 0.02
+
 const make = () => {
   const [species, color] = pickRand([
     ['climber', BASE_COLOR],
@@ -47,7 +49,7 @@ const update = (sandpit, cell) => {
   }
 
   if (chance(0.02) && sandpit.is(0, -1, water.NAME)) {
-    if (chance(0.001)) {
+    if (chance(0.05)) {
       sandpit.set(0, 0, empty())
     } else {
       sandpit.swap(0, -1)
@@ -57,22 +59,32 @@ const update = (sandpit, cell) => {
 
 const updateClimber = (sandpit, cell) => {
   if (cell.climbing) {
-    if (chance(0.2)) {
-      if (sandpit.is(0, cell.direction, EMPTY)) {
-        if (sandpit.is(cell.direction, cell.direction, EMPTY)) {
-          cell.climbing = false
-          sandpit.move(cell.direction, cell.direction)
-        } else {
-          sandpit.move(0, cell.direction)
-        }
+    if (chance(movementRate) && sandpit.is(0, cell.direction, EMPTY)) {
+      if (sandpit.is(cell.direction, cell.direction, EMPTY)) {
+        cell.climbing = false
+        sandpit.move(cell.direction, cell.direction)
       } else {
-        cell.direction *= -1
+        sandpit.move(0, cell.direction)
       }
+    } else {
+      cell.direction *= -1
     }
   } else {
-    updateFall(sandpit, cell)
+    const below = sandpit.get(0, 1)
+    const direction = pickRand([1, -1])
 
-    if (chance(0.2)) {
+    switch (below.type) {
+      case EMPTY:
+        sandpit.move(0, 1)
+        break
+      case NAME:
+        if (sandpit.is(direction, 1, EMPTY)) {
+          sandpit.move(direction, 1)
+        }
+        break
+    }
+
+    if (chance(movementRate)) {
       if (sandpit.is(cell.direction, 0, EMPTY)) {
         sandpit.move(cell.direction, 0)
       } else if (chance(0.5) && sandpit.is(0, cell.direction, EMPTY)) {
@@ -120,7 +132,7 @@ const updateJumper = (sandpit, cell) => {
         break
     }
 
-    if (chance(0.2)) {
+    if (chance(movementRate)) {
       if (sandpit.is(cell.direction, 0, EMPTY)) {
         sandpit.move(cell.direction, 0)
       } else {
@@ -145,22 +157,6 @@ const updateFlyer = (sandpit, cell) => {
     sandpit.move(fx, fy)
   } else if (chance(0.005)) {
     cell.flyingDirection[pickRand([0, 1])] *= -1
-  }
-}
-
-const updateFall = (sandpit) => {
-  const below = sandpit.get(0, 1)
-  const direction = pickRand([1, -1])
-
-  switch (below.type) {
-    case EMPTY:
-      sandpit.move(0, 1)
-      break
-    case NAME:
-      if (sandpit.is(direction, 1, EMPTY)) {
-        sandpit.move(direction, 1)
-      }
-      break
   }
 }
 
