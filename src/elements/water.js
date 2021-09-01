@@ -2,13 +2,12 @@ import { EMPTY } from './empty'
 import * as element from '../element'
 import * as fire from './fire'
 import * as oil from './oil'
-import * as smoke from './smoke'
+
 import { chance, pickRand } from '../random'
 
 const BASE_COLOR = [216, 65, 60, 50]
 
 const NAME = 'WATER'
-
 const make = () =>
   element.make({
     type: NAME,
@@ -21,7 +20,6 @@ const update = (sandpit, cell) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {
-    case smoke.NAME:
     case fire.NAME:
     case EMPTY:
       sandpit.move(0, 1)

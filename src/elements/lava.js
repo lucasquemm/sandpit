@@ -21,7 +21,6 @@ const update = (sandpit, cell) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {
-    case smoke.NAME:
     case EMPTY:
       sandpit.move(0, 1)
       break
