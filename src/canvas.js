@@ -1,5 +1,5 @@
-const width = 900
-const height = 900
+const width = 600
+const height = 600
 const cellSize = 5
 const boundsOffset = 5
 let ctx

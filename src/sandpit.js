@@ -153,4 +153,30 @@ const refreshUpperBound = () => {
 
 const getActive = () => activeCells
 
-export { init, getUpperBound, refreshUpperBound, draw, update, getActive }
+const getCirularNeighbors = (r, center) => {
+  const [cx, cy] = center
+  const cells = []
+
+  for (let x = cx - r; x <= cx; x++) {
+    for (let y = cy - r; y <= cy; y++) {
+      if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r) {
+        const xSym = cx - (x - cx)
+        const ySym = cy - (y - cy)
+
+        cells.push([x, y], [x, ySym], [xSym, y], [xSym, ySym])
+      }
+    }
+  }
+
+  return cells
+}
+
+export {
+  init,
+  getUpperBound,
+  refreshUpperBound,
+  draw,
+  update,
+  getActive,
+  getCirularNeighbors,
+}
