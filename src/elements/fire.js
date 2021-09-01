@@ -1,8 +1,5 @@
 import { EMPTY, empty } from './empty'
-import * as wood from './wood'
 import * as smoke from './smoke'
-import * as oil from './oil'
-import * as plant from './plant'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
