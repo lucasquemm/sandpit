@@ -1,5 +1,6 @@
 import { EMPTY, empty } from './empty'
 import * as plant from './plant'
+import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
@@ -42,6 +43,14 @@ const update = (sandpit, cell) => {
     if (chance(0.005) && sandpit.is(nx, ny, plant.NAME)) {
       sandpit.set(nx, ny, empty())
       break
+    }
+  }
+
+  if (chance(0.02) && sandpit.is(0, -1, water.NAME)) {
+    if (chance(0.001)) {
+      sandpit.set(0, 0, empty())
+    } else {
+      sandpit.swap(0, -1)
     }
   }
 }
