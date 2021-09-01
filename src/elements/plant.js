@@ -3,7 +3,7 @@ import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand, randInt } from '../random'
 
-const BASE_COLOR = [122, 73, 36, 30]
+const BASE_COLOR = [122, 73, 36, 25]
 
 const NAME = 'PLANT'
 
