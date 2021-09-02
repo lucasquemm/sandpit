@@ -25,6 +25,7 @@ const make = (phase = 'spark') =>
   element.make({
     type: NAME,
     phase,
+    hexColor: 0xeb4833,
     direction: pickRand([1, -1]),
     color: pickRand([orange1, orange2, red1, red2, red3]),
   })

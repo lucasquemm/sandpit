@@ -11,6 +11,7 @@ const NAME = 'WATER'
 const make = () =>
   element.make({
     type: NAME,
+    hexColor: 0x578cdb,
     slimey: false,
     direction: pickRand([1, -1]),
     color: BASE_COLOR,

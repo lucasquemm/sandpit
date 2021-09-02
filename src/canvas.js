@@ -57,19 +57,28 @@ let renderer
 let container
 
 const init = () => {
-  renderer = new PIXI.autoDetectRenderer(width, height, {
-    transparent: true,
+  const canvas = document.createElement('canvas')
+  renderer = new PIXI.autoDetectRenderer({
+    width,
+    height,
+    view: canvas,
   })
-  document.querySelector('#canvas-target').prepend(renderer.view)
+  document.querySelector('#canvas-target').prepend(canvas)
+  renderer.backgroundColor = 0xffffff
+
+  canvas.style.width = `${width}px`
+  canvas.style.height = `${height}px`
 
   stage = new PIXI.Container()
   let total = 14400
 
   const graphic = new PIXI.Graphics()
-  graphic.beginFill(0xff00ff)
+  graphic.beginFill(0xffffff)
   graphic.drawRect(0, 0, 1, 1)
 
-  container = new PIXI.ParticleContainer(total, { alpha: true })
+  container = new PIXI.ParticleContainer(total, {
+    alpha: true,
+  })
   texture = renderer.generateTexture(graphic)
 
   container.scale.set(5, 5)
@@ -89,7 +98,7 @@ const draw = (world) => {
 
     sprite.position.x = x
     sprite.position.y = y
-    sprite.tint = cell.type === 'EMPTY' ? 0x000000 : 0xffffff
+    sprite.tint = cell.type === 'EMPTY' ? 0x000000 : cell.hexColor || 0xffffff
   })
 
   renderer.render(stage)

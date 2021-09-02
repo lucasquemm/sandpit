@@ -8,7 +8,8 @@ const BASE_COLOR = [46, 78, 75, 50]
 
 const NAME = 'SAND'
 
-const make = () => element.make({ type: NAME, color: BASE_COLOR })
+const make = () =>
+  element.make({ type: NAME, hexColor: 0xf1da8e, color: BASE_COLOR })
 
 const update = (sandpit) => {
   const below = sandpit.get(0, 1)
