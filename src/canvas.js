@@ -58,13 +58,13 @@ let container
 
 const init = () => {
   const canvas = document.createElement('canvas')
+
   renderer = new PIXI.autoDetectRenderer({
     width,
     height,
     view: canvas,
   })
   document.querySelector('#canvas-target').prepend(canvas)
-  renderer.backgroundColor = 0xffffff
 
   canvas.style.width = `${width}px`
   canvas.style.height = `${height}px`
@@ -90,17 +90,14 @@ const init = () => {
 const draw = (world) => {
   world.forEachCell((cell, [x, y]) => {
     let sprite = sprites[x][y]
-
     if (sprite === undefined) {
       sprite = sprites[x][y] = new PIXI.Sprite(texture)
       container.addChild(sprite)
     }
-
     sprite.position.x = x
     sprite.position.y = y
-    sprite.tint = cell.type === 'EMPTY' ? 0x000000 : cell.hexColor || 0xffffff
+    sprite.tint = cell.hexColor || 0xffffff
   })
-
   renderer.render(stage)
 }
 
