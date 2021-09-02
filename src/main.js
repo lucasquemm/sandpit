@@ -138,6 +138,7 @@ $canvas.addEventListener('mouseup', () => {
 })
 
 sandpit.init(120)
+sandpit.draw(0, 0, elements.sand.make())
 
 if (!window.DEBUG) {
   start()

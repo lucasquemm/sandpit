@@ -13,5 +13,8 @@
     "singleQuote": true,
     "semi": false,
     "trailingComma": "all"
+  },
+  "dependencies": {
+    "pixi.js": "^6.1.2"
   }
 }

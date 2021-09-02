@@ -175,6 +175,14 @@ const refreshUpperBound = () => {
 }
 
 const getActive = () => activeCells
+const forEachCell = (cb) => {
+  for (let i = 0, l = cells.length; i < l; i++) {
+    const coords = getCoords(i)
+    const cell = cells[i]
+
+    cb(cell, coords)
+  }
+}
 
 export {
   init,
@@ -183,5 +191,6 @@ export {
   draw,
   update,
   getActive,
+  forEachCell,
   getCircularNeighbors,
 }
