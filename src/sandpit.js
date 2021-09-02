@@ -5,15 +5,10 @@ import { activeElements } from './elements'
 let cells = []
 let size = 0
 let generation
-let upperBound
-let defaultUpperBound
-let activeCells = {}
 const BOUNDS = { type: 'BOUNDS' }
 
 const init = (newSize = 100) => {
   generation = 1
-  defaultUpperBound = { x: 0, y: newSize }
-  upperBound = defaultUpperBound
   size = newSize
   cells = Array.from({ length: size * size }, () => empty())
 }
@@ -28,8 +23,6 @@ const set = (x, y, cell = empty()) => {
 
   cell.clock = generation + 1
   cells[index] = cell
-
-  if (y < upperBound.y) upperBound = { x, y }
 }
 
 const makeNeighbors = (range = 1) => {
@@ -136,26 +129,13 @@ const draw = (x, y, cell) => {
     const index = getIndex(x, y)
     cell.clock = generation
     cells[index] = cell
-    if (y < upperBound.y) upperBound = { x, y }
   }
 }
 
 const update = () => {
-  activeCells = {}
-
   for (let i = 0, l = cells.length; i < l; i++) {
     const [x, y] = getCoords(i)
     const cell = cells[i]
-
-    if (cell.type !== EMPTY) {
-      const cellsForColor = activeCells[cell.color]
-      if (cellsForColor !== undefined) {
-        cellsForColor.push({ x, y, cell })
-      } else {
-        activeCells[cell.color] = [{ x, y, cell }]
-      }
-    }
-
     const element = activeElements[cell.type]
 
     if (element !== undefined) {
@@ -166,15 +146,6 @@ const update = () => {
   generation++
 }
 
-const getUpperBound = () => upperBound.y
-
-const refreshUpperBound = () => {
-  if (self.is(upperBound.x, upperBound.y, EMPTY)) {
-    upperBound = defaultUpperBound
-  }
-}
-
-const getActive = () => activeCells
 const forEachCell = (cb) => {
   for (let i = 0, l = cells.length; i < l; i++) {
     const coords = getCoords(i)
@@ -184,13 +155,4 @@ const forEachCell = (cb) => {
   }
 }
 
-export {
-  init,
-  getUpperBound,
-  refreshUpperBound,
-  draw,
-  update,
-  getActive,
-  forEachCell,
-  getCircularNeighbors,
-}
+export { init, draw, update, forEachCell, getCircularNeighbors }
