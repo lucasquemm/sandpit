@@ -51,36 +51,31 @@ const draw_ = (world) => {
 }
 
 const sprites = Array.from({ length: width / cellSize }, () => [])
-let tex
+let texture
 let stage
 let renderer
-let app
+let container
 
 const init = () => {
-  const canvas = document.createElement('canvas')
-
-  canvas.width = width
-  canvas.height = height
-  canvas.style.width = `${width}px`
-  canvas.style.height = `${height}px`
-
-  app = new PIXI.Application({
-    width,
-    height,
-    view: canvas,
+  renderer = new PIXI.autoDetectRenderer(width, height, {
+    transparent: true,
   })
+  document.querySelector('#canvas-target').prepend(renderer.view)
 
-  document.querySelector('#canvas-target').prepend(canvas)
+  stage = new PIXI.Container()
+  let total = 14400
 
-  const graph = new PIXI.Graphics()
-  graph.beginFill(0xffffff)
-  graph.drawRect(0, 0, 1, 1)
-  graph.endFill()
+  const graphic = new PIXI.Graphics()
+  graphic.beginFill(0xff00ff)
+  graphic.drawRect(0, 0, 1, 1)
 
-  tex = app.renderer.generateTexture(graph)
-  app.stage.scale.set(5)
+  container = new PIXI.ParticleContainer(total, { alpha: true })
+  texture = renderer.generateTexture(graphic)
 
-  return canvas
+  container.scale.set(5, 5)
+  stage.addChild(container)
+
+  return renderer.view
 }
 
 const draw = (world) => {
@@ -88,14 +83,16 @@ const draw = (world) => {
     let sprite = sprites[x][y]
 
     if (sprite === undefined) {
-      sprite = sprites[x][y] = new PIXI.Sprite(tex)
-      app.stage.addChild(sprite)
+      sprite = sprites[x][y] = new PIXI.Sprite(texture)
+      container.addChild(sprite)
     }
 
     sprite.position.x = x
     sprite.position.y = y
     sprite.tint = cell.type === 'EMPTY' ? 0x000000 : 0xffffff
   })
+
+  renderer.render(stage)
 }
 
 export { init, draw, cellSize }
