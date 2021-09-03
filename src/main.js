@@ -1,31 +1,14 @@
 import * as sandpit from './sandpit'
 import * as canvas from './canvas'
 import elements from './elements'
+import * as PIXI from 'pixi.js'
 
 window.DEBUG = false
 const MAX_FPS = 60
-let now, elapsed, then, fpsInterval
 
 const tick = () => {
   sandpit.update()
   canvas.draw(sandpit)
-}
-
-const loop = () => {
-  requestAnimationFrame(loop)
-  now = Date.now()
-  elapsed = now - then
-
-  if (elapsed > fpsInterval) {
-    then = now - (elapsed % fpsInterval)
-    tick()
-  }
-}
-
-const start = () => {
-  fpsInterval = 1000 / MAX_FPS
-  then = Date.now()
-  loop()
 }
 
 let selectedElement = elements.sand
@@ -137,8 +120,9 @@ $canvas.addEventListener('mouseup', () => {
 })
 
 sandpit.init(120)
-sandpit.draw(0, 0, elements.sand.make())
+
+const ticker = PIXI.Ticker.shared
 
 if (!window.DEBUG) {
-  start()
+  ticker.add(tick)
 }

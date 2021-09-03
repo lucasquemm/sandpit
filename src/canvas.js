@@ -38,18 +38,26 @@ const init = () => {
   container.scale.set(5, 5)
   stage.addChild(container)
 
+  const w = width / cellSize
+  const h = height / cellSize
+
+  for (let x = 0; x < w; x++) {
+    for (let y = 0; y < h; y++) {
+      const sprite = new PIXI.Sprite(texture)
+      sprite.position.x = x
+      sprite.position.y = y
+      sprites[x][y] = sprite
+
+      container.addChild(sprite)
+    }
+  }
+
   return renderer.view
 }
 
 const draw = (world) => {
   world.forEachCell((cell, [x, y]) => {
     let sprite = sprites[x][y]
-    if (sprite === undefined) {
-      sprite = sprites[x][y] = new PIXI.Sprite(texture)
-      container.addChild(sprite)
-    }
-    sprite.position.x = x
-    sprite.position.y = y
     sprite.tint = cell.hexColor || 0xffffff
   })
   renderer.render(stage)
