@@ -59,6 +59,7 @@ const draw = (world) => {
   world.forEachCell((cell, [x, y]) => {
     let sprite = sprites[x][y]
     sprite.tint = cell.hexColor || 0xffffff
+    sprite.alpha = cell.alpha || 1
   })
   renderer.render(stage)
 }

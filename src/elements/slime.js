@@ -13,7 +13,6 @@ const make = () =>
     type: NAME,
     drip: [],
     direction: pickRand([1, -1]),
-    color: [130, 79, 84, 80],
     hexColor: 0xb6f6c1,
   })
 

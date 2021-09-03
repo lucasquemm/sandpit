@@ -4,7 +4,6 @@ import elements from './elements'
 import * as PIXI from 'pixi.js'
 
 window.DEBUG = false
-const MAX_FPS = 60
 
 const tick = () => {
   sandpit.update()

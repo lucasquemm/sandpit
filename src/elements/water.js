@@ -3,7 +3,7 @@ import * as element from '../element'
 import * as fire from './fire'
 import * as oil from './oil'
 
-import { chance, pickRand } from '../random'
+import { chance, pickRand, rand } from '../random'
 
 const BASE_COLOR = [216, 65, 60, 50]
 
@@ -14,7 +14,7 @@ const make = () =>
     hexColor: 0x578cdb,
     slimey: false,
     direction: pickRand([1, -1]),
-    color: BASE_COLOR,
+    alpha: rand(1, 0.9),
   })
 
 const update = (sandpit, cell) => {
@@ -49,7 +49,7 @@ const update = (sandpit, cell) => {
   }
 
   if (cell.slimey) {
-    element.setColor([163, 79, 79, 75], cell)
+    element.setColor(0xb6f6e4, cell)
     cell.slimey = false
   }
 }

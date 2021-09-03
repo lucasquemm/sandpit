@@ -14,7 +14,6 @@ const make = () =>
   element.make({
     type: NAME,
     direction: pickRand([1, -1]),
-    color: BASE_COLOR,
     hexColor: 0xd67443,
   })
 

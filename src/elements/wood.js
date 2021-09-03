@@ -9,7 +9,6 @@ const make = () =>
     type: NAME,
     hexColor: 0x6c502d,
     flammable: true,
-    color: BASE_COLOR,
   })
 
 export { NAME, make, BASE_COLOR }
