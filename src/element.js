@@ -15,6 +15,7 @@ const setColor = (color, cell) => {
 
 const refreshColor = (cell) => {
   cell.alpha = rand(1, 0.9)
+  cell.color = cell.colorInput
 }
 
 export { make, refreshColor, setColor }
