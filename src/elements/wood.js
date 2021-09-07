@@ -7,7 +7,7 @@ const NAME = 'WOOD'
 const make = () =>
   element.make({
     type: NAME,
-    hexColor: 0x6c502d,
+    color: 0x6c502d,
     flammable: true,
   })
 

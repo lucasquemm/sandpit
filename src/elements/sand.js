@@ -11,8 +11,7 @@ const NAME = 'SAND'
 const make = () =>
   element.make({
     type: NAME,
-    hexColor: 0xf1da8e,
-    alpha: rand(1, 0.8),
+    color: 0xf1da8e,
   })
 
 const update = (sandpit) => {

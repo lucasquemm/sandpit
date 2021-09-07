@@ -13,7 +13,7 @@ const make = () =>
     type: NAME,
     flammable: true,
     explosive: { ratio: 0.1, minRadius: 5, maxRadius: 10 },
-    hexColor: 0x575757,
+    color: 0x575757,
   })
 
 const update = (sandpit) => {

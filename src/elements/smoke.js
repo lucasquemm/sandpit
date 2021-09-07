@@ -18,7 +18,7 @@ const chanceOfSpread = 0.5
 const make = () =>
   element.make({
     type: NAME,
-    hexColor: 0xcbc9c8,
+    color: 0xcbc9c8,
     direction: pickRand([1, -1]),
   })
 

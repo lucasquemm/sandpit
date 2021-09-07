@@ -25,9 +25,8 @@ const make = (phase = 'spark') =>
   element.make({
     type: NAME,
     phase,
-    hexColor: pickRand([0xeb4833, 0xedb668, 0xe32e16]),
+    color: pickRand([0xeb4833, 0xedb668, 0xe32e16]),
     direction: pickRand([1, -1]),
-    color: pickRand([orange1, orange2, red1, red2, red3]),
   })
 
 const ignite = (sandpit) => {

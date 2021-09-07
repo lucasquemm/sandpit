@@ -24,7 +24,7 @@ const make = () => {
     jumpDirection: 0,
     climbing: false,
     direction: pickRand([1, -1]),
-    hexColor: color,
+    color,
   })
 }
 

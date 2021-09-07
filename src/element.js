@@ -1,21 +1,20 @@
 import { rand } from './random'
 
-const make = ({ type, hexColor, ...meta }) => ({
+const make = ({ type, color, ...meta }) => ({
   type,
   clock: 0,
-  colorInput: hexColor,
+  colorInput: color,
   alpha: rand(1, 0.9),
-  hexColor,
+  color,
   ...meta,
 })
 
 const setColor = (color, cell) => {
-  cell.hexColor = color
+  cell.color = color
 }
 
 const refreshColor = (cell) => {
   cell.alpha = rand(1, 0.9)
-  cell.hexColor = cell.colorInput
 }
 
 export { make, refreshColor, setColor }

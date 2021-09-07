@@ -13,7 +13,7 @@ const make = () =>
   element.make({
     type: NAME,
     direction: pickRand([1, -1]),
-    hexColor: 0xa7eb33,
+    color: 0xa7eb33,
   })
 
 const update = (sandpit, cell) => {

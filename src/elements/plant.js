@@ -17,7 +17,7 @@ const make = (energy) => {
     energy:
       energy !== undefined ? energy : isStem ? randInt(10, 15) : randInt(1, 5),
     direction: [pickRand([1, 0, -1]), -1],
-    hexColor: 0x199f1d,
+    color: 0x199f1d,
   })
 }
 

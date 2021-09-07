@@ -3,7 +3,7 @@ import * as element from '../element'
 import * as fire from './fire'
 import * as oil from './oil'
 
-import { chance, pickRand, rand } from '../random'
+import { chance, pickRand } from '../random'
 
 const BASE_COLOR = [216, 65, 60, 50]
 
@@ -11,10 +11,9 @@ const NAME = 'WATER'
 const make = () =>
   element.make({
     type: NAME,
-    hexColor: 0x578cdb,
+    color: 0x578cdb,
     slimey: false,
     direction: pickRand([1, -1]),
-    alpha: rand(1, 0.9),
   })
 
 const update = (sandpit, cell) => {
