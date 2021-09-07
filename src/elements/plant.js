@@ -7,7 +7,7 @@ const BASE_COLOR = [122, 73, 36, 25]
 
 const NAME = 'PLANT'
 
-const make = (energy, color = BASE_COLOR) => {
+const make = (energy) => {
   const isStem = chance(0.1)
 
   return element.make({
@@ -17,7 +17,7 @@ const make = (energy, color = BASE_COLOR) => {
     energy:
       energy !== undefined ? energy : isStem ? randInt(10, 15) : randInt(1, 5),
     direction: [pickRand([1, 0, -1]), -1],
-    color,
+    color: 0x199f1d,
   })
 }
 

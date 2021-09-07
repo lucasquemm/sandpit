@@ -12,9 +12,9 @@ const movementRate = 0.02
 
 const make = () => {
   const [species, color] = pickRand([
-    ['climber', BASE_COLOR],
-    ['jumper', [277, 62, 66, 60]],
-    ['flyer', [277, 33, 36, 30]],
+    ['climber', 0x9134cb],
+    ['jumper', 0xb573de],
+    ['flyer', 0x633e7a],
   ])
 
   return element.make({
@@ -24,7 +24,7 @@ const make = () => {
     jumpDirection: 0,
     climbing: false,
     direction: pickRand([1, -1]),
-    color: color,
+    color,
   })
 }
 

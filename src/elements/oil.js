@@ -13,7 +13,7 @@ const make = () =>
     type: NAME,
     flammable: true,
     direction: pickRand([1, -1]),
-    color: BASE_COLOR,
+    color: 0x7e4720,
   })
 
 const update = (sandpit, cell) => {

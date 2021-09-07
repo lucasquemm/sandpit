@@ -18,8 +18,8 @@ const chanceOfSpread = 0.5
 const make = () =>
   element.make({
     type: NAME,
+    color: 0xcbc9c8,
     direction: pickRand([1, -1]),
-    color: BASE_COLOR,
   })
 
 const update = (sandpit, cell) => {

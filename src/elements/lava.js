@@ -14,7 +14,7 @@ const make = () =>
   element.make({
     type: NAME,
     direction: pickRand([1, -1]),
-    color: BASE_COLOR,
+    color: 0xd67443,
   })
 
 const update = (sandpit, cell) => {

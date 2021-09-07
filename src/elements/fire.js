@@ -14,10 +14,6 @@ const extinguishChance = 0.01
 const looseFlameChance = 0.06
 
 const orange1 = [35, 76, 62, 72]
-const orange2 = [35, 79, 67, 77]
-const red1 = [7, 82, 56, 66]
-const red2 = [7, 82, 49, 59]
-const red3 = [7, 87, 33, 43]
 
 const BASE_COLOR = orange1
 
@@ -25,8 +21,8 @@ const make = (phase = 'spark') =>
   element.make({
     type: NAME,
     phase,
+    color: pickRand([0xeb4833, 0xedb668, 0xe32e16]),
     direction: pickRand([1, -1]),
-    color: pickRand([orange1, orange2, red1, red2, red3]),
   })
 
 const ignite = (sandpit) => {

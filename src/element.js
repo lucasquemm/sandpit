@@ -1,22 +1,21 @@
-import { randInt } from './random'
+import { rand } from './random'
 
 const make = ({ type, color, ...meta }) => ({
   type,
   clock: 0,
   colorInput: color,
-  color: createColor(color),
+  alpha: rand(1, 0.9),
+  color,
   ...meta,
 })
 
-const createColor = (color) =>
-  `hsl(${color[0]}deg ${color[1]}% ${randInt(color[2], color[3])}%)`
-
 const setColor = (color, cell) => {
-  cell.color = createColor(color)
+  cell.color = color
 }
 
 const refreshColor = (cell) => {
-  cell.color = createColor(cell.colorInput)
+  cell.alpha = rand(1, 0.9)
+  cell.color = cell.colorInput
 }
 
 export { make, refreshColor, setColor }
