@@ -14,10 +14,6 @@ const extinguishChance = 0.01
 const looseFlameChance = 0.06
 
 const orange1 = [35, 76, 62, 72]
-const orange2 = [35, 79, 67, 77]
-const red1 = [7, 82, 56, 66]
-const red2 = [7, 82, 49, 59]
-const red3 = [7, 87, 33, 43]
 
 const BASE_COLOR = orange1
 

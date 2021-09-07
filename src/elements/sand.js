@@ -2,7 +2,7 @@ import { EMPTY } from './empty'
 import * as water from './water'
 import * as oil from './oil'
 import * as element from '../element'
-import { rand, pickRand } from '../random'
+import { pickRand } from '../random'
 
 const BASE_COLOR = [46, 78, 75, 50]
 
