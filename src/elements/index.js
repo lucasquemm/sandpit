@@ -5,6 +5,7 @@ import * as water from './water'
 import * as smoke from './smoke'
 import * as wood from './wood'
 import * as fire from './fire'
+import * as fire2 from './fire2'
 import * as oil from './oil'
 import * as plant from './plant'
 import * as slime from './slime'
@@ -18,6 +19,7 @@ export const activeElements = {
   [water.NAME]: water,
   [smoke.NAME]: smoke,
   [fire.NAME]: fire,
+  [fire2.NAME]: fire2,
   [oil.NAME]: oil,
   [plant.NAME]: plant,
   [slime.NAME]: slime,
@@ -35,6 +37,7 @@ export default {
   smoke,
   wood,
   fire,
+  fire2,
   oil,
   plant,
   slime,
