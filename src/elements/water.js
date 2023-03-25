@@ -12,6 +12,7 @@ const make = () =>
     type: NAME,
     color: 0x578cdb,
     slimey: false,
+    liquid: true,
     direction: pickRand([1, -1]),
   })
 

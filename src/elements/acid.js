@@ -12,6 +12,7 @@ const NAME = 'ACID'
 const make = () =>
   element.make({
     type: NAME,
+    liquid: true,
     direction: pickRand([1, -1]),
     color: 0xa7eb33,
   })

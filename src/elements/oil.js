@@ -10,6 +10,7 @@ const make = () =>
   element.make({
     type: NAME,
     flammability: 0.8,
+    liquid: true,
     direction: pickRand([1, -1]),
     color: 0x7e4720,
   })
