@@ -33,14 +33,16 @@ const burn = (sandpit) => {
       }
     }
     // burn
-  } else if (chance(flammability) && fuel && igniteTarget) {
-    sandpit.set(...igniteTarget, fire.make())
-
-    if (chance(0.05)) {
-      sandpit.set(...fuel, fire.make())
-      if (sandpit.is(0, -1, EMPTY)) {
-        sandpit.set(0, -1, smoke.make())
+  } else if (fuel && igniteTarget) {
+    if (chance(flammability)) {
+      sandpit.set(...igniteTarget, fire.make())
+      if (chance(0.05)) {
+        sandpit.set(...fuel, fire.make())
       }
+    }
+
+    if (sandpit.is(0, -1, EMPTY)) {
+      sandpit.set(0, -1, smoke.make())
     }
   }
 

@@ -4,6 +4,7 @@ import * as element from '../element'
 import { chance, pickRand } from '../random'
 import burn from '../traits/burn'
 import { WATER } from './water'
+import { SMOKE } from './smoke'
 
 const color = 0xeb4833
 
@@ -37,7 +38,7 @@ const update = (sandpit, cell) => {
     cell.color = 0xedb668
   }
 
-  if (sandpit.is(dirx, diry, EMPTY)) {
+  if (sandpit.is(dirx, diry, EMPTY) || sandpit.is(dirx, diry, SMOKE)) {
     sandpit.move(dirx, diry)
   }
 
