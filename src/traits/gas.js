@@ -1,11 +1,9 @@
 import { EMPTY, empty } from '../elements/empty'
 import { chance, pickRand } from '../random'
 
-const despawnChance = 0.015
-
-const gas = (sandpit) => {
-  const dirx = pickRand([1, 0, -1])
-  const diry = pickRand([1, 0, -1, -1, -1])
+const gas = (sandpit, { movement, despawnChance }) => {
+  const dirx = pickRand(movement.x)
+  const diry = pickRand(movement.y)
   const above = sandpit.get(0, -1)
 
   if (chance(despawnChance)) {

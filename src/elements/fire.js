@@ -1,4 +1,6 @@
 import { EMPTY, empty } from './empty'
+import * as water from './water'
+import * as steam from './steam'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 import burn from '../traits/burn'
@@ -24,6 +26,10 @@ const update = (sandpit, cell) => {
   for (let [nx, ny] of sandpit.neighbors1) {
     if (sandpit.is(nx, ny, NAME)) {
       fireNeighborCount++
+    }
+
+    if (chance(0.05) && sandpit.is(nx, ny, water.NAME)) {
+      sandpit.set(nx, ny, steam.make())
     }
   }
 
