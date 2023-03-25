@@ -18,11 +18,12 @@ const liquid = (sandpit, cell, SELF) => {
       break
   }
 
-  if (
-    sandpit.is(cell.direction, 0, EMPTY) ||
-    sandpit.is(cell.direction, 0, FIRE)
-  ) {
+  const next = sandpit.get(cell.direction, 0)
+
+  if (next.type === EMPTY || next.type === FIRE) {
     sandpit.move(cell.direction, 0)
+  } else if (next.type !== SELF && next.liquid) {
+    sandpit.swap(cell.direction, 0)
   } else {
     cell.direction *= -1
   }
