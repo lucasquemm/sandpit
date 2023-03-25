@@ -6,17 +6,17 @@ import { liquid } from '../traits/liquid'
 import burn from '../traits/burn'
 
 const color = 0xd67443
-const NAME = 'LAVA'
+const LAVA = 'LAVA'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: LAVA,
     direction: pickRand([1, -1]),
     color,
   })
 
 const update = (sandpit, cell) => {
-  liquid(sandpit, cell, NAME)
+  liquid(sandpit, cell, LAVA)
   burn(sandpit)
 
   if (chance(0.005) && sandpit.is(0, -1, EMPTY)) {
@@ -28,4 +28,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, color }
+export { LAVA, make, update, color }

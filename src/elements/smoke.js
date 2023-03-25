@@ -3,11 +3,11 @@ import { pickRand } from '../random'
 import { gas } from '../traits/gas'
 
 const color = 0xcbc9c8
-const NAME = 'SMOKE'
+const SMOKE = 'SMOKE'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: SMOKE,
     color,
     direction: pickRand([1, -1]),
   })
@@ -22,4 +22,4 @@ const update = (sandpit) => {
   })
 }
 
-export { NAME, make, update, color }
+export { SMOKE, make, update, color }

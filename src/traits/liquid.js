@@ -1,5 +1,5 @@
 import { EMPTY } from '../elements/empty'
-import * as fire from '../elements/fire'
+import { FIRE } from '../elements/fire'
 import * as element from '../element'
 import { chance } from '../random'
 
@@ -7,7 +7,7 @@ const liquid = (sandpit, cell, SELF) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {
-    case fire.NAME:
+    case FIRE:
     case EMPTY:
       sandpit.move(0, 1)
       break
@@ -20,7 +20,7 @@ const liquid = (sandpit, cell, SELF) => {
 
   if (
     sandpit.is(cell.direction, 0, EMPTY) ||
-    sandpit.is(cell.direction, 0, fire.NAME)
+    sandpit.is(cell.direction, 0, FIRE)
   ) {
     sandpit.move(cell.direction, 0)
   } else {

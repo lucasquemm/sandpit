@@ -1,18 +1,18 @@
 import { EMPTY, empty } from './empty'
-import * as water from './water'
 import * as steam from './steam'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 import burn from '../traits/burn'
+import { WATER } from './water'
 
 const color = 0xeb4833
 
-const NAME = 'FIRE'
+const FIRE = 'FIRE'
 const despawnChance = 0.2
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: FIRE,
     color,
   })
 
@@ -24,11 +24,11 @@ const update = (sandpit, cell) => {
   let fireNeighborCount = 0
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (sandpit.is(nx, ny, NAME)) {
+    if (sandpit.is(nx, ny, FIRE)) {
       fireNeighborCount++
     }
 
-    if (chance(0.05) && sandpit.is(nx, ny, water.NAME)) {
+    if (chance(0.05) && sandpit.is(nx, ny, WATER)) {
       sandpit.set(nx, ny, steam.make())
     }
   }
@@ -46,4 +46,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, color }
+export { FIRE, make, update, color }

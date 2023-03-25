@@ -1,15 +1,15 @@
 import { EMPTY, empty } from './empty'
-import * as water from './water'
-import * as oil from './oil'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
+import { WATER } from './water'
+import { OIL } from './oil'
 
 const color = 0xb6f6c1
-const NAME = 'SLIME'
+const SLIME = 'SLIME'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: SLIME,
     drip: [],
     direction: pickRand([1, -1]),
     color: 0xb6f6c1,
@@ -24,7 +24,7 @@ const update = (sandpit, cell) => {
   for (let n of sandpit.neighbors1) {
     const nbr = sandpit.get(...n)
 
-    if (nbr.type === water.NAME && chance(0.01)) {
+    if (nbr.type === WATER && chance(0.01)) {
       nbr.slimey = true
       sandpit.set(0, 0, empty())
       return
@@ -42,15 +42,15 @@ const update = (sandpit, cell) => {
       }
 
       break
-    case oil.NAME:
+    case OIL:
       sandpit.swap(0, 1)
       break
-    case water.NAME:
+    case WATER:
       if (chance(0.05)) sandpit.set(0, 0, empty())
       else sandpit.swap(0, 1)
 
       break
-    case NAME:
+    case SLIME:
       if (unstuck && sandpit.is(direction, 1, EMPTY)) {
         sandpit.move(direction, 1)
       }
@@ -64,4 +64,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, color }
+export { SLIME, make, update, color }

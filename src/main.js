@@ -1,7 +1,8 @@
 import * as sandpit from './sandpit'
 import * as canvas from './canvas'
-import elements from './elements'
+import { elements } from './elements'
 import * as PIXI from 'pixi.js'
+import { SAND } from './elements/sand'
 
 window.DEBUG = false
 
@@ -10,21 +11,21 @@ const tick = () => {
   canvas.draw(sandpit)
 }
 
-let selectedElement = elements.sand
+let selectedElement = elements[SAND]
 let previousElementBtn
 
 const elementsGrid = document.querySelector('.elements')
 
-Object.values(elements).forEach((element) => {
+Object.entries(elements).forEach(([name, element]) => {
   const btn = document.createElement('button')
   const color = element.color ? `#${element.color.toString(16)}` : ''
 
-  if (element.NAME === elements.sand.NAME) {
+  if (name === SAND) {
     previousElementBtn = btn
     btn.classList.add('element-selected')
   }
-  btn.textContent = element.NAME.toLowerCase()
-  btn.classList.add(element.NAME.toLowerCase() + '-btn')
+  btn.textContent = name.toLowerCase()
+  btn.classList.add(name.toLowerCase() + '-btn')
   btn.classList.add('element-btn')
   btn.style.background = color
 

@@ -1,17 +1,16 @@
 import { empty, EMPTY } from './empty'
-import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand, randInt } from '../random'
+import { WATER } from './water'
 
 const color = 0x199f1d
-
-const NAME = 'PLANT'
+const PLANT = 'PLANT'
 
 const make = (energy) => {
   const isStem = chance(0.1)
 
   return element.make({
-    type: NAME,
+    type: PLANT,
     kind: isStem ? 'stem' : 'bud',
     flammability: 0.8,
     energy:
@@ -25,7 +24,7 @@ const make = (energy) => {
 const update = (sandpit, cell) => {
   const [dx, dy] = cell.direction
   const above = sandpit.get(dx, dy)
-  const canGrow = above.type === EMPTY || above.type === water.NAME
+  const canGrow = above.type === EMPTY || above.type === WATER
 
   if (canGrow) {
     if (chance(0.2) && cell.energy > 0) {
@@ -35,11 +34,11 @@ const update = (sandpit, cell) => {
   }
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (chance(0.05) && sandpit.is(nx, ny, water.NAME)) {
+    if (chance(0.05) && sandpit.is(nx, ny, WATER)) {
       sandpit.set(nx, ny, empty())
       sandpit.set(dx, dy, make(cell.energy))
     }
   }
 }
 
-export { NAME, make, update, color }
+export { PLANT, make, update, color }

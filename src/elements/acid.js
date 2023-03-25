@@ -8,10 +8,10 @@ const color = 0xa7eb33
 
 const corrodeChance = 0.01
 
-const NAME = 'ACID'
+const ACID = 'ACID'
 const make = () =>
   element.make({
-    type: NAME,
+    type: ACID,
     liquid: true,
     direction: pickRand([1, -1]),
     color,
@@ -24,7 +24,7 @@ const update = (sandpit, cell) => {
     case EMPTY:
       sandpit.move(0, 1)
       break
-    case NAME:
+    case ACID:
       if (sandpit.is(cell.direction, 1, EMPTY)) {
         sandpit.move(cell.direction, 1)
       }
@@ -33,7 +33,7 @@ const update = (sandpit, cell) => {
 
   for (let [nx, ny] of sandpit.neighbors1) {
     const nbr = sandpit.get(nx, ny)
-    if (nbr.type !== 'BOUNDS' && nbr.type !== NAME && nbr.type != EMPTY) {
+    if (nbr.type !== 'BOUNDS' && nbr.type !== ACID && nbr.type != EMPTY) {
       if (chance(corrodeChance)) {
         sandpit.set(nx, ny, empty())
         sandpit.set(0, 0, empty())
@@ -52,4 +52,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, color }
+export { ACID, make, update, color }

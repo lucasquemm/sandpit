@@ -2,11 +2,11 @@ import * as element from '../element'
 import powder from '../traits/powder'
 
 const color = 0x575757
-const NAME = 'GUNPOWDER'
+const GUNPOWDER = 'GUNPOWDER'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: GUNPOWDER,
     flammability: 0.5,
     solid: true,
     explosive: { ratio: 0.1, minRadius: 5, maxRadius: 10 },
@@ -14,7 +14,7 @@ const make = () =>
   })
 
 const update = (sandpit, cell) => {
-  powder(sandpit, NAME, cell)
+  powder(sandpit, GUNPOWDER, cell)
 }
 
-export { NAME, make, update, color }
+export { GUNPOWDER, make, update, color }

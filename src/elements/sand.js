@@ -2,17 +2,17 @@ import * as element from '../element'
 import powder from '../traits/powder'
 
 const color = 0xf1da8e
-const NAME = 'SAND'
+const SAND = 'SAND'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: SAND,
     color,
     solid: true,
   })
 
 const update = (sandpit, cell) => {
-  powder(sandpit, NAME, cell)
+  powder(sandpit, SAND, cell)
 }
 
-export { NAME, make, update, color }
+export { SAND, make, update, color }
