@@ -3,7 +3,7 @@ import { FIRE } from '../elements/fire'
 import * as element from '../element'
 import { chance } from '../random'
 
-const liquid = (sandpit, cell, SELF) => {
+const liquid = (sandpit, cell, SELF, { speed = 1 } = {}) => {
   const below = sandpit.get(0, 1)
 
   switch (below.type) {
@@ -18,14 +18,16 @@ const liquid = (sandpit, cell, SELF) => {
       break
   }
 
-  const next = sandpit.get(cell.direction, 0)
+  if (chance(speed)) {
+    const next = sandpit.get(cell.direction, 0)
 
-  if (next.type === EMPTY || next.type === FIRE) {
-    sandpit.move(cell.direction, 0)
-  } else if (next.type !== SELF && next.liquid) {
-    sandpit.swap(cell.direction, 0)
-  } else {
-    cell.direction *= -1
+    if (next.type === EMPTY || next.type === FIRE) {
+      sandpit.move(cell.direction, 0)
+    } else if (next.type !== SELF && next.liquid) {
+      sandpit.swap(cell.direction, 0)
+    } else {
+      cell.direction *= -1
+    }
   }
 
   if (chance(0.005)) {

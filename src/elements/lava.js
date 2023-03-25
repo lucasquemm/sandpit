@@ -16,7 +16,7 @@ const make = () =>
   })
 
 const update = (sandpit, cell) => {
-  liquid(sandpit, cell, LAVA)
+  liquid(sandpit, cell, LAVA, { speed: 0.3 })
   burn(sandpit)
 
   if (chance(0.005) && sandpit.is(0, -1, EMPTY)) {

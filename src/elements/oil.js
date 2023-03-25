@@ -15,7 +15,7 @@ const make = () =>
   })
 
 const update = (sandpit, cell) => {
-  liquid(sandpit, cell, OIL)
+  liquid(sandpit, cell, OIL, { speed: 0.7 })
 }
 
 export { OIL, make, update, color }
