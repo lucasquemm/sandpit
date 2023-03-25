@@ -5,7 +5,7 @@ import { activeElements } from './elements'
 let cells = []
 let size = 0
 let generation
-const BOUNDS = { type: 'BOUNDS' }
+const BOUNDS = { type: 'BOUNDS', solid: true }
 
 const init = (newSize = 100) => {
   generation = 1
@@ -20,6 +20,8 @@ const get = (x, y) => {
 
 const set = (x, y, cell = empty()) => {
   const index = getIndex(x, y)
+
+  if (x < 0 || y < 0 || x >= size || y >= size) return
 
   cell.clock = generation + 1
   cells[index] = cell

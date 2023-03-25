@@ -8,7 +8,8 @@ const make = () =>
   element.make({
     type: NAME,
     color: 0x6c502d,
-    flammable: true,
+    flammability: 0.2,
+    solid: true,
   })
 
 export { NAME, make, BASE_COLOR }

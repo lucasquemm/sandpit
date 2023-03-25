@@ -8,7 +8,7 @@ const NAME = 'GUNPOWDER'
 const make = () =>
   element.make({
     type: NAME,
-    flammable: true,
+    flammability: 0.5,
     explosive: { ratio: 0.1, minRadius: 5, maxRadius: 10 },
     color: 0x575757,
   })

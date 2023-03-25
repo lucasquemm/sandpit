@@ -20,7 +20,7 @@ const make = () => {
   return element.make({
     type: NAME,
     species,
-    flammable: true,
+    flammability: 0.7,
     jumpDirection: 0,
     climbing: false,
     direction: pickRand([1, -1]),

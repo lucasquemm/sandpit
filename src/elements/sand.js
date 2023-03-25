@@ -9,6 +9,7 @@ const make = () =>
   element.make({
     type: NAME,
     color: 0xf1da8e,
+    solid: true,
   })
 
 const update = (sandpit) => {
