@@ -4,15 +4,15 @@ import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 
-const BASE_COLOR = [277, 59, 50, 20]
+const color = 0x9134cb
 
 const NAME = 'BUG'
 
 const movementRate = 0.02
 
 const make = () => {
-  const [species, color] = pickRand([
-    ['climber', 0x9134cb],
+  const [species, speciesColor] = pickRand([
+    ['climber', color],
     ['jumper', 0xb573de],
     ['flyer', 0x633e7a],
   ])
@@ -24,7 +24,7 @@ const make = () => {
     jumpDirection: 0,
     climbing: false,
     direction: pickRand([1, -1]),
-    color,
+    color: speciesColor,
   })
 }
 
@@ -160,4 +160,4 @@ const updateFlyer = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { NAME, make, update, color }

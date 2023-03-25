@@ -1,7 +1,6 @@
 import * as element from '../element'
 
-const BASE_COLOR = [33, 41, 30, 15]
-
+const color = 0x6c502d
 const NAME = 'WOOD'
 
 const make = () =>
@@ -12,4 +11,4 @@ const make = () =>
     solid: true,
   })
 
-export { NAME, make, BASE_COLOR }
+export { NAME, make, color }

@@ -4,7 +4,7 @@ import { EMPTY, empty } from './empty'
 
 import { chance, pickRand } from '../random'
 
-const BASE_COLOR = [82, 82, 56, 47]
+const color = 0xa7eb33
 
 const corrodeChance = 0.01
 
@@ -14,7 +14,7 @@ const make = () =>
     type: NAME,
     liquid: true,
     direction: pickRand([1, -1]),
-    color: 0xa7eb33,
+    color,
   })
 
 const update = (sandpit, cell) => {
@@ -52,4 +52,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { NAME, make, update, color }

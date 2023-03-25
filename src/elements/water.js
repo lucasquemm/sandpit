@@ -4,13 +4,13 @@ import * as oil from './oil'
 import { pickRand } from '../random'
 import { liquid } from '../traits/liquid'
 
-const BASE_COLOR = [216, 65, 60, 50]
+const color = 0x578cdb
 
 const NAME = 'WATER'
 const make = () =>
   element.make({
     type: NAME,
-    color: 0x578cdb,
+    color,
     slimey: false,
     liquid: true,
     direction: pickRand([1, -1]),
@@ -29,4 +29,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { NAME, make, update, color }

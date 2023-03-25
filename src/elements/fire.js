@@ -5,7 +5,7 @@ import * as element from '../element'
 import { chance, pickRand } from '../random'
 import burn from '../traits/burn'
 
-const BASE_COLOR = [35, 76, 62, 72]
+const color = 0xeb4833
 
 const NAME = 'FIRE'
 const despawnChance = 0.2
@@ -13,7 +13,7 @@ const despawnChance = 0.2
 const make = () =>
   element.make({
     type: NAME,
-    color: 0xeb4833,
+    color,
   })
 
 const update = (sandpit, cell) => {
@@ -46,4 +46,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { NAME, make, update, color }

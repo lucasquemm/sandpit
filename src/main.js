@@ -17,7 +17,7 @@ const elementsGrid = document.querySelector('.elements')
 
 Object.values(elements).forEach((element) => {
   const btn = document.createElement('button')
-  const [h, s, l] = element.BASE_COLOR || []
+  const color = element.color ? `#${element.color.toString(16)}` : ''
 
   if (element.NAME === elements.sand.NAME) {
     previousElementBtn = btn
@@ -26,7 +26,7 @@ Object.values(elements).forEach((element) => {
   btn.textContent = element.NAME.toLowerCase()
   btn.classList.add(element.NAME.toLowerCase() + '-btn')
   btn.classList.add('element-btn')
-  btn.style.background = `hsl(${h}deg ${s}% ${l}%)`
+  btn.style.background = color
 
   btn.addEventListener('click', () => {
     previousElementBtn.classList.remove('element-selected')

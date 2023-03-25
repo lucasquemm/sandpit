@@ -3,7 +3,7 @@ import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand, randInt } from '../random'
 
-const BASE_COLOR = [122, 73, 36, 25]
+const color = 0x199f1d
 
 const NAME = 'PLANT'
 
@@ -17,7 +17,7 @@ const make = (energy) => {
     energy:
       energy !== undefined ? energy : isStem ? randInt(10, 15) : randInt(1, 5),
     direction: [pickRand([1, 0, -1]), -1],
-    color: 0x199f1d,
+    color,
     solid: true,
   })
 }
@@ -42,4 +42,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { NAME, make, update, color }
