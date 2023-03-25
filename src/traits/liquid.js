@@ -1,5 +1,5 @@
 import { EMPTY } from '../elements/empty'
-import * as fire from '../elements/fire2'
+import * as fire from '../elements/fire'
 import * as element from '../element'
 import { chance } from '../random'
 

@@ -1,127 +1,81 @@
-import { EMPTY, empty } from './empty'
 import * as smoke from './smoke'
+import { EMPTY, empty } from './empty'
 import * as element from '../element'
 import { chance, pickRand, randInt } from '../random'
 
+const BASE_COLOR = [35, 76, 62, 72]
+
 const NAME = 'FIRE'
 const despawnChance = 0.2
-const chanceOfGoingStraight = 0.73
-const chanceOfSpread = 0.75
-const ignitingChance = 1
-const burningChance = 0.01
 
-const extinguishChance = 0.01
-const looseFlameChance = 0.06
-
-const orange1 = [35, 76, 62, 72]
-
-const BASE_COLOR = orange1
-
-const make = (phase = 'spark') =>
+const make = () =>
   element.make({
     type: NAME,
-    phase,
-    color: pickRand([0xeb4833, 0xedb668, 0xe32e16]),
-    direction: pickRand([1, -1]),
+    color: 0xeb4833,
   })
 
-const ignite = (sandpit) => {
-  let igniteTarget
-
-  for (let [nx, ny] of sandpit.neighbors1) {
-    if (chance(ignitingChance) && sandpit.get(nx, ny).flammable) {
-      igniteTarget = [nx, ny]
-      break
-    }
-  }
-
-  if (igniteTarget) {
-    sandpit.set(...igniteTarget, make('blaze'))
-    sandpit.set(0, 0, empty())
-  }
-}
-
-const burn = (sandpit, spreadChance) => {
-  let burnTarget
-
-  for (let [nx, ny] of sandpit.neighbors2) {
-    if (chance(spreadChance) && sandpit.get(nx, ny).flammable) {
-      burnTarget = [nx, ny]
-      break
-    }
-  }
-  if (burnTarget) {
-    const burningNbr = sandpit.get(...burnTarget)
-    if (burningNbr.explosive && chance(burningNbr.explosive.ratio)) {
-      const radius = randInt(
-        burningNbr.explosive.minRadius,
-        burningNbr.explosive.maxRadius,
-      )
-      for (let [nx, ny] of sandpit.getCircularNeighbors(
-        radius,
-        ...burnTarget,
-      )) {
-        if (sandpit.absoluteGet(nx, ny).type !== 'BOUNDS') {
-          sandpit.absoluteSet(
-            nx,
-            ny,
-            chance(0.5) ? make('spark') : smoke.make(),
-          )
-        }
-      }
-    } else {
-      sandpit.set(...burnTarget, make('blaze'))
-    }
-  }
-}
-
 const update = (sandpit, cell) => {
-  switch (cell.phase) {
-    case 'spark':
-      if (chance(despawnChance)) {
-        sandpit.set(0, 0, empty())
-      }
+  const above = sandpit.get(0, -1)
+  const dirx = pickRand([1, 0, -1])
+  const diry = pickRand([1, 0, -1, -1])
 
-      if (chance(chanceOfGoingStraight) && sandpit.is(0, -1, EMPTY)) {
-        sandpit.move(0, -1)
-      } else if (sandpit.is(cell.direction, -1, EMPTY)) {
-        sandpit.move(cell.direction, -1)
-      }
+  let fuel
+  let igniteTarget
+  let flammability = 0
+  let fireNeighborCount = 0
+  let explosive
 
-      if (chance(chanceOfSpread) && sandpit.is(cell.direction, 0, EMPTY)) {
-        sandpit.move(cell.direction, 0)
-      } else {
-        cell.direction *= -1
-      }
+  // find fuel
+  for (let [nx, ny] of sandpit.neighbors1) {
+    const neighbor = sandpit.get(nx, ny)
+    if (neighbor.flammability > 0) {
+      fuel = [nx, ny]
+      explosive = neighbor.explosive
+      flammability = neighbor.flammability
+    }
 
-      ignite(sandpit)
-      break
-    case 'blaze':
-      burn(sandpit, burningChance)
+    if (neighbor.type == EMPTY) {
+      igniteTarget = [nx, ny]
+    }
 
-      if (chance(extinguishChance)) {
-        sandpit.set(0, 0, smoke.make())
-        return
-      } else if (sandpit.is(0, -1, EMPTY)) {
-        if (chance(looseFlameChance)) {
-          sandpit.set(0, -1, make())
-        } else if (chance(0.05)) {
-          sandpit.set(0, -1, smoke.make())
-        }
-      }
+    if (neighbor.type == NAME) {
+      fireNeighborCount++
+    }
+  }
 
-      let noNeighbors = true
+  if (fireNeighborCount > 6) {
+    cell.color = 0xedb668
+  }
 
-      for (let [nx, ny] of sandpit.neighbors1) {
-        if (!sandpit.is(nx, ny, EMPTY)) {
-          noNeighbors = false
-          break
-        }
+  // explode
+  if (fuel && explosive && chance(explosive.ratio)) {
+    const radius = randInt(explosive.minRadius, explosive.maxRadius)
+
+    for (let [nx, ny] of sandpit.getCircularNeighbors(radius, ...fuel)) {
+      if (sandpit.absoluteGet(nx, ny).type !== 'BOUNDS') {
+        sandpit.absoluteSet(nx, ny, chance(0.5) ? make() : smoke.make())
       }
-      if (noNeighbors) {
-        sandpit.set(0, 0, empty())
+    }
+    // burn
+  } else if (chance(flammability) && fuel && igniteTarget) {
+    sandpit.set(...igniteTarget, make())
+
+    if (chance(0.05)) {
+      sandpit.set(...fuel, make())
+      if (above.type === EMPTY) {
+        sandpit.set(0, -1, smoke.make())
       }
-      break
+    }
+  }
+
+  // move
+  if (sandpit.is(dirx, diry, EMPTY)) {
+    sandpit.move(dirx, diry)
+  }
+
+  // die
+  if ((!fuel || !igniteTarget) && chance(despawnChance)) {
+    sandpit.set(0, 0, empty())
   }
 }
 
