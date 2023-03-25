@@ -38,6 +38,8 @@ const update = (sandpit, cell) => {
 
   if (sandpit.is(cell.direction, 0, EMPTY)) {
     sandpit.move(cell.direction, 0)
+  } else if (sandpit.is(cell.direction, 0, fire.NAME)) {
+    sandpit.move(cell.direction, 0)
   } else if (chance(0.5) && sandpit.is(cell.direction, 0, water.NAME)) {
     sandpit.swap(cell.direction, 0)
   } else {

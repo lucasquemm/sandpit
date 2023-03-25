@@ -49,14 +49,18 @@ const update = (sandpit, cell) => {
 
   if (!fuel && chance(despawnChance)) {
     sandpit.set(0, 0, empty())
+  } else if (chance(0.5) && above.type === EMPTY) {
+    sandpit.set(0, -1, smoke.make())
   }
 
   switch (above.type) {
     case EMPTY:
       if (chance(chanceOfGoingStraight)) {
         sandpit.move(0, -1)
+        if (fuel) sandpit.set(0, 0, make())
       } else if (sandpit.is(cell.direction, 1, EMPTY)) {
         sandpit.move(cell.direction, -1)
+        if (fuel) sandpit.set(0, 0, make())
       }
       break
   }
