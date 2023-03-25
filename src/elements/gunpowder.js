@@ -1,8 +1,5 @@
-import { EMPTY } from './empty'
-import * as water from './water'
-import * as oil from './oil'
 import * as element from '../element'
-import { pickRand } from '../random'
+import powder from '../traits/powder'
 
 const BASE_COLOR = [44, 0, 34, 25]
 
@@ -17,23 +14,7 @@ const make = () =>
   })
 
 const update = (sandpit) => {
-  const below = sandpit.get(0, 1)
-  const direction = pickRand([1, -1])
-
-  switch (below.type) {
-    case EMPTY:
-      sandpit.move(0, 1)
-      break
-    case oil.NAME:
-    case water.NAME:
-      sandpit.swap(0, 1)
-      break
-    case NAME:
-      if (sandpit.is(direction, 1, EMPTY)) {
-        sandpit.move(direction, 1)
-      }
-      break
-  }
+  powder(sandpit, NAME)
 }
 
 export { NAME, make, update, BASE_COLOR }
