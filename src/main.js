@@ -99,7 +99,9 @@ const getCoords = (e) => {
   const x = coord(e.x - canvasBounds.x)
   const y = coord(e.y - canvasBounds.y)
 
-  return sandpit.getCircularNeighbors(selectedSize, [x, y])
+  return selectedSize === 1
+    ? [[x, y]]
+    : sandpit.getCircularNeighbors(selectedSize, [x, y])
 }
 
 const handleDrawing = (e) => {
