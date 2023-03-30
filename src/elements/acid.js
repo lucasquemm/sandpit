@@ -1,12 +1,17 @@
 import * as element from '../element'
 
 import { EMPTY, empty } from './empty'
+import * as smoke from './smoke'
 
 import { chance, pickRand } from '../random'
+import { liquid } from '../traits/liquid'
 
 const color = 0xa7eb33
 
-const corrodeChance = 0.01
+const corrodeChance = {
+  0: 0.001,
+  1: 0.03,
+}
 
 const ACID = 'ACID'
 const make = () =>
@@ -18,38 +23,27 @@ const make = () =>
   })
 
 const update = (sandpit, cell) => {
-  const below = sandpit.get(0, 1)
-
-  switch (below.type) {
-    case EMPTY:
-      sandpit.move(0, 1)
-      break
-    case ACID:
-      if (sandpit.is(cell.direction, 1, EMPTY)) {
-        sandpit.move(cell.direction, 1)
-      }
-      break
-  }
-
-  for (let [nx, ny] of sandpit.neighbors1) {
+  for (let [nx, ny] of [
+    [0, 1],
+    [1, 1],
+    [-1, 1],
+    [1, 0],
+    [-1, 0],
+  ]) {
     const nbr = sandpit.get(nx, ny)
     if (nbr.type !== 'BOUNDS' && nbr.type !== ACID && nbr.type != EMPTY) {
-      if (chance(corrodeChance)) {
+      if (chance(corrodeChance[ny])) {
         sandpit.set(nx, ny, empty())
         sandpit.set(0, 0, empty())
+
+        if (sandpit.is(0, -1, EMPTY)) {
+          sandpit.set(0, -1, smoke.make())
+        }
       }
     }
   }
 
-  if (sandpit.is(cell.direction, 0, EMPTY)) {
-    sandpit.move(cell.direction, 0)
-  } else {
-    cell.direction *= -1
-  }
-
-  if (chance(0.005)) {
-    element.refreshColor(cell)
-  }
+  liquid(sandpit, cell, ACID)
 }
 
 export { ACID, make, update, color }
