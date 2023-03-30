@@ -2,7 +2,7 @@ import * as element from '../element'
 import { pickRand } from '../random'
 import { gas } from '../traits/gas'
 
-const color = 0xcbc9c8
+const color = 0x6e6e6e
 const SMOKE = 'SMOKE'
 
 const make = () =>
