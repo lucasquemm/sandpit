@@ -3,6 +3,7 @@ import * as element from '../element'
 import { chance, pickRand } from '../random'
 import { PLANT } from './plant'
 import { WATER } from './water'
+import { FIRE } from './fire'
 
 const color = 0x9134cb
 
@@ -77,6 +78,9 @@ const updateClimber = (sandpit, cell) => {
       case EMPTY:
         sandpit.move(0, 1)
         break
+      case FIRE:
+        sandpit.swap(0, 1)
+        break
       case BUG:
         if (sandpit.is(direction, 1, EMPTY)) {
           sandpit.move(direction, 1)
@@ -116,6 +120,9 @@ const updateJumper = (sandpit, cell) => {
     switch (below.type) {
       case EMPTY:
         sandpit.move(cell.jumpDirection, 1)
+        break
+      case FIRE:
+        sandpit.swap(0, 1)
         break
       case BUG:
         if (sandpit.is(direction, 1, EMPTY)) {
