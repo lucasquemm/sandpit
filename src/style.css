@@ -6,6 +6,13 @@
 
 body {
   font-family: 'VT323', monospace;
+  background-color: #f8e9d6;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
 }
 
 button {
@@ -25,7 +32,7 @@ canvas {
 .principal {
   width: max-content;
   display: flex;
-  margin: 16px auto;
+  margin: 64px auto;
 }
 
 .painel {
@@ -34,6 +41,7 @@ canvas {
   padding: 8px;
   background-color: rgb(199, 203, 206);
   max-width: 230px;
+  background-image: url(../bg.png);
 }
 
 .elements {
@@ -44,10 +52,11 @@ canvas {
 }
 
 .element-btn {
-  opacity: 0.6;
+  opacity: 0.9;
   position: relative;
   cursor: pointer;
   margin: 0;
+  border-width: 3px;
 }
 
 .element-btn::before {
@@ -61,9 +70,23 @@ canvas {
   left: 0;
 }
 
+canvas,
+.painel {
+  border-width: 4px;
+}
+
+canvas,
+.painel,
+.element-btn {
+  border-style: outset;
+  border-color: #969696;
+  border-radius: 2px;
+}
+
 .element-selected {
   opacity: 1;
-  border: 2px dashed black;
+  border-style: dashed;
+  border-color: black;
 }
 
 .tools {

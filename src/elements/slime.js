@@ -7,10 +7,10 @@ import { OIL } from './oil'
 const color = 0xb6f6c1
 const SLIME = 'SLIME'
 
-const make = () =>
+const make = ({ drip = false } = {}) =>
   element.make({
     type: SLIME,
-    drip: [],
+    drip,
     direction: pickRand([1, -1]),
     color: 0xb6f6c1,
   })
@@ -19,9 +19,24 @@ const update = (sandpit, cell) => {
   const below = sandpit.get(0, 1)
   const direction = pickRand([1, -1])
 
-  let neighborCount = 0
+  if (cell.drip) {
+    let despawnChance = 0.01
 
-  for (let n of sandpit.neighbors1) {
+    if (below.type !== EMPTY) despawnChance = 0.5
+
+    if (chance(despawnChance)) sandpit.set(0, 0, empty())
+  }
+
+  let unstuckChance = 1
+
+  for (let n of [
+    [0, -1],
+    [0, 1],
+    [1, 1],
+    [-1, 1],
+    [1, 0],
+    [-1, 0],
+  ]) {
     const nbr = sandpit.get(...n)
 
     if (nbr.type === WATER && chance(0.01)) {
@@ -30,15 +45,21 @@ const update = (sandpit, cell) => {
       return
     }
 
-    if (nbr.type !== EMPTY) neighborCount++
+    if (nbr.type !== SLIME && nbr.solid) unstuckChance -= 0.5
+    else if (nbr.type !== EMPTY) unstuckChance -= 0.2
   }
 
-  const unstuck = chance((5 - neighborCount) / 5)
+  const unstuck = chance(unstuckChance)
+
+  cell.solid = !unstuck
+  cell.liquid = unstuck
 
   switch (below.type) {
     case EMPTY:
       if (unstuck) {
         sandpit.move(0, 1)
+      } else if (chance(0.001) && sandpit.get(0, -1).solid) {
+        sandpit.set(0, 1, make({ drip: true }))
       }
 
       break
