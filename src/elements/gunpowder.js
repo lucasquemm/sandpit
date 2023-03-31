@@ -1,39 +1,20 @@
-import { EMPTY } from './empty'
-import * as water from './water'
-import * as oil from './oil'
 import * as element from '../element'
-import { pickRand } from '../random'
+import powder from '../traits/powder'
 
-const BASE_COLOR = [44, 0, 34, 25]
-
-const NAME = 'GUNPOWDER'
+const color = 0x575757
+const GUNPOWDER = 'GUNPOWDER'
 
 const make = () =>
   element.make({
-    type: NAME,
-    flammable: true,
+    type: GUNPOWDER,
+    flammability: 0.5,
+    solid: true,
     explosive: { ratio: 0.1, minRadius: 5, maxRadius: 10 },
-    color: 0x575757,
+    color,
   })
 
-const update = (sandpit) => {
-  const below = sandpit.get(0, 1)
-  const direction = pickRand([1, -1])
-
-  switch (below.type) {
-    case EMPTY:
-      sandpit.move(0, 1)
-      break
-    case oil.NAME:
-    case water.NAME:
-      sandpit.swap(0, 1)
-      break
-    case NAME:
-      if (sandpit.is(direction, 1, EMPTY)) {
-        sandpit.move(direction, 1)
-      }
-      break
-  }
+const update = (sandpit, cell) => {
+  powder(sandpit, GUNPOWDER, cell)
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { GUNPOWDER, make, update, color }

@@ -1,14 +1,14 @@
 import * as element from '../element'
 
-const BASE_COLOR = [33, 41, 30, 15]
-
-const NAME = 'WOOD'
+const color = 0x6c502d
+const WOOD = 'WOOD'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: WOOD,
     color: 0x6c502d,
-    flammable: true,
+    flammability: 0.2,
+    solid: true,
   })
 
-export { NAME, make, BASE_COLOR }
+export { WOOD, make, color }

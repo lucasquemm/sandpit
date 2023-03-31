@@ -12,34 +12,29 @@ import * as lava from './lava'
 import * as bug from './bug'
 import * as gunpowder from './gunpowder'
 import * as acid from './acid'
+import * as steam from './steam'
+import * as dirt from './dirt'
+
+export const staticElements = {
+  [stone.STONE]: stone,
+  [wood.WOOD]: wood,
+  [empty.EMPTY]: empty,
+}
 
 export const activeElements = {
-  [sand.NAME]: sand,
-  [water.NAME]: water,
-  [smoke.NAME]: smoke,
-  [fire.NAME]: fire,
-  [oil.NAME]: oil,
-  [plant.NAME]: plant,
-  [slime.NAME]: slime,
-  [lava.NAME]: lava,
-  [bug.NAME]: bug,
-  [gunpowder.NAME]: gunpowder,
-  [acid.NAME]: acid,
+  [sand.SAND]: sand,
+  [water.WATER]: water,
+  [smoke.SMOKE]: smoke,
+  [fire.FIRE]: fire,
+  [oil.OIL]: oil,
+  [plant.PLANT]: plant,
+  [slime.SLIME]: slime,
+  [lava.LAVA]: lava,
+  [bug.BUG]: bug,
+  [gunpowder.GUNPOWDER]: gunpowder,
+  [acid.ACID]: acid,
+  [steam.STEAM]: steam,
+  [dirt.DIRT]: dirt,
 }
 
-export default {
-  sand,
-  stone,
-  empty,
-  water,
-  smoke,
-  wood,
-  fire,
-  oil,
-  plant,
-  slime,
-  lava,
-  bug,
-  gunpowder,
-  acid,
-}
+export const elements = { ...staticElements, ...activeElements }

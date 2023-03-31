@@ -1,55 +1,38 @@
 import { EMPTY } from './empty'
+import * as smoke from './smoke'
+import * as stone from './stone'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
 import * as fire from './fire'
-import * as water from './water'
-import * as stone from './stone'
-import * as smoke from './smoke'
+import { liquid } from '../traits/liquid'
+import burn from '../traits/burn'
+import { WATER } from './water'
 
-const BASE_COLOR = [20, 64, 55, 45]
-
-const NAME = 'LAVA'
+const color = 0xd67443
+const LAVA = 'LAVA'
 
 const make = () =>
   element.make({
-    type: NAME,
+    type: LAVA,
     direction: pickRand([1, -1]),
-    color: 0xd67443,
+    liquid: true,
+    color,
   })
 
 const update = (sandpit, cell) => {
-  const below = sandpit.get(0, 1)
+  liquid(sandpit, cell, LAVA, { speed: 0.3 })
+  const { fuel, igniteTarget } = burn(sandpit)
 
-  switch (below.type) {
-    case EMPTY:
-      sandpit.move(0, 1)
-      break
-    case NAME:
-      if (sandpit.is(cell.direction, 1, EMPTY)) {
-        sandpit.move(cell.direction, 1)
-      }
-      break
-  }
-
-  if (chance(0.5) && sandpit.is(cell.direction, 0, EMPTY)) {
-    sandpit.move(cell.direction, 0)
-  } else {
-    cell.direction *= -1
+  if (sandpit.is(pickRand([1, -1]), pickRand([0, 1, -1]), WATER)) {
+    sandpit.set(0, 0, stone.make())
   }
 
   if (chance(0.005) && sandpit.is(0, -1, EMPTY)) {
     sandpit.set(0, -1, fire.make())
   }
 
-  for (let [nx, ny] of sandpit.neighbors1) {
-    const nbr = sandpit.get(nx, ny)
-
-    if (nbr.flammable) {
-      sandpit.set(nx, ny, fire.make('blaze'))
-    } else if (nbr.type === water.NAME) {
-      sandpit.set(0, 0, stone.make())
-      sandpit.set(nx, ny, smoke.make())
-    }
+  if (fuel && !igniteTarget && chance(sandpit.get(...fuel).flammability / 10)) {
+    sandpit.set(...fuel, smoke.make())
   }
 
   if (chance(0.005)) {
@@ -57,4 +40,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { LAVA, make, update, color }

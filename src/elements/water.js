@@ -1,51 +1,27 @@
-import { EMPTY } from './empty'
 import * as element from '../element'
-import * as fire from './fire'
-import * as oil from './oil'
+import { OIL } from './oil'
 
-import { chance, pickRand } from '../random'
+import { pickRand } from '../random'
+import { liquid } from '../traits/liquid'
 
-const BASE_COLOR = [216, 65, 60, 50]
+const color = 0x578cdb
 
-const NAME = 'WATER'
+const WATER = 'WATER'
 const make = () =>
   element.make({
-    type: NAME,
-    color: 0x578cdb,
+    type: WATER,
+    color,
     slimey: false,
+    liquid: true,
     direction: pickRand([1, -1]),
   })
 
 const update = (sandpit, cell) => {
-  const below = sandpit.get(0, 1)
-
-  switch (below.type) {
-    case fire.NAME:
-    case EMPTY:
-      sandpit.move(0, 1)
-      break
-    case oil.NAME:
-      sandpit.swap(0, 1)
-      break
-    case NAME:
-      if (sandpit.is(cell.direction, 1, EMPTY)) {
-        sandpit.move(cell.direction, 1)
-      }
-      break
+  if (sandpit.is(0, 1, OIL)) {
+    sandpit.swap(0, 1)
   }
 
-  if (
-    sandpit.is(cell.direction, 0, EMPTY) ||
-    sandpit.is(cell.direction, 0, fire.NAME)
-  ) {
-    sandpit.move(cell.direction, 0)
-  } else {
-    cell.direction *= -1
-  }
-
-  if (chance(0.005)) {
-    element.refreshColor(cell)
-  }
+  liquid(sandpit, cell, WATER)
 
   if (cell.slimey) {
     element.setColor(0xb6f6e4, cell)
@@ -53,4 +29,4 @@ const update = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { WATER, make, update, color }

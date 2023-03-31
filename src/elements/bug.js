@@ -1,30 +1,31 @@
 import { EMPTY, empty } from './empty'
-import * as plant from './plant'
-import * as water from './water'
 import * as element from '../element'
 import { chance, pickRand } from '../random'
+import { PLANT } from './plant'
+import { WATER } from './water'
+import { FIRE } from './fire'
 
-const BASE_COLOR = [277, 59, 50, 20]
+const color = 0x9134cb
 
-const NAME = 'BUG'
+const BUG = 'BUG'
 
 const movementRate = 0.02
 
 const make = () => {
-  const [species, color] = pickRand([
-    ['climber', 0x9134cb],
+  const [species, speciesColor] = pickRand([
+    ['climber', color],
     ['jumper', 0xb573de],
     ['flyer', 0x633e7a],
   ])
 
   return element.make({
-    type: NAME,
+    type: BUG,
     species,
-    flammable: true,
+    flammability: 0.7,
     jumpDirection: 0,
     climbing: false,
     direction: pickRand([1, -1]),
-    color,
+    color: speciesColor,
   })
 }
 
@@ -42,13 +43,13 @@ const update = (sandpit, cell) => {
   }
 
   for (let [nx, ny] of sandpit.neighbors1) {
-    if (chance(0.005) && sandpit.is(nx, ny, plant.NAME)) {
+    if (chance(0.005) && sandpit.is(nx, ny, PLANT)) {
       sandpit.set(nx, ny, empty())
       break
     }
   }
 
-  if (chance(0.02) && sandpit.is(0, -1, water.NAME)) {
+  if (chance(0.02) && sandpit.is(0, -1, WATER)) {
     if (chance(0.05)) {
       sandpit.set(0, 0, empty())
     } else {
@@ -77,7 +78,10 @@ const updateClimber = (sandpit, cell) => {
       case EMPTY:
         sandpit.move(0, 1)
         break
-      case NAME:
+      case FIRE:
+        sandpit.swap(0, 1)
+        break
+      case BUG:
         if (sandpit.is(direction, 1, EMPTY)) {
           sandpit.move(direction, 1)
         }
@@ -117,7 +121,10 @@ const updateJumper = (sandpit, cell) => {
       case EMPTY:
         sandpit.move(cell.jumpDirection, 1)
         break
-      case NAME:
+      case FIRE:
+        sandpit.swap(0, 1)
+        break
+      case BUG:
         if (sandpit.is(direction, 1, EMPTY)) {
           sandpit.move(direction, 1)
         }
@@ -160,4 +167,4 @@ const updateFlyer = (sandpit, cell) => {
   }
 }
 
-export { NAME, make, update, BASE_COLOR }
+export { BUG, make, update, color }

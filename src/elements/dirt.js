@@ -1,18 +1,18 @@
 import * as element from '../element'
 import powder from '../traits/powder'
 
-const color = 0xf1da8e
-const SAND = 'SAND'
+const color = 0x482d09
+const DIRT = 'DIRT'
 
 const make = () =>
   element.make({
-    type: SAND,
+    type: DIRT,
     color,
     solid: true,
   })
 
 const update = (sandpit, cell) => {
-  powder(sandpit, SAND, cell)
+  powder(sandpit, DIRT, cell, { clumpiness: 0.01 })
 }
 
-export { SAND, make, update, color }
+export { DIRT, make, update, color }
