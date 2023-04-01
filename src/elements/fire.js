@@ -6,7 +6,7 @@ import burn from '../traits/burn'
 import { WATER } from './water'
 import { SMOKE } from './smoke'
 
-const color = 0xeb4833
+const color = 0xeb5833
 
 const FIRE = 'FIRE'
 const despawnChance = 0.2
@@ -36,7 +36,11 @@ const update = (sandpit, cell) => {
   }
 
   if (fireNeighborCount > 6) {
-    cell.color = 0xedb668
+    cell.color = 0xeb8233
+  }
+
+  if (fireNeighborCount === 8) {
+    cell.color = 0xeba433
   }
 
   if (sandpit.is(dirx, diry, EMPTY) || sandpit.is(dirx, diry, SMOKE)) {
