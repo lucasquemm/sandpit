@@ -2,9 +2,7 @@ const EMPTY = 'EMPTY'
 const empty_ = {
   type: EMPTY,
   clock: 0,
-  valueOf() {
-    return EMPTY
-  },
+  alphaMode: 'solid',
 }
 const empty = () => empty_
 const make = empty

@@ -15,6 +15,7 @@ const make = () =>
   element.make({
     type: FIRE,
     color,
+    alphaMode: 'solid',
   })
 
 const update = (sandpit, cell) => {

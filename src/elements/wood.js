@@ -9,6 +9,7 @@ const make = () =>
     color: 0x6c502d,
     flammability: 0.2,
     solid: true,
+    alphaMode: 'normal-sparse',
   })
 
 export { WOOD, make, color }

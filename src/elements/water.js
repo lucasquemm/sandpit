@@ -14,6 +14,7 @@ const make = () =>
     slimey: false,
     liquid: true,
     direction: pickRand([1, -1]),
+    alphaMode: 'random',
   })
 
 const update = (sandpit, cell) => {

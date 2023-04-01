@@ -61,11 +61,22 @@ const draw = (world) => {
   world.forEachCell((cell, [x, y]) => {
     let sprite = sprites[x][y]
 
-    const r = cell.type in staticElements ? cell.r2 : cell.r0
-
     sprite.tint = cell.color || 0xffffff
-    sprite.alpha =
-      cell.type === EMPTY ? 1 : cell.liquid ? cell.r1 : Math.min(r + 0.7, 1)
+
+    switch (cell.alphaMode) {
+      case 'normal':
+        sprite.alpha = Math.min(cell.r1 + 0.7, 1)
+        break
+      case 'normal-sparse':
+        sprite.alpha = Math.min(cell.r2 + 0.7, 1)
+        break
+      case 'random':
+        sprite.alpha = cell.r0
+        break
+      case 'solid':
+        sprite.alpha = 1
+        break
+    }
   })
   renderer.render(stage)
 }
