@@ -1,10 +1,9 @@
 import * as PIXI from 'pixi.js'
 
-const offset = 10
 const width = Math.min(600, window.innerWidth)
 const height = Math.max(600, window.innerHeight)
 const size = Math.min(width, height) - 20
-const cellSize = 5
+const cellSize = 3
 const cellsLength = Math.floor(size / cellSize)
 const totalCells = cellsLength * cellsLength
 
@@ -39,7 +38,7 @@ const init = () => {
   })
   texture = renderer.generateTexture(graphic)
 
-  container.scale.set(5, 5)
+  container.scale.set(cellSize, cellSize)
   stage.addChild(container)
 
   for (let x = 0; x < cellsLength; x++) {
