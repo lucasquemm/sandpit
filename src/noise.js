@@ -1,3 +1,7 @@
+/*
+ * Perlin noise implementation copied from p5
+ * https://p5js.org/reference/#/p5/noise
+ */
 const PERLIN_YWRAPB = 4
 const PERLIN_YWRAP = 1 << PERLIN_YWRAPB
 const PERLIN_ZWRAPB = 8
