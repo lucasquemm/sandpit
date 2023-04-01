@@ -7,10 +7,10 @@ let size = 0
 let generation
 const BOUNDS = { type: 'BOUNDS', solid: true }
 
-const init = (newSize = 100) => {
+const init = (cellsLength) => {
   generation = 1
-  size = newSize
-  cells = Array.from({ length: size * size }, () => empty())
+  size = cellsLength
+  cells = Array.from({ length: cellsLength * cellsLength }, () => empty())
 }
 
 const get = (x, y) => {

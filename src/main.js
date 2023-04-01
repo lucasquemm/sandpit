@@ -88,7 +88,7 @@ if (!window.DEBUG) {
   tickBtn.classList.add('hidden')
 }
 
-const $canvas = canvas.init()
+const { canvas: $canvas, cellsLength } = canvas.init()
 const canvasBounds = $canvas.getBoundingClientRect()
 
 let drawing = false
@@ -121,7 +121,7 @@ $canvas.addEventListener('mouseup', () => {
   drawing = false
 })
 
-sandpit.init(120)
+sandpit.init(cellsLength)
 
 const ticker = PIXI.Ticker.shared
 
