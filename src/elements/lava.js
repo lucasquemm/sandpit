@@ -35,10 +35,6 @@ const update = (sandpit, cell) => {
   if (fuel && !igniteTarget && chance(sandpit.get(...fuel).flammability / 10)) {
     sandpit.set(...fuel, smoke.make())
   }
-
-  if (chance(0.005)) {
-    element.refreshColor(cell)
-  }
 }
 
 export { LAVA, make, update, color }

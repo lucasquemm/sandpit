@@ -19,10 +19,10 @@ const setColor = (color, cell) => {
   cell.color = color
 }
 
-const refreshColor = (cell) => {
+const refresh = (cell) => {
   cell.r0 = rand(1, 0.9)
   cell.r1 = noise((r1off += 0.001))
   cell.r2 = noise((r2off += 0.0001))
 }
 
-export { make, refreshColor, setColor }
+export { make, refresh, setColor }
