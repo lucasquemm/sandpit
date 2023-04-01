@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js'
 
+const offset = 10
 const width = Math.min(600, window.innerWidth)
 const height = Math.max(600, window.innerHeight)
-const size = Math.min(width, height)
+const size = Math.min(width, height) - 20
 const cellSize = 5
 const cellsLength = Math.floor(size / cellSize)
 const totalCells = cellsLength * cellsLength
