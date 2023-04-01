@@ -1,6 +1,4 @@
 import * as PIXI from 'pixi.js'
-import { staticElements } from './elements'
-import { EMPTY } from './elements/empty'
 
 const width = Math.min(600, window.innerWidth)
 const height = Math.max(600, window.innerHeight)
