@@ -96,8 +96,24 @@ let drawing = false
 const coord = (c) => Math.floor(c / canvas.cellSize)
 
 const getCoords = (e) => {
-  const x = coord(e.x - canvasBounds.x)
-  const y = coord(e.y - canvasBounds.y)
+  let eventX, eventY
+
+  if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend') {
+    var touch = e.touches[0] || e.changedTouches[0]
+    eventX = touch.pageX
+    eventY = touch.pageY
+  } else if (
+    e.type == 'mousedown' ||
+    e.type == 'mouseup' ||
+    e.type == 'mousemove'
+  ) {
+    eventX = e.clientX
+    eventY = e.clientY
+  }
+
+  const x = coord(eventX - canvasBounds.x)
+  const y = coord(eventY - canvasBounds.y)
+  console.log(e)
 
   return selectedSize === 1
     ? [[x, y]]
@@ -113,12 +129,23 @@ const handleDrawing = (e) => {
 $canvas.addEventListener('mousemove', (e) => {
   if (drawing) handleDrawing(e)
 })
+$canvas.addEventListener('touchmove', (e) => {
+  if (drawing) handleDrawing(e)
+})
 $canvas.addEventListener('click', handleDrawing)
 $canvas.addEventListener('mousedown', () => {
   drawing = true
 })
+$canvas.addEventListener('touchstart', () => {
+  drawing = true
+  console.log(drawing)
+})
 $canvas.addEventListener('mouseup', () => {
   drawing = false
+})
+$canvas.addEventListener('touchend', () => {
+  drawing = false
+  console.log(drawing)
 })
 
 sandpit.init(cellsLength)
