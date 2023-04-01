@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js'
+import { EMPTY } from './elements/empty'
 
 const width = Math.min(600, window.innerWidth)
 const height = Math.max(600, window.innerHeight)
@@ -58,8 +59,14 @@ const init = () => {
 const draw = (world) => {
   world.forEachCell((cell, [x, y]) => {
     let sprite = sprites[x][y]
+
     sprite.tint = cell.color || 0xffffff
-    sprite.alpha = cell.alpha || 1
+    sprite.alpha =
+      cell.type === EMPTY
+        ? 1
+        : cell.liquid
+        ? cell.r1
+        : Math.min(cell.r0 + 0.7, 1)
   })
   renderer.render(stage)
 }
