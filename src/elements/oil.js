@@ -12,6 +12,7 @@ const make = () =>
     liquid: true,
     direction: pickRand([1, -1]),
     color,
+    alphaMode: 'random',
   })
 
 const update = (sandpit, cell) => {

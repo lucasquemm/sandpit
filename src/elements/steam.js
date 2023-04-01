@@ -11,6 +11,7 @@ const make = () =>
     type: STEAM,
     color,
     direction: pickRand([1, -1]),
+    alphaMode: 'normal',
   })
 
 const update = (sandpit) => {

@@ -13,6 +13,7 @@ const make = ({ drip = false } = {}) =>
     drip,
     direction: pickRand([1, -1]),
     color: 0xb6f6c1,
+    alphaMode: 'normal',
   })
 
 const update = (sandpit, cell) => {
