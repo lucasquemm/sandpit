@@ -17,6 +17,7 @@ const make = () =>
     direction: pickRand([1, -1]),
     liquid: true,
     color,
+    alphaMode: 'random',
   })
 
 const update = (sandpit, cell) => {
@@ -33,10 +34,6 @@ const update = (sandpit, cell) => {
 
   if (fuel && !igniteTarget && chance(sandpit.get(...fuel).flammability / 10)) {
     sandpit.set(...fuel, smoke.make())
-  }
-
-  if (chance(0.005)) {
-    element.refreshColor(cell)
   }
 }
 

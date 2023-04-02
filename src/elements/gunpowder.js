@@ -11,6 +11,7 @@ const make = () =>
     solid: true,
     explosive: { ratio: 0.1, minRadius: 5, maxRadius: 10 },
     color,
+    alphaMode: 'normal',
   })
 
 const update = (sandpit, cell) => {

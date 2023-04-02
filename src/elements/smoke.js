@@ -10,6 +10,7 @@ const make = () =>
     type: SMOKE,
     color,
     direction: pickRand([1, -1]),
+    alphaMode: 'normal',
   })
 
 const update = (sandpit) => {

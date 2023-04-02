@@ -18,6 +18,7 @@ const make = (energy) => {
     direction: [pickRand([1, 0, -1]), -1],
     color,
     solid: true,
+    alphaMode: 'normal-sparse',
   })
 }
 

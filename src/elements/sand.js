@@ -9,6 +9,7 @@ const make = () =>
     type: SAND,
     color,
     solid: true,
+    alphaMode: 'normal',
   })
 
 const update = (sandpit, cell) => {

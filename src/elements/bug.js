@@ -26,6 +26,7 @@ const make = () => {
     climbing: false,
     direction: pickRand([1, -1]),
     color: speciesColor,
+    alphaMode: 'solid',
   })
 }
 

@@ -34,7 +34,7 @@ const liquid = (sandpit, cell, SELF, { speed = 1 } = {}) => {
   }
 
   if (chance(0.005)) {
-    element.refreshColor(cell)
+    element.refresh(cell)
   }
 }
 
