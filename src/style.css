@@ -118,3 +118,17 @@ canvas,
 .hidden {
   display: none;
 }
+
+@media (max-width: 840px) {
+  .painel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    margin: 8px;
+  }
+
+  canvas {
+    border: 0;
+  }
+}
