@@ -1,9 +1,8 @@
+import * as element from '../element'
 import * as sand from './sand'
-import * as stone from './stone'
 import * as empty from './empty'
 import * as water from './water'
 import * as smoke from './smoke'
-import * as wood from './wood'
 import * as fire from './fire'
 import * as oil from './oil'
 import * as plant from './plant'
@@ -14,15 +13,8 @@ import * as gunpowder from './gunpowder'
 import * as acid from './acid'
 import * as steam from './steam'
 import * as dirt from './dirt'
-import * as spawner from './spawner'
 
-export const staticElements = {
-  [stone.STONE]: stone,
-  [wood.WOOD]: wood,
-  [empty.EMPTY]: empty,
-}
-
-export const activeElements = {
+export const targetElements = {
   [sand.SAND]: sand,
   [water.WATER]: water,
   [smoke.SMOKE]: smoke,
@@ -36,7 +28,31 @@ export const activeElements = {
   [acid.ACID]: acid,
   [steam.STEAM]: steam,
   [dirt.DIRT]: dirt,
-  [spawner.SPAWNER]: spawner,
 }
 
-export const elements = { ...staticElements, ...activeElements }
+const color = 0xe122c6
+const SPAWNER = 'SPAWNER'
+
+const make = () =>
+  element.make({
+    type: SPAWNER,
+    color,
+    solid: true,
+    alphaMode: 'normal-sparse',
+  })
+
+const update = (sandpit, cell) => {
+  for (let coords of sandpit.neighbors1) {
+    const n = sandpit.get(...coords)
+    const isEmpty = n.type === empty.EMPTY
+
+    if (cell.target && isEmpty) {
+      sandpit.set(...coords, targetElements[cell.target].make())
+      return
+    } else if (n.type in targetElements) {
+      cell.target = n.type
+    }
+  }
+}
+
+export { SPAWNER, make, update, color }
