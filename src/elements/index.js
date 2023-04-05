@@ -15,6 +15,7 @@ import * as acid from './acid'
 import * as steam from './steam'
 import * as dirt from './dirt'
 import * as spawner from './spawner'
+import * as sinkhole from './sinkhole'
 
 export const staticElements = {
   [stone.STONE]: stone,
@@ -37,6 +38,7 @@ export const activeElements = {
   [steam.STEAM]: steam,
   [dirt.DIRT]: dirt,
   [spawner.SPAWNER]: spawner,
+  [sinkhole.SINKHOLE]: sinkhole,
 }
 
 export const elements = { ...staticElements, ...activeElements }
